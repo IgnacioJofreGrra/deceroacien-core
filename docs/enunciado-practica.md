@@ -34,3 +34,21 @@ Estos datos deben ser completados por el instructor antes de empezar. No colocar
 1) Clonar el repositorio.
 2) Levantar el frontend en local desde `frontend/public` (por ejemplo con `python -m http.server 3000` o `npx serve`).
 3) Crear su propio branch de trabajo antes de commitear cambios.
+
+## Prioridades detalladas (orden sugerido)
+- Frontend local: validar que `frontend/public` carga completo y que los enlaces principales funcionan.
+- Variables sensibles (fuera del repo): ID real del proyecto GCP de practica, `SUPABASE_URL` y `SUPABASE_ANON_KEY` publicas del proyecto asignado.
+- Backend minimo: levantar Flask en local con `/health` y `/public-config` leyendo las envs anteriores.
+- Gating provisional: en frontend, usar login Supabase y simular entitlements en `localStorage` mientras se conecta el backend.
+- Publicacion estatica: bucket GCS + Load Balancer HTTPS cuando el frontend ya este clickeable en local.
+- Cloud Run: desplegar backend con envs configuradas y probar `/health` y `/public-config`.
+- Conexion real: frontend consume config/public y headers de auth hacia backend; probar gating real. Si queda tiempo, simular pagos/webhook y enrolments.
+
+## Checklist operativo para practicantes
+- [ ] Repo clonado y frontend probado en local.
+- [ ] Env vars definidas fuera del repo (`PROJECT_ID`, `SUPABASE_URL`, `SUPABASE_ANON_KEY`).
+- [ ] Backend Flask corre en local y responde `/health` y `/public-config`.
+- [ ] Gating provisional con entitlements en `localStorage` probado.
+- [ ] Frontend publicado en bucket GCS detras de LB HTTPS.
+- [ ] Backend desplegado en Cloud Run con envs cargadas.
+- [ ] Gating real funcionando (frontend→backend→DB/Supabase).
