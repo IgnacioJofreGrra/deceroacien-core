@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Historias de Usuario | El Camino Dorado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a1f2f;
+            color: #e6f1ff;
+        }
+        .highlight-text { color: #FBBF24; }
+        .tool-container { background-color: #112240; }
+        .doc-container { background-color: #0a1f2f; }
+        .action-button, .list-action-button {
+            background-color: #1E293B;
+            color: #cbd5e1;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 1px solid #334155;
+            cursor: pointer;
+        }
+        .action-button:hover, .list-action-button:hover {
+            background-color: #334155;
+            color: #FBBF24;
+        }
+        .form-input, .form-textarea {
+            background-color: #0a1f2f;
+            border: 1px solid #1e2d4d;
+            color: #cbd5e1;
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .form-input::placeholder, .form-textarea::placeholder {
+            color: #475569;
+        }
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #FBBF24;
+        }
+        .primary-button {
+            background-color: #FBBF24;
+            color: #0a1f2f;
+            font-weight: 700;
+            padding: 10px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            cursor: pointer;
+        }
+        .story-card {
+            background-color: #0a1f2f;
+            border-left: 4px solid #FBBF24;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="sticky top-0 z-50 bg-[#0a192f]/80 backdrop-blur-lg border-b border-gray-800">
+        <nav class="container mx-auto max-w-7xl px-6 py-3 flex justify-between items-center">
+            <a href="../portal-alumno.html" class="text-lg font-bold highlight-text">← Volver al Centro de Formación</a>
+            <span class="text-sm text-slate-300">Bienvenido, [Nombre Alumno]</span>
+        </nav>
+    </div>
+
+    <main class="container mx-auto max-w-7xl px-6 py-12" data-entitlement="decero.fase2">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <aside class="lg:col-span-1 doc-container p-6 rounded-lg">
+                <h1 class="text-2xl font-black text-white">Generador de Historias de Usuario</h1>
+                <p class="text-sm highlight-text mt-1">Herramienta de la Fase 2: Construcción del PMV</p>
+                
+                <div class="mt-8 space-y-6 text-gray-400 text-sm">
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">🎯 Objetivo</h2>
+                        <p class="mt-1">Definir las funcionalidades de tu producto desde la perspectiva del usuario final, enfocándote en el valor que cada una de ellas le aporta.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⭐ Importancia</h2>
+                        <p class="mt-1">Las historias de usuario son el antídoto para construir funcionalidades que nadie usa. Te obligan a justificar cada pieza de desarrollo en términos de un beneficio real para el cliente, mantienen al equipo alineado y hacen que la priorización sea mucho más sencilla y lógica.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⚙️ ¿Qué es lo que hace?</h2>
+                        <p class="mt-1">Te proporciona la estructura clásica y probada "Como..., Quiero..., Para..." para que puedas construir tu backlog de producto. La herramienta te permite crear, editar y gestionar una lista de historias de usuario, que se convertirán en el plan de trabajo para tu equipo de desarrollo.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">💡 ¿Para qué me sirve?</h2>
+                        <p class="mt-1">Para crear un plan de desarrollo claro y centrado en el cliente. Te ayuda a comunicar los requisitos a tu equipo de forma eficaz, a tomar decisiones sobre qué construir primero y a asegurar que cada hora de trabajo se invierte en algo que tus clientes realmente valoran.</p>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="lg:col-span-2 tool-container p-6 rounded-lg" data-when="granted">
+                <div class="flex flex-wrap items-center justify-between pb-4 border-b border-gray-700 gap-4">
+                    <h2 class="text-xl font-bold text-white">Construye el Backlog de tu Producto</h2>
+                     <div class="flex space-x-3">
+                        <button class="action-button" onclick="guardar()">💾 Guardar</button>
+                        <button class="action-button" onclick="descargar()">📄 Descargar</button>
+                        <button class="action-button" onclick="compartir()">🔗 Compartir</button>
+                        <button class="action-button" onclick="clearAll()">🗑️ Limpiar Backlog</button>
+                    </div>
+                </div>
+
+                <div class="mt-6 bg-gray-900/50 p-4 rounded-lg">
+                    <h3 id="form-title" class="font-semibold text-white">1. Añade una Nueva Historia de Usuario</h3>
+                     <p class="text-xs text-gray-400 mb-4">Completa la plantilla para definir una funcionalidad desde la perspectiva de tu cliente.</p>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="text-sm font-semibold text-slate-300">Como un/a (El Quién)</label>
+                            <p class="text-xs text-gray-400 mb-2">Define el tipo de usuario. ¿Es un administrador, un usuario nuevo, un cliente recurrente?</p>
+                            <input type="text" id="user-role" class="form-input" placeholder="Ej: Usuario nuevo de la plataforma">
+                        </div>
+                        <div>
+                            <label class="text-sm font-semibold text-slate-300">Quiero (El Cómo / La Acción)</label>
+                             <p class="text-xs text-gray-400 mb-2">Describe la acción o el objetivo que el usuario quiere lograr.</p>
+                            <input type="text" id="user-goal" class="form-input" placeholder="Ej: Registrarme en la app usando mi cuenta de Google">
+                        </div>
+                        <div>
+                            <label class="text-sm font-semibold text-slate-300">Para (El Porqué / El Beneficio)</label>
+                             <p class="text-xs text-gray-400 mb-2">Explica la motivación final. ¿Qué valor obtiene el usuario al realizar esa acción?</p>
+                            <input type="text" id="user-benefit" class="form-input" placeholder="Ej: Empezar a usar la app rápidamente sin tener que recordar otra contraseña">
+                        </div>
+                        <div>
+                            <label class="text-sm font-semibold text-slate-300">Criterios de Aceptación</label>
+                             <p class="text-xs text-gray-400 mb-2">Define las reglas para saber que la historia está completa. Escribe una por línea.</p>
+                            <textarea id="user-criteria" class="form-textarea" rows="3" placeholder="Ej: Al hacer clic, se abre la ventana de Google.&#10;Si el login es exitoso, voy al dashboard."></textarea>
+                        </div>
+                         <button id="addStoryBtn" class="primary-button w-full">Añadir Historia</button>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                     <h3 class="font-semibold text-white mb-4">2. Tu Backlog de Producto</h3>
+                     <div id="story-list" class="space-y-3">
+                        <!-- Las historias de usuario aparecerán aquí -->
+                     </div>
+                </div>
+            </div>
+        </div>
+        <div data-when="denied" class="hidden"></div>
+    </main>
+
+    <script>
+        const roleInput = document.getElementById('user-role');
+        const goalInput = document.getElementById('user-goal');
+        const benefitInput = document.getElementById('user-benefit');
+        const criteriaInput = document.getElementById('user-criteria');
+        const addStoryBtn = document.getElementById('addStoryBtn');
+        const storyList = document.getElementById('story-list');
+        const formTitle = document.getElementById('form-title');
+
+        let stories = [];
+        let editingIndex = null;
+
+        function renderStories() {
+            storyList.innerHTML = '';
+            if (stories.length === 0) {
+                storyList.innerHTML = `<p class="text-sm text-gray-500 text-center py-4">Tu backlog está vacío. ¡Añade tu primera historia!</p>`;
+                return;
+            }
+            stories.forEach((story, index) => {
+                const storyCard = document.createElement('div');
+                storyCard.className = 'story-card p-4 rounded-lg flex justify-between items-start gap-4';
+                
+                let criteriaHtml = '';
+                if (story.criteria) {
+                    const criteriaItems = story.criteria.split('\n').map(item => `<li>${item}</li>`).join('');
+                    criteriaHtml = `
+                        <div class="mt-3 pt-3 border-t border-gray-700">
+                            <h4 class="text-xs font-bold text-slate-300">Criterios de Aceptación:</h4>
+                            <ul class="list-disc list-inside text-gray-400 text-xs mt-1">${criteriaItems}</ul>
+                        </div>
+                    `;
+                }
+
+                storyCard.innerHTML = `
+                    <div class="text-sm flex-grow">
+                        <p class="text-gray-400"><strong>Como un/a:</strong> ${story.role}</p>
+                        <p class="text-white mt-1"><strong>Quiero:</strong> ${story.goal}</p>
+                        <p class="text-gray-400 mt-1"><strong>Para:</strong> ${story.benefit}</p>
+                        ${criteriaHtml}
+                    </div>
+                    <div class="flex flex-col space-y-2 flex-shrink-0">
+                        <button class="list-action-button text-xs" onclick="editStory(${index})">Editar</button>
+                        <button class="list-action-button text-xs !bg-red-800 hover:!bg-red-700" onclick="deleteStory(${index})">Borrar</button>
+                    </div>
+                `;
+                storyList.appendChild(storyCard);
+            });
+        }
+
+        function resetForm() {
+            roleInput.value = '';
+            goalInput.value = '';
+            benefitInput.value = '';
+            criteriaInput.value = '';
+            addStoryBtn.textContent = 'Añadir Historia';
+            formTitle.textContent = '1. Añade una Nueva Historia de Usuario';
+            editingIndex = null;
+        }
+
+        addStoryBtn.addEventListener('click', () => {
+            const role = roleInput.value.trim();
+            const goal = goalInput.value.trim();
+            const benefit = benefitInput.value.trim();
+            const criteria = criteriaInput.value.trim();
+
+            if (!role || !goal || !benefit) {
+                alert('Por favor, completa al menos los tres primeros campos de la historia.');
+                return;
+            }
+
+            const newStory = { role, goal, benefit, criteria };
+
+            if (editingIndex !== null) {
+                stories[editingIndex] = newStory;
+            } else {
+                stories.push(newStory);
+            }
+            
+            resetForm();
+            renderStories();
+        });
+
+        function editStory(index) {
+            const story = stories[index];
+            roleInput.value = story.role;
+            goalInput.value = story.goal;
+            benefitInput.value = story.benefit;
+            criteriaInput.value = story.criteria;
+            
+            editingIndex = index;
+            addStoryBtn.textContent = 'Actualizar Historia';
+            formTitle.textContent = 'Editando Historia de Usuario';
+            roleInput.focus();
+        }
+
+        function deleteStory(index) {
+            if (editingIndex === index) {
+                resetForm();
+            }
+            stories.splice(index, 1);
+            renderStories();
+        }
+
+        function clearAll() {
+            if (confirm('¿Estás seguro de que quieres borrar todas las historias del backlog?')) {
+                stories = [];
+                resetForm();
+                renderStories();
+            }
+        }
+
+        renderStories();
+
+        function guardar() { alert('Funcionalidad "Guardar": ¡Próximamente!'); }
+        function descargar() { alert('Funcionalidad "Descargar": ¡Próximamente!'); }
+        function compartir() { alert('Funcionalidad "Compartir": ¡Próximamente!'); }
+    </script>
+    <script src="../../assets/js/components.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Recolección de Feedback | El Camino Dorado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a1f2f;
+            color: #e6f1ff;
+        }
+        .highlight-text { color: #FBBF24; }
+        .tool-container { background-color: #112240; }
+        .doc-container { background-color: #0a1f2f; }
+        .action-button {
+            background-color: #1E293B;
+            color: #cbd5e1;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 1px solid #334155;
+            cursor: pointer;
+        }
+        .action-button:hover { background-color: #334155; color: #FBBF24; }
+        .form-input, .form-textarea, .form-select {
+            background-color: #0a1f2f;
+            border: 1px solid #1e2d4d;
+            color: #cbd5e1;
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .form-input::placeholder, .form-textarea::placeholder { color: #475569; }
+        .form-input:focus, .form-textarea:focus, .form-select:focus { outline: none; border-color: #FBBF24; }
+        .primary-button {
+            background-color: #FBBF24;
+            color: #0a1f2f;
+            font-weight: 700;
+            padding: 10px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            cursor: pointer;
+        }
+    </style>
+    <meta name="description" content="Crea y personaliza un sistema de recolección de feedback para tus usuarios, con vista previa de formulario y preguntas dinámicas.">
+</head>
+<body class="antialiased">
+
+    <div class="sticky top-0 z-50 bg-[#0a192f]/80 backdrop-blur-lg border-b border-gray-800">
+        <nav class="container mx-auto max-w-7xl px-6 py-3 flex justify-between items-center">
+            <a href="../portal-alumno.html" class="text-lg font-bold highlight-text">← Volver al Centro de Formación</a>
+            <span class="text-sm text-slate-300">Bienvenido, [Nombre Alumno]</span>
+        </nav>
+    </div>
+
+    <main class="container mx-auto max-w-7xl px-6 py-12" data-entitlement="decero.fase3">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <aside class="lg:col-span-1 doc-container p-6 rounded-lg">
+                <h1 class="text-2xl font-black text-white">Sistema de Recolección de Feedback</h1>
+                <p class="text-sm highlight-text mt-1">Herramienta de la Fase 3: Tracción y P-M Fit</p>
+                
+                <div class="mt-8 space-y-6 text-gray-400 text-sm">
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">🎯 Objetivo</h2>
+                        <p class="mt-1">Crear un sistema estructurado para solicitar, recopilar y analizar el feedback de tus primeros usuarios de forma sistemática y accionable.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⭐ Importancia</h2>
+                        <p class="mt-1">Tus primeros usuarios son tus mejores consultores, y su feedback es gratuito. Escucharlos activamente es la forma más rápida de encontrar el Product-Market Fit. Ignorarlos es la forma más rápida de construir un producto que a nadie le importa.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⚙️ ¿Qué es lo que hace?</h2>
+                        <p class="mt-1">Te permite construir un formulario de feedback personalizado. Puedes añadir preguntas abiertas, de opción múltiple o escalas de valoración para entender la experiencia, identificar puntos de dolor y descubrir oportunidades.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">💡 ¿Para qué me sirve?</h2>
+                        <p class="mt-1">Para tomar decisiones de producto basadas en evidencia directa del cliente, priorizar funcionalidades, mejorar la UX y construir una comunidad de clientes que se sienten escuchados.</p>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="lg:col-span-2 tool-container p-6 rounded-lg" data-when="granted">
+                <div class="flex flex-wrap items-center justify-between pb-4 border-b border-gray-700 gap-4">
+                    <h2 class="text-xl font-bold text-white">Construye tu Formulario de Feedback</h2>
+                    <div class="flex space-x-3">
+                        <button class="action-button" onclick="guardar()">💾 Guardar</button>
+                        <button class="action-button" onclick="descargar()">📄 Descargar</button>
+                        <button class="action-button" onclick="compartir()">🔗 Compartir</button>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <h3 class="font-semibold text-white mb-2">1. Personaliza tu Formulario</h3>
+                    <div class="bg-gray-900/50 p-4 rounded-lg space-y-4">
+                        <input type="text" id="form-title" class="form-input" value="Feedback sobre tu experiencia">
+                        <textarea id="form-description" class="form-input" rows="2">Nos encantaría conocer tu opinión para seguir mejorando. ¡Gracias por tu tiempo!</textarea>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <h3 class="font-semibold text-white mb-4">2. Añade Preguntas</h3>
+                    <div class="bg-gray-900/50 p-4 rounded-lg flex flex-wrap sm:flex-nowrap gap-4 items-end">
+                        <div class="flex-grow">
+                            <label for="question-text" class="text-xs text-gray-400">Texto de la pregunta</label>
+                            <input type="text" id="question-text" class="form-input" placeholder="Ej: ¿Qué es lo que más te gusta?">
+                        </div>
+                        <div class="w-full sm:w-auto">
+                            <label for="question-type" class="text-xs text-gray-400">Tipo de pregunta</label>
+                            <select id="question-type" class="form-select">
+                                <option value="text">Texto Corto</option>
+                                <option value="textarea">Párrafo</option>
+                                <option value="rating">Valoración (1-5)</option>
+                            </select>
+                        </div>
+                        <button id="add-question-btn" class="primary-button w-full sm:w-auto">Añadir</button>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <h3 class="font-semibold text-white mb-4">3. Vista Previa del Formulario</h3>
+                    <div id="form-preview" class="space-y-4 bg-gray-900/50 p-6 rounded-lg">
+                        <!-- Las preguntas aparecerán aquí -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-when="denied" class="hidden"></div>
+    </main>
+
+    <script>
+        (function() {
+            const formTitleInput = document.getElementById('form-title');
+            const formDescriptionInput = document.getElementById('form-description');
+            const questionTextInput = document.getElementById('question-text');
+            const questionTypeInput = document.getElementById('question-type');
+            const addQuestionBtn = document.getElementById('add-question-btn');
+            const formPreview = document.getElementById('form-preview');
+
+            /** @type {{text:string,type:'text'|'textarea'|'rating'}[]} */
+            let questions = [
+                { text: 'En general, ¿qué tan satisfecho estás con el producto?', type: 'rating' },
+                { text: '¿Qué es lo que más te gusta o te resulta más útil?', type: 'textarea' },
+                { text: '¿Hay algo que te haya resultado confuso o difícil de usar?', type: 'textarea' },
+                { text: 'Si pudieras cambiar una sola cosa, ¿cuál sería?', type: 'text' },
+            ];
+
+            function renderForm() {
+                formPreview.innerHTML = `
+                    <h2 class="text-xl font-bold text-white">${escapeHtml(formTitleInput.value || 'Tu Formulario')}</h2>
+                    <p class="text-sm text-gray-400">${escapeHtml(formDescriptionInput.value || '')}</p>
+                    <div class="border-t border-gray-700 my-4"></div>
+                `;
+
+                if (questions.length === 0) {
+                    formPreview.innerHTML += `<p class="text-sm text-gray-500 text-center py-4">Añade tu primera pregunta para empezar.</p>`;
+                }
+
+                questions.forEach((q, index) => {
+                    const questionEl = document.createElement('div');
+                    questionEl.className = 'py-2';
+                    let inputHtml = '';
+                    switch (q.type) {
+                        case 'text':
+                            inputHtml = `<input type="text" disabled class="form-input mt-2" placeholder="Respuesta corta" />`;
+                            break;
+                        case 'textarea':
+                            inputHtml = `<textarea disabled class="form-input mt-2" rows="3" placeholder="Respuesta larga"></textarea>`;
+                            break;
+                        case 'rating':
+                            inputHtml = `
+                                <div class="flex space-x-2 mt-2">
+                                    ${[1,2,3,4,5].map(num => `<button disabled class="w-10 h-10 rounded-full border border-gray-600 text-gray-400">${num}</button>`).join('')}
+                                </div>
+                            `;
+                            break;
+                    }
+
+                    questionEl.innerHTML = `
+                        <div class="flex justify-between items-center">
+                            <label class="text-sm text-slate-300">${index + 1}. ${escapeHtml(q.text)}</label>
+                            <button class="px-2 py-1 text-xs bg-red-800 hover:bg-red-700 rounded" onclick="deleteQuestion(${index})">Borrar</button>
+                        </div>
+                        ${inputHtml}
+                    `;
+                    formPreview.appendChild(questionEl);
+                });
+            }
+
+            function escapeHtml(str) {
+                return String(str).replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[s]));
+            }
+
+            window.deleteQuestion = function(index) {
+                questions.splice(index, 1);
+                renderForm();
+            }
+
+            formTitleInput.addEventListener('input', renderForm);
+            formDescriptionInput.addEventListener('input', renderForm);
+            addQuestionBtn.addEventListener('click', () => {
+                const text = questionTextInput.value.trim();
+                if (!text) {
+                    alert('Por favor, escribe el texto de la pregunta.');
+                    return;
+                }
+                const type = /** @type {'text'|'textarea'|'rating'} */(questionTypeInput.value);
+                questions.push({ text, type });
+                questionTextInput.value = '';
+                renderForm();
+            });
+
+            renderForm();
+
+            // Acciones (simple stub para mantener consistencia con otras herramientas)
+            window.guardar = function() { alert('Funcionalidad "Guardar": ¡Próximamente!'); }
+            window.descargar = function() { alert('Funcionalidad "Descargar": ¡Próximamente!'); }
+            window.compartir = function() { alert('Funcionalidad "Compartir": ¡Próximamente!'); }
+        })();
+    </script>
+    <script src="../../assets/js/components.js"></script>
+</body>
+</html>

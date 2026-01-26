@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analizador de Escenarios de Salida | El Camino Dorado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a1f2f;
+            color: #e6f1ff;
+        }
+        .highlight-text { color: #FBBF24; }
+        .tool-container { background-color: #112240; }
+        .doc-container { background-color: #0a1f2f; }
+        .action-button, .list-action-button {
+            background-color: #1E293B;
+            color: #cbd5e1;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 1px solid #334155;
+            cursor: pointer;
+        }
+        .action-button:hover, .list-action-button:hover {
+            background-color: #334155;
+            color: #FBBF24;
+        }
+        .form-input, .form-textarea {
+            background-color: #0a1f2f;
+            border: 1px solid #1e2d4d;
+            color: #cbd5e1;
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .form-input::placeholder, .form-textarea::placeholder { color: #475569; }
+        .form-input:focus, .form-textarea:focus { outline: none; border-color: #FBBF24; }
+        .primary-button {
+            background-color: #FBBF24;
+            color: #0a1f2f;
+            font-weight: 700;
+            padding: 10px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            cursor: pointer;
+        }
+        .scenario-card {
+            background-color: #0a1f2f;
+            border: 1px solid #1e2d4d;
+        }
+    </style>
+    
+</head>
+<body class="antialiased">
+
+    <div class="sticky top-0 z-50 bg-[#0a192f]/80 backdrop-blur-lg border-b border-gray-800">
+        <nav class="container mx-auto max-w-7xl px-6 py-3 flex justify-between items-center">
+            <a href="../portal-alumno.html" class="text-lg font-bold highlight-text">← Volver al Centro de Formación</a>
+            <span class="text-sm text-slate-300">Bienvenido, [Nombre Alumno]</span>
+        </nav>
+    </div>
+
+    <main class="container mx-auto max-w-7xl px-6 py-12">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <aside class="lg:col-span-1 doc-container p-6 rounded-lg">
+                <h1 class="text-2xl font-black text-white">Analizador de Escenarios de Salida</h1>
+                <p class="text-sm highlight-text mt-1">Herramienta de la Fase 5: Consolidación y Madurez</p>
+                
+                <div class="mt-8 space-y-6 text-gray-400 text-sm">
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">🎯 Objetivo</h2>
+                        <p class="mt-1">Analizar y planificar las posibles estrategias de salida (exit) de tu negocio, para maximizar el valor creado y asegurar un final de ciclo exitoso.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⭐ Importancia</h2>
+                        <p class="mt-1">Construir con el final en mente. Pensar en tu estrategia de salida desde hoy te obliga a construir una empresa más valiosa, ordenada y atractiva para posibles compradores o para el mercado público. Es el acto final de un estratega que no deja nada al azar.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⚙️ ¿Qué es lo que hace?</h2>
+                        <p class="mt-1">Te permite definir y comparar diferentes escenarios de salida (venta a un competidor, fusión, IPO, etc.). Para cada uno, puedes analizar sus pros, sus contras y los pasos clave que necesitarías dar para prepararte, creando una hoja de ruta estratégica para el futuro de tu compañía.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">💡 ¿Para qué me sirve?</h2>
+                        <p class="mt-1">Para tener claridad sobre el legado que quieres construir. Te sirve para alinear tus decisiones actuales con tus metas a largo plazo, para estar preparado si surge una oportunidad de compra y para negociar desde una posición de fuerza, sabiendo exactamente qué necesitas para que una salida sea exitosa para ti y tu equipo.</p>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="lg:col-span-2 tool-container p-6 rounded-lg">
+                <div class="flex flex-wrap items-center justify-between pb-4 border-b border-gray-700 gap-4">
+                    <h2 class="text-xl font-bold text-white">Planifica el Futuro de tu Empresa</h2>
+                     <div class="flex space-x-3">
+                        <button class="action-button" onclick="guardar()">💾 Guardar</button>
+                        <button class="action-button" onclick="descargar()">📄 Descargar</button>
+                        <button class="action-button" onclick="compartir()">🔗 Compartir</button>
+                        <button class="action-button" onclick="clearAll()">🗑️ Limpiar</button>
+                    </div>
+                </div>
+
+                <div class="mt-6 bg-gray-900/50 p-4 rounded-lg">
+                    <h3 id="form-title" class="font-semibold text-white">1. Añade un Escenario de Salida</h3>
+                    <div class="mt-4 space-y-4">
+                        <input type="text" id="scenario-name" class="form-input" placeholder="Nombre del Escenario (Ej: Venta a Competidor Estratégico)">
+                        <textarea id="scenario-pros" class="form-textarea" rows="3" placeholder="Pros (Escribe uno por línea)"></textarea>
+                        <textarea id="scenario-cons" class="form-textarea" rows="3" placeholder="Contras (Escribe uno por línea)"></textarea>
+                        <textarea id="scenario-steps" class="form-textarea" rows="4" placeholder="Pasos Clave de Preparación (Escribe uno por línea)"></textarea>
+                        <button id="addScenarioBtn" class="primary-button w-full">Añadir Escenario</button>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                     <h3 class="font-semibold text-white mb-4">2. Tus Escenarios de Salida</h3>
+                     <div id="scenario-list" class="space-y-4">
+                        <!-- Los escenarios añadidos aparecerán aquí -->
+                     </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const nameInput = document.getElementById('scenario-name');
+        const prosInput = document.getElementById('scenario-pros');
+        const consInput = document.getElementById('scenario-cons');
+        const stepsInput = document.getElementById('scenario-steps');
+        const addScenarioBtn = document.getElementById('addScenarioBtn');
+        const scenarioList = document.getElementById('scenario-list');
+        const formTitle = document.getElementById('form-title');
+
+        let scenarios = [];
+        let editingIndex = null;
+
+        function makeList(itemsStr) {
+            const items = String(itemsStr || '')
+                .split('\n')
+                .map(s => s.trim())
+                .filter(Boolean);
+            if (!items.length) return '<li class="text-gray-500">—</li>';
+            return items.map(item => `<li>${item}</li>`).join('');
+        }
+
+        function renderScenarios() {
+            scenarioList.innerHTML = '';
+            if (scenarios.length === 0) {
+                scenarioList.innerHTML = `<p class="text-sm text-gray-500 text-center py-4">Añade tu primer escenario para empezar a planificar.</p>`;
+                return;
+            }
+            scenarios.forEach((scenario, index) => {
+                const prosHtml = makeList(scenario.pros);
+                const consHtml = makeList(scenario.cons);
+                const stepsHtml = makeList(scenario.steps);
+                
+                const card = document.createElement('div');
+                card.className = 'scenario-card p-4 rounded-lg';
+                card.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <h4 class="text-lg font-bold text-white">${scenario.name}</h4>
+                        <div class="flex-shrink-0 flex space-x-2">
+                            <button class="list-action-button text-xs" onclick="editScenario(${index})">Editar</button>
+                            <button class="list-action-button text-xs !bg-red-800 hover:!bg-red-700" onclick="deleteScenario(${index})">Borrar</button>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-700 grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+                        <div>
+                            <p class="font-semibold text-green-400 text-xs">PROS</p>
+                            <ul class="list-disc list-inside text-slate-300 mt-1">${prosHtml}</ul>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-red-400 text-xs">CONTRAS</p>
+                            <ul class="list-disc list-inside text-slate-300 mt-1">${consHtml}</ul>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-yellow-400 text-xs">PASOS CLAVE</p>
+                            <ul class="list-disc list-inside text-slate-300 mt-1">${stepsHtml}</ul>
+                        </div>
+                    </div>
+                `;
+                scenarioList.appendChild(card);
+            });
+        }
+
+        function resetForm() {
+            nameInput.value = '';
+            prosInput.value = '';
+            consInput.value = '';
+            stepsInput.value = '';
+            addScenarioBtn.textContent = 'Añadir Escenario';
+            formTitle.textContent = '1. Añade un Escenario de Salida';
+            editingIndex = null;
+        }
+
+        addScenarioBtn.addEventListener('click', () => {
+            const scenario = {
+                name: nameInput.value.trim(),
+                pros: prosInput.value.trim(),
+                cons: consInput.value.trim(),
+                steps: stepsInput.value.trim(),
+            };
+            if (!scenario.name || !scenario.pros || !scenario.cons || !scenario.steps) {
+                alert('Por favor, completa todos los campos del escenario.');
+                return;
+            }
+            if (editingIndex !== null) {
+                scenarios[editingIndex] = scenario;
+            } else {
+                scenarios.push(scenario);
+            }
+            resetForm();
+            renderScenarios();
+        });
+
+        function editScenario(index) {
+            const scenario = scenarios[index];
+            nameInput.value = scenario.name;
+            prosInput.value = scenario.pros;
+            consInput.value = scenario.cons;
+            stepsInput.value = scenario.steps;
+            
+            editingIndex = index;
+            addScenarioBtn.textContent = 'Actualizar Escenario';
+            formTitle.textContent = `Editando Escenario: ${scenario.name}`;
+            nameInput.focus();
+        }
+
+        function deleteScenario(index) {
+            if (editingIndex === index) resetForm();
+            scenarios.splice(index, 1);
+            renderScenarios();
+        }
+
+        function clearAll() {
+            if (confirm('¿Estás seguro de que quieres borrar todos los escenarios?')) {
+                scenarios = [];
+                resetForm();
+                renderScenarios();
+            }
+        }
+
+        renderScenarios();
+
+        function guardar() { alert('Funcionalidad "Guardar": ¡Próximamente!'); }
+        function descargar() { alert('Funcionalidad "Descargar": ¡Próximamente!'); }
+        function compartir() { alert('Funcionalidad "Compartir": ¡Próximamente!'); }
+    </script>
+    <script src="../../assets/js/components.js"></script>
+</body>
+</html>

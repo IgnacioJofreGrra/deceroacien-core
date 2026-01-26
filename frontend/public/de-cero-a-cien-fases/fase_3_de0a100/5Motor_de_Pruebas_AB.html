@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motor de Pruebas A/B | El Camino Dorado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a1f2f;
+            color: #e6f1ff;
+        }
+        .highlight-text { color: #FBBF24; }
+        .tool-container { background-color: #112240; }
+        .doc-container { background-color: #0a1f2f; }
+        .action-button {
+            background-color: #1E293B;
+            color: #cbd5e1;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 1px solid #334155;
+            cursor: pointer;
+        }
+        .action-button:hover {
+            background-color: #334155;
+            color: #FBBF24;
+        }
+        .form-input, .form-textarea {
+            background-color: #0a1f2f;
+            border: 1px solid #1e2d4d;
+            color: #cbd5e1;
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .form-input::placeholder, .form-textarea::placeholder { color: #475569; }
+        .form-input:focus, .form-textarea:focus { outline: none; border-color: #FBBF24; }
+        .result-box {
+            background-color: #0a1f2f;
+            border: 1px solid #1e2d4d;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="sticky top-0 z-50 bg-[#0a192f]/80 backdrop-blur-lg border-b border-gray-800">
+        <nav class="container mx-auto max-w-7xl px-6 py-3 flex justify-between items-center">
+            <a href="../portal-alumno.html" class="text-lg font-bold highlight-text">← Volver al Centro de Formación</a>
+            <span class="text-sm text-slate-300">Bienvenido, [Nombre Alumno]</span>
+        </nav>
+    </div>
+
+    <main class="container mx-auto max-w-7xl px-6 py-12" data-entitlement="decero.fase3">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <aside class="lg:col-span-1 doc-container p-6 rounded-lg">
+                <h1 class="text-2xl font-black text-white">Motor de Pruebas A/B</h1>
+                <p class="text-sm highlight-text mt-1">Herramienta de la Fase 3: Tracción y P-M Fit</p>
+                
+                <div class="mt-8 space-y-6 text-gray-400 text-sm">
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">🎯 Objetivo</h2>
+                        <p class="mt-1">Tomar decisiones de mejora de producto y marketing basadas en datos, no en opiniones, comparando el rendimiento de dos versiones de un mismo elemento.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⭐ Importancia</h2>
+                        <p class="mt-1">Las pruebas A/B son el motor de la optimización continua. Te permiten mejorar de forma incremental y constante tus tasas de conversión, eliminando las conjeturas y descubriendo qué es lo que realmente funciona con tu audiencia.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⚙️ ¿Qué es lo que hace?</h2>
+                        <p class="mt-1">Te guía en el proceso de configurar un experimento A/B. Defines una hipótesis, describes tu versión de control (A) y tu variante (B), introduces los resultados (visitantes y conversiones) y la herramienta calcula automáticamente las tasas de conversión y declara una versión ganadora.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">💡 ¿Para qué me sirve?</h2>
+                        <p class="mt-1">Para optimizar cualquier cosa que impacte el comportamiento de tus usuarios: el título de tu página, el color de un botón, el precio de tu producto o el asunto de un correo. Te sirve para aprender directamente de tus clientes y mejorar tus métricas clave de forma científica.</p>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="lg:col-span-2 tool-container p-6 rounded-lg" data-when="granted">
+                <div class="flex flex-wrap items-center justify-between pb-4 border-b border-gray-700 gap-4">
+                    <h2 class="text-xl font-bold text-white">Configura tu Prueba A/B</h2>
+                     <div class="flex space-x-3">
+                        <button class="action-button" onclick="guardar()">💾 Guardar</button>
+                        <button class="action-button" onclick="descargar()">📄 Descargar</button>
+                        <button class="action-button" onclick="compartir()">🔗 Compartir</button>
+                    </div>
+                </div>
+
+                <div class="mt-6 space-y-6">
+                    <div class="bg-gray-900/50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-white">1. Define tu Hipótesis</h3>
+                        <div class="mt-2 space-y-4">
+                            <div>
+                                <label for="metric" class="text-xs text-gray-400">Métrica a Mejorar</label>
+                                <input type="text" id="metric" class="form-input mt-1" placeholder="Ej: Tasa de clics en el botón 'Comprar'">
+                            </div>
+                            <div>
+                                <label for="hypothesis" class="text-xs text-gray-400">Hipótesis</label>
+                                <textarea id="hypothesis" class="form-textarea mt-1" rows="2" placeholder="Ej: Creo que cambiar el color del botón a verde aumentará los clics porque genera más confianza."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-900/50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-white">2. Configura las Variantes</h3>
+                         <div class="mt-2 grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="control-a" class="text-sm font-semibold text-blue-400">Variante A (Control)</label>
+                                <textarea id="control-a" class="form-textarea mt-1" rows="2" placeholder="Describe la versión original. Ej: Botón de compra de color azul."></textarea>
+                            </div>
+                             <div>
+                                <label for="variant-b" class="text-sm font-semibold text-green-400">Variante B (Experimento)</label>
+                                <textarea id="variant-b" class="form-textarea mt-1" rows="2" placeholder="Describe la nueva versión. Ej: Botón de compra de color verde."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-900/50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-white">3. Introduce los Resultados</h3>
+                         <div class="mt-2 grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <label class="text-sm text-blue-400">Resultados de A</label>
+                                <input type="number" id="visitors-a" class="form-input" placeholder="Nº de Visitantes (A)">
+                                <input type="number" id="conversions-a" class="form-input" placeholder="Nº de Conversiones (A)">
+                            </div>
+                             <div class="space-y-2">
+                                <label class="text-sm text-green-400">Resultados de B</label>
+                                <input type="number" id="visitors-b" class="form-input" placeholder="Nº de Visitantes (B)">
+                                <input type="number" id="conversions-b" class="form-input" placeholder="Nº de Conversiones (B)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-6">
+                     <h3 class="font-semibold text-white mb-4">4. Resultado del Test</h3>
+                     <div id="result-box" class="result-box p-6 rounded-lg text-center transition-all duration-300">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="text-center">
+                                <p class="text-sm text-blue-400">Tasa de Conversión A</p>
+                                <p id="rate-a" class="text-4xl font-black my-1">0%</p>
+                            </div>
+                             <div class="text-center">
+                                <p class="text-sm text-green-400">Tasa de Conversión B</p>
+                                <p id="rate-b" class="text-4xl font-black my-1">0%</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-gray-700">
+                            <p id="verdict" class="font-semibold text-lg">Esperando datos...</p>
+                        </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+        <div data-when="denied" class="hidden"></div>
+    </main>
+
+    <script>
+        const inputs = {
+            visitorsA: document.getElementById('visitors-a'),
+            conversionsA: document.getElementById('conversions-a'),
+            visitorsB: document.getElementById('visitors-b'),
+            conversionsB: document.getElementById('conversions-b'),
+        };
+        
+        const outputs = {
+            rateA: document.getElementById('rate-a'),
+            rateB: document.getElementById('rate-b'),
+            verdict: document.getElementById('verdict'),
+            resultBox: document.getElementById('result-box')
+        };
+
+        function calculateResults() {
+            const visitorsA = parseInt(inputs.visitorsA.value) || 0;
+            const conversionsA = parseInt(inputs.conversionsA.value) || 0;
+            const visitorsB = parseInt(inputs.visitorsB.value) || 0;
+            const conversionsB = parseInt(inputs.conversionsB.value) || 0;
+
+            const rateA = visitorsA > 0 ? (conversionsA / visitorsA) * 100 : 0;
+            const rateB = visitorsB > 0 ? (conversionsB / visitorsB) * 100 : 0;
+
+            outputs.rateA.textContent = `${Math.round(rateA)}%`;
+            outputs.rateB.textContent = `${Math.round(rateB)}%`;
+            
+            outputs.verdict.classList.remove('highlight-text');
+
+            if (visitorsA > 0 && visitorsB > 0) {
+                if (rateA > rateB) {
+                    outputs.verdict.textContent = 'La Variante A (Control) es la ganadora.';
+                } else if (rateB > rateA) {
+                    outputs.verdict.textContent = '¡La Variante B (Experimento) es la ganadora!';
+                    outputs.verdict.classList.add('highlight-text');
+                } else {
+                    outputs.verdict.textContent = 'El resultado es un empate. No hay un ganador claro.';
+                }
+            } else {
+                 outputs.verdict.textContent = 'Esperando datos...';
+            }
+        }
+
+        Object.values(inputs).forEach(input => {
+            input.addEventListener('input', calculateResults);
+        });
+
+        calculateResults();
+
+        function guardar() { alert('Funcionalidad "Guardar": ¡Próximamente!'); }
+        function descargar() { alert('Funcionalidad "Descargar": ¡Próximamente!'); }
+        function compartir() { alert('Funcionalidad "Compartir": ¡Próximamente!'); }
+    </script>
+    <script src="../../assets/js/components.js"></script>
+</body>
+</html>
+

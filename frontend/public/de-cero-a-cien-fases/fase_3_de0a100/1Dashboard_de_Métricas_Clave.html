@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Métricas Clave | El Camino Dorado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a1f2f;
+            color: #e6f1ff;
+        }
+        .highlight-text { color: #FBBF24; }
+        .tool-container { background-color: #112240; }
+        .doc-container { background-color: #0a1f2f; }
+        .action-button {
+            background-color: #1E293B;
+            color: #cbd5e1;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 1px solid #334155;
+            cursor: pointer;
+        }
+        .action-button:hover {
+            background-color: #334155;
+            color: #FBBF24;
+        }
+        .metric-card {
+            background-color: #0a1f2f;
+            border: 1px solid #1e2d4d;
+            border-left: 4px solid;
+            display: flex;
+            flex-direction: column;
+        }
+        .form-input {
+            background-color: #0a1f2f;
+            border: 1px solid #1e2d4d;
+            color: #cbd5e1;
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+        }
+        .form-input::placeholder { color: #475569; }
+        .form-input:focus { outline: none; border-color: #FBBF24; }
+        .trend-up { color: #22c55e; }
+        .trend-down { color: #ef4444; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="sticky top-0 z-50 bg-[#0a192f]/80 backdrop-blur-lg border-b border-gray-800">
+        <nav class="container mx-auto max-w-7xl px-6 py-3 flex justify-between items-center">
+            <a href="../portal-alumno.html" class="text-lg font-bold highlight-text">← Volver al Centro de Formación</a>
+            <span class="text-sm text-slate-300">Bienvenido, [Nombre Alumno]</span>
+        </nav>
+    </div>
+
+    <main class="container mx-auto max-w-7xl px-6 py-12" data-entitlement="decero.fase3">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <aside class="lg:col-span-1 doc-container p-6 rounded-lg">
+                <h1 class="text-2xl font-black text-white">Dashboard de Métricas Clave</h1>
+                <p class="text-sm highlight-text mt-1">Herramienta de la Fase 3: Tracción y P-M Fit</p>
+                <div class="mt-8 space-y-6 text-gray-400 text-sm">
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">🎯 Objetivo</h2>
+                        <p class="mt-1">Crear un panel de control visual que muestre la salud de tu negocio en tiempo real, basado en las métricas de éxito que definiste previamente.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⭐ Importancia</h2>
+                        <p class="mt-1">Un negocio sin dashboard es como un avión sin instrumentos de vuelo. Este panel te permite ver de un solo vistazo si estás ganando altitud, perdiendo velocidad o si necesitas corregir el rumbo.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⚙️ ¿Qué es lo que hace?</h2>
+                        <p class="mt-1">Esta herramienta te permite construir tu propio dashboard. Introduce los valores de tu Métrica Estrella del Norte y tus KPIs del embudo para tener una visión clara y centralizada del rendimiento de tu negocio.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">💡 ¿Para qué me sirve?</h2>
+                        <p class="mt-1">Para acostumbrarte a pensar con datos. Te sirve para crear un dashboard real y personalizado, para comunicar el estado de tu negocio a tu equipo o mentores, y para tener un panel de control siempre actualizado.</p>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="lg:col-span-2 tool-container p-6 rounded-lg" data-when="granted">
+                <div class="flex flex-wrap items-center justify-between pb-4 border-b border-gray-700 gap-4">
+                    <h2 class="text-xl font-bold text-white">Dashboard de Salud del Negocio</h2>
+                     <div class="flex space-x-3">
+                        <button class="action-button" onclick="guardar()">💾 Guardar</button>
+                        <button class="action-button" onclick="descargar()">📄 Descargar</button>
+                        <button class="action-button" onclick="compartir()">🔗 Compartir</button>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <div class="bg-gray-900/50 p-6 rounded-lg text-center">
+                        <h3 class="font-semibold text-white">Métrica Estrella del Norte</h3>
+                        <input type="text" class="form-input text-xs text-center !bg-transparent !border-0 !p-0 !text-gray-400 mt-1 mb-2" placeholder="Describe tu métrica principal">
+                        <div class="flex items-center justify-center gap-4">
+                            <p data-result="ns-value" class="text-6xl font-black highlight-text">--</p>
+                             <div class="text-left">
+                                 <p data-result="ns-trend" class="font-bold text-lg w-24 text-center">--</p>
+                                 <p class="text-xs text-gray-500">vs. periodo anterior</p>
+                             </div>
+                        </div>
+                        <div class="flex items-center justify-center gap-4 mt-4 max-w-md mx-auto">
+                             <div>
+                                <label class="text-xs text-gray-400">Valor (El número actual de tu métrica)</label>
+                                <input type="number" data-input="ns-value" class="form-input text-center" placeholder="Ej: 1284" oninput="updateDashboard()">
+                            </div>
+                            <div>
+                                <label class="text-xs text-gray-400">Tendencia (El % de cambio)</label>
+                                <input type="number" data-input="ns-trend" class="form-input text-center" placeholder="Ej: 15 para +15%" oninput="updateDashboard()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                     <h3 class="font-semibold text-white mb-4">Métricas del Embudo y Personalizadas</h3>
+                     <div id="metrics-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="metric-card p-4 border-l-blue-500">
+                            <h4 class="font-bold text-blue-400">Adquisición <span class="text-gray-400 font-normal">(Nuevos Clientes)</span></h4>
+                            <p class="text-2xl font-bold" data-result="acquisition-value">--</p>
+                            <p class="text-sm font-semibold mt-auto pt-2" data-result="acquisition-trend"></p>
+                             <input type="number" data-type="number" data-target="acquisition" class="form-input mt-2" placeholder="Valor Numérico" oninput="updateDashboard(event)">
+                        </div>
+                        <div class="metric-card p-4 border-l-green-500">
+                            <h4 class="font-bold text-green-400">Activación <span class="text-gray-400 font-normal">(1ª Exp. Feliz)</span></h4>
+                            <p class="text-2xl font-bold" data-result="activation-value">--</p>
+                            <p class="text-sm font-semibold mt-auto pt-2" data-result="activation-trend"></p>
+                            <input type="number" data-type="percentage" data-target="activation" class="form-input mt-2" placeholder="Valor %" oninput="updateDashboard(event)">
+                        </div>
+                        <div class="metric-card p-4 border-l-yellow-500">
+                            <h4 class="font-bold text-yellow-400">Retención <span class="text-gray-400 font-normal">(Clientes Recurrentes)</span></h4>
+                            <p class="text-2xl font-bold" data-result="retention-value">--</p>
+                            <p class="text-sm font-semibold mt-auto pt-2" data-result="retention-trend"></p>
+                            <input type="number" data-type="percentage" data-target="retention" class="form-input mt-2" placeholder="Valor %" oninput="updateDashboard(event)">
+                        </div>
+                        <div class="metric-card p-4 border-l-purple-500">
+                            <h4 class="font-bold text-purple-400">Ingresos <span class="text-gray-400 font-normal">(Facturación)</span></h4>
+                            <p class="text-2xl font-bold" data-result="revenue-value">--</p>
+                            <p class="text-sm font-semibold mt-auto pt-2" data-result="revenue-trend"></p>
+                            <input type="number" data-type="currency" data-target="revenue" class="form-input mt-2" placeholder="Valor Monetario" oninput="updateDashboard(event)">
+                        </div>
+                        <div class="metric-card p-4 border-l-pink-500">
+                            <h4 class="font-bold text-pink-400">Referencia <span class="text-gray-400 font-normal">(Boca a Boca)</span></h4>
+                             <p class="text-2xl font-bold" data-result="referral-value">--</p>
+                             <p class="text-sm font-semibold mt-auto pt-2" data-result="referral-trend"></p>
+                            <input type="number" data-type="percentage" data-target="referral" class="form-input mt-2" placeholder="Valor %" oninput="updateDashboard(event)">
+                        </div>
+                     </div>
+                     <div class="mt-4">
+                        <button id="add-metric-btn" class="action-button w-full">＋ Agregar Métrica Personalizada</button>
+                     </div>
+                </div>
+            </div>
+        </div>
+        <div data-when="denied" class="hidden"></div>
+    </main>
+
+    <script>
+        const addMetricBtn = document.getElementById('add-metric-btn');
+        const metricsGrid = document.getElementById('metrics-grid');
+        let customMetricCount = 0;
+
+        function formatValue(value, type) {
+            if (isNaN(value)) return '--';
+            switch(type) {
+                case 'currency': return `$${value.toLocaleString('es-ES')}`;
+                case 'percentage': return `${value}%`;
+                default: return value.toLocaleString('es-ES');
+            }
+        }
+
+        function formatTrend(value, el) {
+            el.textContent = '';
+            el.className = 'text-sm font-semibold mt-auto pt-2';
+            if (isNaN(value) || value === 0) { el.textContent = '--'; return; }
+            
+            const sign = value > 0 ? '+' : '-';
+            el.textContent = `${sign}${Math.abs(value)}%`;
+            el.classList.add(value > 0 ? 'trend-up' : 'trend-down');
+        }
+
+        function updateDashboard(event) {
+            // North Star
+            const nsValueInput = document.querySelector('[data-input="ns-value"]');
+            const nsTrendInput = document.querySelector('[data-input="ns-trend"]');
+            const nsValueEl = document.querySelector('[data-result="ns-value"]');
+            const nsTrendEl = document.querySelector('[data-result="ns-trend"]');
+
+            nsValueEl.textContent = formatValue(parseFloat(nsValueInput.value), 'number');
+            formatTrend(parseFloat(nsTrendInput.value), nsTrendEl);
+
+            // AARRR & Custom Cards
+            if (event) {
+                const input = event.target;
+                const value = parseFloat(input.value);
+                const target = input.dataset.target;
+                const type = input.dataset.type;
+
+                const valueEl = document.querySelector(`[data-result="${target}-value"]`);
+                const trendEl = document.querySelector(`[data-result="${target}-trend"]`);
+
+                if(valueEl) valueEl.textContent = formatValue(value, type);
+                
+                // Simulación de tendencia
+                if (trendEl && !isNaN(value)) {
+                    const trendValue = Math.round((Math.random() - 0.4) * 15);
+                    formatTrend(trendValue, trendEl);
+                } else if(trendEl) {
+                     trendEl.textContent = '--';
+                }
+            }
+        }
+        
+        addMetricBtn.addEventListener('click', () => {
+            customMetricCount++;
+            const targetId = `custom${customMetricCount}`;
+            const newMetricCard = document.createElement('div');
+            newMetricCard.className = 'metric-card p-4 border-l-gray-500';
+            newMetricCard.innerHTML = `
+                <input type="text" class="form-input font-bold !text-gray-400 !bg-transparent !border-0 !p-0" placeholder="Métrica Personalizada ${customMetricCount}">
+                <p class="text-2xl font-bold" data-result="${targetId}-value">--</p>
+                <p class="text-sm font-semibold mt-auto pt-2" data-result="${targetId}-trend"></p>
+                <input type="number" data-type="number" data-target="${targetId}" class="form-input mt-2" placeholder="Valor de la métrica" oninput="updateDashboard(event)">
+            `;
+            metricsGrid.appendChild(newMetricCard);
+        });
+
+        function guardar() { alert('Funcionalidad "Guardar": ¡Próximamente!'); }
+        function descargar() { alert('Funcionalidad "Descargar": ¡Próximamente!'); }
+        function compartir() { alert('Funcionalidad "Compartir": ¡Próximamente!'); }
+
+        // Initial render to set placeholders
+        updateDashboard();
+    </script>
+    <script src="../../assets/js/components.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Operaciones (Playbook) | El Camino Dorado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a1f2f;
+            color: #e6f1ff;
+        }
+        .highlight-text { color: #FBBF24; }
+        .tool-container { background-color: #112240; }
+        .doc-container { background-color: #0a1f2f; }
+        .action-button, .list-action-button {
+            background-color: #1E293B;
+            color: #cbd5e1;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 1px solid #334155;
+            cursor: pointer;
+        }
+        .action-button:hover, .list-action-button:hover {
+            background-color: #334155;
+            color: #FBBF24;
+        }
+        .form-input, .form-textarea {
+            background-color: #0a1f2f;
+            border: 1px solid #1e2d4d;
+            color: #cbd5e1;
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .form-input::placeholder, .form-textarea::placeholder { color: #475569; }
+        .form-input:focus, .form-textarea:focus { outline: none; border-color: #FBBF24; }
+        .primary-button {
+            background-color: #FBBF24;
+            color: #0a1f2f;
+            font-weight: 700;
+            padding: 10px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            cursor: pointer;
+        }
+        .playbook-section {
+            background-color: #0a1f2f;
+            border: 1px solid #1e2d4d;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="sticky top-0 z-50 bg-[#0a192f]/80 backdrop-blur-lg border-b border-gray-800">
+        <nav class="container mx-auto max-w-7xl px-6 py-3 flex justify-between items-center">
+            <a href="../portal-alumno.html" class="text-lg font-bold highlight-text">← Volver al Centro de Formación</a>
+            <span class="text-sm text-slate-300">Bienvenido, [Nombre Alumno]</span>
+        </nav>
+    </div>
+
+    <main class="container mx-auto max-w-7xl px-6 py-12" data-entitlement="decero.fase4">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <aside class="lg:col-span-1 doc-container p-6 rounded-lg">
+                <h1 class="text-2xl font-black text-white">Manual de Operaciones (Playbook)</h1>
+                <p class="text-sm highlight-text mt-1">Herramienta de la Fase 4: Crecimiento y Escalabilidad</p>
+                
+                <div class="mt-8 space-y-6 text-gray-400 text-sm">
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">🎯 Objetivo</h2>
+                        <p class="mt-1">Documentar los procesos clave y repetibles de tu negocio para garantizar la consistencia, la calidad y facilitar la delegación a medida que tu equipo crece.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⭐ Importancia</h2>
+                        <p class="mt-1">Un Playbook es el cerebro documentado de tu empresa. Es lo que te permite clonarte a ti mismo y pasar de ser un "autoempleado" a un verdadero "dueño de negocio". Sin un manual, el crecimiento genera caos; con él, el crecimiento genera un sistema predecible.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⚙️ ¿Qué es lo que hace?</h2>
+                        <p class="mt-1">Te proporciona una estructura para crear tu propio manual de operaciones. Puedes definir las áreas clave de tu negocio (Marketing, Ventas, Operaciones) y, dentro de cada una, documentar procesos específicos con su objetivo, los pasos a seguir, el responsable y las herramientas necesarias.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">💡 ¿Para qué me sirve?</h2>
+                        <p class="mt-1">Para que tu negocio pueda funcionar sin que tengas que estar en cada detalle. Sirve para entrenar a nuevos empleados de forma rápida y eficiente, para asegurar que la calidad del servicio sea siempre la misma y para liberar tu tiempo para que puedas enfocarte en la estrategia, no en la microgestión.</p>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="lg:col-span-2 tool-container p-6 rounded-lg" data-when="granted">
+                <div class="flex flex-wrap items-center justify-between pb-4 border-b border-gray-700 gap-4">
+                    <h2 class="text-xl font-bold text-white">Construye el Playbook de tu Negocio</h2>
+                     <div class="flex space-x-3">
+                        <button class="action-button" onclick="guardar()">💾 Guardar</button>
+                        <button class="action-button" onclick="descargar()">📄 Descargar</button>
+                        <button class="action-button" onclick="compartir()">🔗 Compartir</button>
+                    </div>
+                </div>
+
+                <div class="mt-6 bg-gray-900/50 p-4 rounded-lg">
+                    <h3 id="form-title" class="font-semibold text-white">1. Añade un Nuevo Proceso</h3>
+                    <div class="mt-4 space-y-4">
+                        <input type="text" id="process-name" class="form-input" placeholder="Nombre del Proceso (Ej: Onboarding de Nuevo Cliente)">
+                        <input type="text" id="process-area" class="form-input" placeholder="Área del Negocio (Ej: Ventas, Marketing, Operaciones)">
+                        <textarea id="process-objective" class="form-textarea" rows="2" placeholder="Objetivo del Proceso (¿Qué se busca lograr?)"></textarea>
+                        <textarea id="process-steps" class="form-textarea" rows="4" placeholder="Pasos a Seguir (Escribe uno por línea)"></textarea>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <input type="text" id="process-owner" class="form-input" placeholder="Responsable(s)">
+                            <input type="text" id="process-tools" class="form-input" placeholder="Herramientas Necesarias">
+                        </div>
+                        <button id="addProcessBtn" class="primary-button w-full">Añadir Proceso al Playbook</button>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                     <h3 class="font-semibold text-white mb-4">2. Tu Playbook</h3>
+                     <div id="playbook-container" class="space-y-6">
+                        <!-- Las secciones y procesos aparecerán aquí -->
+                     </div>
+                </div>
+            </div>
+        </div>
+        <div data-when="denied" class="hidden"></div>
+    </main>
+
+    <script>
+        const processNameInput = document.getElementById('process-name');
+        const processAreaInput = document.getElementById('process-area');
+        const processObjectiveInput = document.getElementById('process-objective');
+        const processStepsInput = document.getElementById('process-steps');
+        const processOwnerInput = document.getElementById('process-owner');
+        const processToolsInput = document.getElementById('process-tools');
+        const addProcessBtn = document.getElementById('addProcessBtn');
+        const playbookContainer = document.getElementById('playbook-container');
+        const formTitle = document.getElementById('form-title');
+
+        let playbook = {};
+        let editingId = null;
+
+        function renderPlaybook() {
+            playbookContainer.innerHTML = '';
+            const areas = Object.keys(playbook).sort();
+            
+            if (areas.length === 0) {
+                playbookContainer.innerHTML = `<p class="text-sm text-gray-500 text-center py-4">Tu playbook está vacío. ¡Documenta tu primer proceso!</p>`;
+                return;
+            }
+
+            areas.forEach(area => {
+                const sectionEl = document.createElement('div');
+                sectionEl.innerHTML = `<h4 class="text-xl font-bold highlight-text border-b-2 border-gray-700 pb-2">${area}</h4>`;
+                
+                const processList = document.createElement('div');
+                processList.className = 'mt-4 space-y-4';
+                
+                playbook[area].forEach(process => {
+                    const stepsHtml = process.steps.split('\n').map(item => `<li>${item}</li>`).join('');
+                    const processCard = document.createElement('div');
+                    processCard.className = 'playbook-section p-4 rounded-lg';
+                    processCard.innerHTML = `
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h5 class="text-lg font-bold text-white">${process.name}</h5>
+                                <p class="text-xs text-gray-400">Objetivo: ${process.objective}</p>
+                            </div>
+                            <div class="flex-shrink-0 flex space-x-2">
+                                <button class="list-action-button text-xs" onclick="editProcess('${area}', ${process.id})">Editar</button>
+                                <button class="list-action-button text-xs !bg-red-800 hover:!bg-red-700" onclick="deleteProcess('${area}', ${process.id})">Borrar</button>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-gray-700 grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+                            <div class="sm:col-span-2">
+                                <p class="font-semibold text-gray-400 text-xs">PASOS A SEGUIR</p>
+                                <ul class="list-decimal list-inside text-slate-300 mt-1">${stepsHtml}</ul>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-400 text-xs">RESPONSABLE(S)</p>
+                                <p class="text-slate-300 mt-1">${process.owner}</p>
+                                <p class="font-semibold text-gray-400 text-xs mt-3">HERRAMIENTAS</p>
+                                <p class="text-slate-300 mt-1">${process.tools}</p>
+                            </div>
+                        </div>
+                    `;
+                    processList.appendChild(processCard);
+                });
+                
+                sectionEl.appendChild(processList);
+                playbookContainer.appendChild(sectionEl);
+            });
+        }
+
+        function resetForm() {
+            processNameInput.value = '';
+            processAreaInput.value = '';
+            processObjectiveInput.value = '';
+            processStepsInput.value = '';
+            processOwnerInput.value = '';
+            processToolsInput.value = '';
+            addProcessBtn.textContent = 'Añadir Proceso al Playbook';
+            formTitle.textContent = '1. Define un Nuevo Proceso';
+            editingId = null;
+        }
+
+        addProcessBtn.addEventListener('click', () => {
+            const process = {
+                id: editingId !== null ? editingId.id : Date.now(),
+                name: processNameInput.value.trim(),
+                area: processAreaInput.value.trim(),
+                objective: processObjectiveInput.value.trim(),
+                steps: processStepsInput.value.trim(),
+                owner: processOwnerInput.value.trim(),
+                tools: processToolsInput.value.trim()
+            };
+            if (!process.name || !process.area || !process.objective || !process.steps) {
+                alert('Por favor, completa al menos Nombre, Área, Objetivo y Pasos.');
+                return;
+            }
+            if (editingId !== null) {
+                // Remove from old area if area name changed
+                if (editingId.area !== process.area) {
+                    playbook[editingId.area] = playbook[editingId.area].filter(p => p.id !== editingId.id);
+                    if (playbook[editingId.area].length === 0) delete playbook[editingId.area];
+                }
+            }
+             // Add to new/current area
+            if (!playbook[process.area]) {
+                playbook[process.area] = [];
+            }
+            const existingIndex = playbook[process.area].findIndex(p => p.id === process.id);
+            if(existingIndex > -1) {
+                playbook[process.area][existingIndex] = process;
+            } else {
+                playbook[process.area].push(process);
+            }
+            
+            resetForm();
+            renderPlaybook();
+        });
+
+        function editProcess(area, id) {
+            const process = playbook[area].find(p => p.id === id);
+            processNameInput.value = process.name;
+            processAreaInput.value = process.area;
+            processObjectiveInput.value = process.objective;
+            processStepsInput.value = process.steps;
+            processOwnerInput.value = process.owner;
+            processToolsInput.value = process.tools;
+            
+            editingId = { id, area };
+            addProcessBtn.textContent = 'Actualizar Proceso';
+            formTitle.textContent = `Editando Proceso: ${process.name}`;
+            processNameInput.focus();
+        }
+
+        function deleteProcess(area, id) {
+            playbook[area] = playbook[area].filter(p => p.id !== id);
+            if (playbook[area].length === 0) {
+                delete playbook[area];
+            }
+            if (editingId && editingId.id === id) resetForm();
+            renderPlaybook();
+        }
+
+        renderPlaybook();
+
+        function guardar() { alert('Funcionalidad "Guardar": ¡Próximamente!'); }
+        function descargar() { alert('Funcionalidad "Descargar": ¡Próximamente!'); }
+        function compartir() { alert('Funcionalidad "Compartir": ¡Próximamente!'); }
+    </script>
+    <script src="../../assets/js/components.js"></script>
+</body>
+</html>

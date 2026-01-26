@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planificador de Contratación | El Camino Dorado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a1f2f;
+            color: #e6f1ff;
+        }
+        .highlight-text { color: #FBBF24; }
+        .tool-container { background-color: #112240; }
+        .doc-container { background-color: #0a1f2f; }
+        .action-button, .list-action-button {
+            background-color: #1E293B;
+            color: #cbd5e1;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 1px solid #334155;
+            cursor: pointer;
+        }
+        .action-button:hover, .list-action-button:hover {
+            background-color: #334155;
+            color: #FBBF24;
+        }
+        .form-input, .form-textarea {
+            background-color: #0a1f2f;
+            border: 1px solid #1e2d4d;
+            color: #cbd5e1;
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .form-input::placeholder, .form-textarea::placeholder { color: #475569; }
+        .form-input:focus, .form-textarea:focus { outline: none; border-color: #FBBF24; }
+        .primary-button {
+            background-color: #FBBF24;
+            color: #0a1f2f;
+            font-weight: 700;
+            padding: 10px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            cursor: pointer;
+        }
+        .role-card {
+            background-color: #0a1f2f;
+            border-left: 4px solid #FBBF24;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="sticky top-0 z-50 bg-[#0a192f]/80 backdrop-blur-lg border-b border-gray-800">
+        <nav class="container mx-auto max-w-7xl px-6 py-3 flex justify-between items-center">
+            <a href="../portal-alumno.html" class="text-lg font-bold highlight-text">← Volver al Centro de Formación</a>
+            <span class="text-sm text-slate-300">Bienvenido, [Nombre Alumno]</span>
+        </nav>
+    </div>
+
+    <main class="container mx-auto max-w-7xl px-6 py-12" data-entitlement="decero.fase4">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <aside class="lg:col-span-1 doc-container p-6 rounded-lg">
+                <h1 class="text-2xl font-black text-white">Planificador de Contratación</h1>
+                <p class="text-sm highlight-text mt-1">Herramienta de la Fase 4: Crecimiento y Escalabilidad</p>
+                
+                <div class="mt-8 space-y-6 text-gray-400 text-sm">
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">🎯 Objetivo</h2>
+                        <p class="mt-1">Planificar estratégicamente el crecimiento de tu equipo, definiendo los roles, responsabilidades, presupuesto y cronograma para cada nueva contratación.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⭐ Importancia</h2>
+                        <p class="mt-1">Contratar a la persona equivocada es uno de los errores más costosos que puede cometer un startup. Un plan de contratación te obliga a pensar con claridad qué necesitas realmente, en lugar de contratar por impulso. Te ayuda a construir el equipo correcto para la etapa en la que te encuentras.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⚙️ ¿Qué es lo que hace?</h2>
+                        <p class="mt-1">Te permite crear una "ficha de puesto" para cada rol que necesitas cubrir. Defines la misión del puesto, sus responsabilidades clave, el presupuesto asignado y la fecha ideal de inicio. La herramienta organiza estas fichas en un plan de contratación claro y gestionable.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">💡 ¿Para qué me sirve?</h2>
+                        <p class="mt-1">Para tomar decisiones de contratación basadas en las necesidades reales del negocio, no en las urgencias del momento. Te sirve para crear descripciones de cargo efectivas, para justificar el presupuesto de nuevas contrataciones ante un directorio o inversores y para construir un equipo de alto rendimiento de forma deliberada.</p>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="lg:col-span-2 tool-container p-6 rounded-lg" data-when="granted">
+                <div class="flex flex-wrap items-center justify-between pb-4 border-b border-gray-700 gap-4">
+                    <h2 class="text-xl font-bold text-white">Planifica el Crecimiento de tu Equipo</h2>
+                     <div class="flex space-x-3">
+                        <button class="action-button" onclick="guardar()">💾 Guardar</button>
+                        <button class="action-button" onclick="descargar()">📄 Descargar</button>
+                        <button class="action-button" onclick="compartir()">🔗 Compartir</button>
+                        <button class="action-button" onclick="clearAll()">🗑️ Limpiar Plan</button>
+                    </div>
+                </div>
+
+                <div class="mt-6 bg-gray-900/50 p-4 rounded-lg">
+                    <h3 id="form-title" class="font-semibold text-white">1. Define un Nuevo Puesto</h3>
+                    <div class="mt-4 space-y-4">
+                        <input type="text" id="role-name" class="form-input" placeholder="Nombre del Puesto (Ej: Community Manager)">
+                        <textarea id="role-mission" class="form-textarea" rows="2" placeholder="Misión del Puesto (¿Cuál es su propósito principal?)"></textarea>
+                        <textarea id="role-responsibilities" class="form-textarea" rows="3" placeholder="Responsabilidades Clave (Escribe una por línea)"></textarea>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <input type="number" id="role-budget" class="form-input" placeholder="Presupuesto Mensual ($)">
+                            <input type="text" id="role-date" class="form-input" placeholder="Fecha de Inicio Deseada" onfocus="(this.type='date')">
+                        </div>
+                        <button id="addRoleBtn" class="primary-button w-full">Añadir al Plan</button>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                     <h3 class="font-semibold text-white mb-4">2. Tu Plan de Contratación</h3>
+                     <div id="role-list" class="space-y-4">
+                        <!-- Los roles añadidos aparecerán aquí -->
+                     </div>
+                </div>
+            </div>
+        </div>
+        <div data-when="denied" class="hidden"></div>
+    </main>
+
+    <script>
+        const roleNameInput = document.getElementById('role-name');
+        const roleMissionInput = document.getElementById('role-mission');
+        const roleResponsibilitiesInput = document.getElementById('role-responsibilities');
+        const roleBudgetInput = document.getElementById('role-budget');
+        const roleDateInput = document.getElementById('role-date');
+        const addRoleBtn = document.getElementById('addRoleBtn');
+        const roleList = document.getElementById('role-list');
+        const formTitle = document.getElementById('form-title');
+
+        let roles = [];
+        let editingIndex = null;
+
+        function renderRoles() {
+            roleList.innerHTML = '';
+            if (roles.length === 0) {
+                roleList.innerHTML = `<p class="text-sm text-gray-500 text-center py-4">Tu plan de contratación está vacío.</p>`;
+                return;
+            }
+            roles.forEach((role, index) => {
+                const responsibilitiesHtml = role.responsibilities.split('\n').map(item => `<li>${item}</li>`).join('');
+                const roleCard = document.createElement('div');
+                roleCard.className = 'role-card p-4 rounded-lg';
+                roleCard.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h4 class="text-lg font-bold text-white">${role.name}</h4>
+                            <p class="text-xs text-gray-400">Misión: ${role.mission}</p>
+                        </div>
+                        <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 flex-shrink-0">
+                            <button class="list-action-button text-xs" onclick="editRole(${index})">Editar</button>
+                            <button class="list-action-button text-xs !bg-red-800 hover:!bg-red-700" onclick="deleteRole(${index})">Borrar</button>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-700 grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+                        <div>
+                            <p class="font-semibold text-gray-400 text-xs">RESPONSABILIDADES</p>
+                            <ul class="list-disc list-inside text-slate-300 mt-1">${responsibilitiesHtml}</ul>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-gray-400 text-xs">PRESUPUESTO MENSUAL</p>
+                            <p class="text-slate-300 mt-1">$${parseInt(role.budget).toLocaleString('es-ES')}</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-gray-400 text-xs">FECHA DE INICIO</p>
+                            <p class="text-slate-300 mt-1">${role.date}</p>
+                        </div>
+                    </div>
+                `;
+                roleList.appendChild(roleCard);
+            });
+        }
+
+        function resetForm() {
+            roleNameInput.value = '';
+            roleMissionInput.value = '';
+            roleResponsibilitiesInput.value = '';
+            roleBudgetInput.value = '';
+            roleDateInput.value = '';
+            roleDateInput.type = 'text';
+            addRoleBtn.textContent = 'Añadir al Plan';
+            formTitle.textContent = '1. Define un Nuevo Puesto';
+            editingIndex = null;
+        }
+
+        addRoleBtn.addEventListener('click', () => {
+            const role = {
+                name: roleNameInput.value.trim(),
+                mission: roleMissionInput.value.trim(),
+                responsibilities: roleResponsibilitiesInput.value.trim(),
+                budget: roleBudgetInput.value.trim(),
+                date: roleDateInput.value.trim(),
+            };
+            if (!role.name || !role.mission || !role.responsibilities || !role.budget || !role.date) {
+                alert('Por favor, completa todos los campos del puesto.');
+                return;
+            }
+            if (editingIndex !== null) {
+                roles[editingIndex] = role;
+            } else {
+                roles.push(role);
+            }
+            resetForm();
+            renderRoles();
+        });
+
+        function editRole(index) {
+            const role = roles[index];
+            roleNameInput.value = role.name;
+            roleMissionInput.value = role.mission;
+            roleResponsibilitiesInput.value = role.responsibilities;
+            roleBudgetInput.value = role.budget;
+            roleDateInput.type = 'date';
+            roleDateInput.value = role.date;
+            editingIndex = index;
+            addRoleBtn.textContent = 'Actualizar Puesto';
+            formTitle.textContent = `Editando Puesto: ${role.name}`;
+            roleNameInput.focus();
+        }
+
+        function deleteRole(index) {
+            if (editingIndex === index) resetForm();
+            roles.splice(index, 1);
+            renderRoles();
+        }
+
+        function clearAll() {
+            if (confirm('¿Estás seguro de que quieres borrar todo el plan de contratación?')) {
+                roles = [];
+                resetForm();
+                renderRoles();
+            }
+        }
+
+        renderRoles();
+
+        function guardar() { alert('Funcionalidad "Guardar": ¡Próximamente!'); }
+        function descargar() { alert('Funcionalidad "Descargar": ¡Próximamente!'); }
+        function compartir() { alert('Funcionalidad "Compartir": ¡Próximamente!'); }
+    </script>
+    <script src="../../assets/js/components.js"></script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Modelo de Negocio | El Camino Dorado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a1f2f;
+            color: #e6f1ff;
+        }
+        .highlight-text { color: #FBBF24; }
+        .tool-container { background-color: #112240; }
+        .doc-container { background-color: #0a1f2f; }
+        .action-button {
+            background-color: #1E293B;
+            color: #cbd5e1;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 1px solid #334155;
+        }
+        .action-button:hover {
+            background-color: #334155;
+            color: #FBBF24;
+        }
+        .canvas-block {
+            background-color: #0a1f2f;
+            border-radius: 4px;
+            padding: 10px;
+            border: 1px solid #1e2d4d;
+        }
+        .canvas-block textarea {
+            width: 100%;
+            background-color: transparent;
+            border: none;
+            color: #cbd5e1;
+            resize: none;
+            height: 120px;
+            font-size: 0.8rem;
+        }
+        .canvas-block textarea::placeholder {
+            color: #475569;
+            font-style: italic;
+        }
+        .canvas-block textarea:focus {
+            outline: none;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Barra superior del portal (contenedor local, no header global) -->
+    <div class="sticky top-0 z-50 bg-[#0a192f]/80 backdrop-blur-lg border-b border-gray-800">
+        <nav class="container mx-auto max-w-7xl px-6 py-3 flex justify-between items-center">
+            <a href="../portal-alumno.html" class="text-lg font-bold highlight-text">← Volver al Centro de Formación</a>
+            <span class="text-sm text-slate-300">Bienvenido, [Nombre Alumno]</span>
+        </nav>
+    </div>
+
+    <main class="container mx-auto max-w-7xl px-6 py-12" data-entitlement="decero.fase1">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <!-- Columna Izquierda: Documento Pedagógico -->
+            <aside class="lg:col-span-1 doc-container p-6 rounded-lg">
+                <h1 class="text-2xl font-black text-white">Generador de Modelo de Negocio</h1>
+                <p class="text-sm highlight-text mt-1">Herramienta de la Fase 1: Ideación y Validación</p>
+                
+                <div class="mt-8 space-y-6 text-gray-400 text-sm">
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">🎯 Objetivo</h2>
+                        <p class="mt-1">Estructurar tu idea de negocio en un formato visual y estandarizado, identificando los 9 componentes clave que definen cómo crearás, entregarás y capturarás valor.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⭐ Importancia</h2>
+                        <p class="mt-1">Esta es la piedra angular de tu estrategia. Un Modelo de Negocio claro te obliga a pensar en todos los aspectos críticos de tu empresa antes de escribir una sola línea de código o invertir grandes sumas de dinero. Es tu mapa para la toma de decisiones.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⚙️ ¿Qué es lo que hace?</h2>
+                        <p class="mt-1">Te permite rellenar de forma interactiva cada uno de los 9 bloques del Business Model Canvas. La herramienta organiza tus ideas en un lienzo coherente que muestra las interconexiones entre tus clientes, tu oferta, tu infraestructura y tu viabilidad financiera.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">💡 ¿Para qué me sirve?</h2>
+                        <p class="mt-1">Te sirve para validar tu idea rápidamente, identificar tus hipótesis más arriesgadas, comunicar tu visión a socios o inversores y tener una referencia constante a la que volver a medida que tu negocio evoluciona.</p>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Columna Derecha: Herramienta Interactiva -->
+            <div class="lg:col-span-2 tool-container p-6 rounded-lg" data-when="granted">
+                <!-- Barra de Acciones -->
+                <div class="flex items-center justify-between pb-4 border-b border-gray-700">
+                    <h2 class="text-xl font-bold text-white">Tu Business Model Canvas</h2>
+                    <div class="flex space-x-3">
+                        <button class="action-button" onclick="guardar()">💾 Guardar</button>
+                        <button class="action-button" onclick="descargar()">📄 Descargar</button>
+                        <button class="action-button" onclick="compartir()">🔗 Compartir</button>
+                    </div>
+                </div>
+
+                <!-- Business Model Canvas (La Herramienta) -->
+                <div class="mt-6 grid grid-cols-5 gap-2">
+                    <!-- Fila 1 -->
+                    <div class="canvas-block col-span-1"><h3 class="font-bold text-xs highlight-text">🤝 Socios Clave: ¿Quiénes te ayudarán?</h3><textarea placeholder="Alianzas estratégicas, proveedores, socios de distribución..."></textarea></div>
+                    <div class="canvas-block col-span-1"><h3 class="font-bold text-xs highlight-text">🚀 Actividades Clave: ¿Qué harás?</h3><textarea placeholder="Desarrollo de software, marketing, producción, logística..."></textarea></div>
+                    <div class="canvas-block col-span-1 row-span-2"><h3 class="font-bold text-xs highlight-text">🎁 Propuesta de Valor: ¿Qué ofreces?</h3><textarea style="height:260px" placeholder="¿Qué problema solucionas? ¿Qué necesidad cubres? ¿Qué te hace único y deseable?"></textarea></div>
+                    <div class="canvas-block col-span-1"><h3 class="font-bold text-xs highlight-text">❤️ Relación: ¿Cómo interactuarás?</h3><textarea placeholder="Asistencia personal, autoservicio, comunidades online, co-creación..."></textarea></div>
+                    <div class="canvas-block col-span-1 row-span-2"><h3 class="font-bold text-xs highlight-text">🎯 Clientes: ¿Para quién es?</h3><textarea style="height:260px" placeholder="¿Quién es tu cliente ideal? ¿Mercado masivo, nicho de mercado, plataforma multilateral?"></textarea></div>
+                    
+                    <!-- Fila 2 -->
+                    <div class="canvas-block col-span-1"><h3 class="font-bold text-xs highlight-text">💡 Recursos Clave: ¿Qué necesitas?</h3><textarea placeholder="Físicos (oficina), intelectuales (patentes), humanos (equipo), financieros..."></textarea></div>
+                    <div class="canvas-block col-span-1"><h3 class="font-bold text-xs highlight-text">📢 Canales: ¿Cómo llegarás a ellos?</h3><textarea placeholder="Web, equipo de ventas, tiendas, redes sociales, distribuidores..."></textarea></div>
+
+                    <!-- Fila 3 -->
+                    <div class="canvas-block col-span-2"><h3 class="font-bold text-xs highlight-text">💳 Costes: ¿En qué gastarás?</h3><textarea placeholder="Costos fijos (sueldos, alquiler), costos variables (materia prima), economías de escala..."></textarea></div>
+                    <div class="canvas-block col-span-3"><h3 class="font-bold text-xs highlight-text">💰 Ingresos: ¿Cómo ganarás dinero?</h3><textarea placeholder="Venta de productos, suscripción, licencias, publicidad, comisiones..."></textarea></div>
+                </div>
+            </div>
+        </div>
+        <!-- Bloque denied autogenerado si no tiene acceso (se deja vacío a propósito) -->
+        <div data-when="denied" class="hidden"></div>
+    </main>
+
+    <script>
+        function guardar() {
+            // Lógica para guardar los datos.
+            // Esto requerirá una base de datos (como Firebase Firestore) para ser funcional.
+            // Por ahora, mostraremos un mensaje.
+            alert('Funcionalidad "Guardar": ¡Próximamente! Esto guardará tu progreso en tu cuenta.');
+        }
+
+        function descargar() {
+            // Lógica para descargar el canvas.
+            // Podríamos usar una librería como html2canvas para tomar una "foto" del canvas.
+            alert('Funcionalidad "Descargar": ¡Próximamente! Esto generará una imagen (PNG) de tu modelo de negocio.');
+        }
+
+        function compartir() {
+            // Lógica para compartir.
+            // Se puede usar la API de Share si el navegador lo soporta, o copiar un enlace único.
+            alert('Funcionalidad "Compartir": ¡Próximamente! Esto generará un enlace único para ver tu canvas.');
+        }
+    </script>
+    <script src="../../assets/js/components.js"></script>
+</body>
+</html>
+

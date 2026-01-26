@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Constructor de Pitch Deck | El Camino Dorado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a1f2f;
+            color: #e6f1ff;
+        }
+        .highlight-text { color: #FBBF24; }
+        .tool-container { background-color: #112240; }
+        .doc-container { background-color: #0a1f2f; }
+        .action-button {
+            background-color: #1E293B;
+            color: #cbd5e1;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 1px solid #334155;
+            cursor: pointer;
+        }
+        .action-button:hover {
+            background-color: #334155;
+            color: #FBBF24;
+        }
+        .form-input, .form-textarea {
+            background-color: #0a1f2f;
+            border: 1px solid #1e2d4d;
+            color: #cbd5e1;
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .form-input::placeholder, .form-textarea::placeholder { color: #475569; }
+        .form-input:focus, .form-textarea:focus { outline: none; border-color: #FBBF24; }
+        .slide-section {
+            background-color: #0a1f2f;
+            border: 1px solid #1e2d4d;
+            border-left: 4px solid #FBBF24;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="sticky top-0 z-50 bg-[#0a192f]/80 backdrop-blur-lg border-b border-gray-800">
+        <nav class="container mx-auto max-w-7xl px-6 py-3 flex justify-between items-center">
+            <a href="../portal-alumno.html" class="text-lg font-bold highlight-text">← Volver al Centro de Formación</a>
+            <span class="text-sm text-slate-300">Bienvenido, [Nombre Alumno]</span>
+        </nav>
+    </div>
+
+    <main class="container mx-auto max-w-7xl px-6 py-12" data-entitlement="decero.fase4">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <aside class="lg:col-span-1 doc-container p-6 rounded-lg">
+                <h1 class="text-2xl font-black text-white">Constructor de Pitch Deck</h1>
+                <p class="text-sm highlight-text mt-1">Herramienta de la Fase 4: Crecimiento y Escalabilidad</p>
+                
+                <div class="mt-8 space-y-6 text-gray-400 text-sm">
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">🎯 Objetivo</h2>
+                        <p class="mt-1">Estructurar una presentación de 10 diapositivas clara, concisa y convincente para presentar tu negocio a potenciales inversores.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⭐ Importancia</h2>
+                        <p class="mt-1">Un Pitch Deck es a menudo la primera (y a veces la única) oportunidad que tienes para captar el interés de un inversor. No es solo una presentación; es la historia de tu negocio condensada en su forma más potente. Una buena estructura puede marcar la diferencia entre conseguir una reunión o ser descartado.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⚙️ ¿Qué es lo que hace?</h2>
+                        <p class="mt-1">Te guía a través de la estructura clásica de un Pitch Deck de 10 diapositivas. Para cada sección, te proporciona un campo para que desarrolles el contenido clave, asegurando que cubras todos los puntos que un inversor espera ver, desde el problema hasta la petición de financiamiento.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">💡 ¿Para qué me sirve?</h2>
+                        <p class="mt-1">Para organizar tus ideas de forma lógica y persuasiva. Te sirve como guion para crear tu presentación visual (en PowerPoint, Keynote, etc.) y como un documento maestro para asegurar que tu historia sea coherente, potente y, sobre todo, invertible.</p>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="lg:col-span-2 tool-container p-6 rounded-lg" data-when="granted">
+                <div class="flex flex-wrap items-center justify-between pb-4 border-b border-gray-700 gap-4">
+                    <h2 class="text-xl font-bold text-white">Construye tu Pitch Deck</h2>
+                     <div class="flex space-x-3">
+                        <button class="action-button" onclick="guardar()">💾 Guardar</button>
+                        <button class="action-button" onclick="descargar()">📄 Descargar</button>
+                        <button class="action-button" onclick="compartir()">🔗 Compartir</button>
+                        <button class="action-button" onclick="clearAll()">🗑️ Limpiar</button>
+                    </div>
+                </div>
+
+                <div class="mt-6 space-y-6">
+                    <div class="slide-section p-4 rounded-lg">
+                        <label for="slide-intro" class="text-base font-semibold text-slate-300">1. Introducción / Portada</label>
+                        <p class="text-xs text-gray-400 mt-1 mb-2">Nombre de la empresa, logo y tu "tagline" (una frase que resuma lo que haces).</p>
+                        <textarea id="slide-intro" class="form-textarea" rows="2" placeholder="Ej: DE CERO A CIEN. El ecosistema para emprendedores que transforman ideas en negocios."></textarea>
+                    </div>
+                    <div class="slide-section p-4 rounded-lg">
+                        <label for="slide-problem" class="text-base font-semibold text-slate-300">2. El Problema</label>
+                        <p class="text-xs text-gray-400 mt-1 mb-2">Describe el problema que resuelves de forma clara y relatable. ¿Por qué es importante?</p>
+                        <textarea id="slide-problem" class="form-textarea" rows="3" placeholder="Ej: El 90% de los startups fracasan, no por malas ideas, sino por falta de un método de ejecución claro..."></textarea>
+                    </div>
+                    <div class="slide-section p-4 rounded-lg">
+                        <label for="slide-solution" class="text-base font-semibold text-slate-300">3. La Solución</label>
+                        <p class="text-xs text-gray-400 mt-1 mb-2">Presenta tu producto o servicio como la solución a ese problema. Sé directo.</p>
+                        <textarea id="slide-solution" class="form-textarea" rows="3" placeholder="Ej: Hemos creado un ecosistema que une formación práctica (Academia) con herramientas de IA (El Camino Dorado) y una comunidad (CONECTA)..."></textarea>
+                    </div>
+                     <div class="slide-section p-4 rounded-lg">
+                        <label for="slide-market" class="text-base font-semibold text-slate-300">4. Tamaño del Mercado</label>
+                        <p class="text-xs text-gray-400 mt-1 mb-2">Usa los datos de tu herramienta de TAM/SAM/SOM. ¿Qué tan grande es la oportunidad?</p>
+                        <textarea id="slide-market" class="form-textarea" rows="2" placeholder="Ej: El mercado global de EdTech para emprendedores se estima en $10B (TAM), con un mercado alcanzable (SAM) de $1B en Latinoamérica..."></textarea>
+                    </div>
+                     <div class="slide-section p-4 rounded-lg">
+                        <label for="slide-product" class="text-base font-semibold text-slate-300">5. Producto / Demo</label>
+                        <p class="text-xs text-gray-400 mt-1 mb-2">Muestra cómo funciona tu producto. Describe 2-3 características clave.</p>
+                        <textarea id="slide-product" class="form-textarea" rows="3" placeholder="Ej: Nuestra plataforma guía al usuario a través de 5 fases, con 31 herramientas interactivas como el 'Generador de Buyer Persona' y la 'Calculadora de Viabilidad'..."></textarea>
+                    </div>
+                     <div class="slide-section p-4 rounded-lg">
+                        <label for="slide-business-model" class="text-base font-semibold text-slate-300">6. Modelo de Negocio</label>
+                        <p class="text-xs text-gray-400 mt-1 mb-2">¿Cómo ganas dinero? Sé claro y específico.</p>
+                        <textarea id="slide-business-model" class="form-textarea" rows="2" placeholder="Ej: Modelo de suscripción SaaS con tres tiers. Bootcamps y cursos individuales. Sesiones de consultoría premium."></textarea>
+                    </div>
+                     <div class="slide-section p-4 rounded-lg">
+                        <label for="slide-team" class="text-base font-semibold text-slate-300">7. Equipo</label>
+                        <p class="text-xs text-gray-400 mt-1 mb-2">¿Quiénes están detrás del proyecto? Destaca la experiencia relevante.</p>
+                        <textarea id="slide-team" class="form-textarea" rows="3" placeholder="Ej: Cristian Jofré (CEO), experto en estrategia. Claudia Guerra (CRO), Máster en IA. Ignacio Jofré (CTO), Desarrollador Senior..."></textarea>
+                    </div>
+                     <div class="slide-section p-4 rounded-lg">
+                        <label for="slide-traction" class="text-base font-semibold text-slate-300">8. Tracción</label>
+                        <p class="text-xs text-gray-400 mt-1 mb-2">¿Qué has logrado hasta ahora? (Usuarios, ventas, alianzas, etc.)</p>
+                        <textarea id="slide-traction" class="form-textarea" rows="2" placeholder="Ej: +200 usuarios en lista de espera. Primera cohorte del bootcamp llena. Alianza estratégica con [Nombre de Partner]."></textarea>
+                    </div>
+                     <div class="slide-section p-4 rounded-lg">
+                        <label for="slide-ask" class="text-base font-semibold text-slate-300">9. La Petición (The Ask)</label>
+                        <p class="text-xs text-gray-400 mt-1 mb-2">¿Cuánto dinero estás buscando y para qué lo usarás?</p>
+                        <textarea id="slide-ask" class="form-textarea" rows="2" placeholder="Ej: Estamos levantando $250,000 USD para desarrollo de producto (50%), marketing (30%) y contrataciones clave (20%)."></textarea>
+                    </div>
+                     <div class="slide-section p-4 rounded-lg">
+                        <label for="slide-contact" class="text-base font-semibold text-slate-300">10. Contacto</label>
+                        <p class="text-xs text-gray-400 mt-1 mb-2">Deja claro cómo pueden contactarte.</p>
+                        <input id="slide-contact" type="text" class="form-input" placeholder="Ej: Cristian Jofré | CEO | hola@deceroacien.app | www.deceroacien.app">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-when="denied" class="hidden"></div>
+    </main>
+
+    <script>
+        const formIds = ['slide-intro', 'slide-problem', 'slide-solution', 'slide-market', 'slide-product', 'slide-business-model', 'slide-team', 'slide-traction', 'slide-ask', 'slide-contact'];
+        
+        function clearAll() {
+            if (confirm('¿Estás seguro de que quieres limpiar todo el contenido del Pitch Deck?')) {
+                formIds.forEach(id => {
+                    document.getElementById(id).value = '';
+                });
+            }
+        }
+        function guardar() { alert('Funcionalidad "Guardar": ¡Próximamente!'); }
+        function descargar() { alert('Funcionalidad "Descargar": ¡Próximamente!'); }
+        function compartir() { alert('Funcionalidad "Compartir": ¡Próximamente!'); }
+    </script>
+    <script src="../../assets/js/components.js"></script>
+</body>
+</html>

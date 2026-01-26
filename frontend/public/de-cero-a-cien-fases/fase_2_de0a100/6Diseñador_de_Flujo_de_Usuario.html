@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diseñador de Flujo de Usuario | El Camino Dorado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a1f2f;
+            color: #e6f1ff;
+        }
+        .highlight-text { color: #FBBF24; }
+        .tool-container { background-color: #112240; }
+        .doc-container { background-color: #0a1f2f; }
+        .action-button, .list-action-button {
+            background-color: #1E293B;
+            color: #cbd5e1;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 1px solid #334155;
+            cursor: pointer;
+        }
+        .action-button:hover, .list-action-button:hover {
+            background-color: #334155;
+            color: #FBBF24;
+        }
+        .form-input, .form-select {
+            background-color: #0a1f2f;
+            border: 1px solid #1e2d4d;
+            color: #cbd5e1;
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .form-input::placeholder { color: #475569; }
+        .form-input:focus, .form-select:focus { outline: none; border-color: #FBBF24; }
+        .primary-button {
+            background-color: #FBBF24;
+            color: #0a1f2f;
+            font-weight: 700;
+            padding: 10px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            cursor: pointer;
+        }
+        .flow-step {
+            background-color: #0a1f2f;
+            border: 1px solid #1e2d4d;
+            position: relative;
+        }
+        .flow-connector {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 25px;
+            background-color: #334155;
+        }
+         .flow-connector::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid #334155;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="sticky top-0 z-50 bg-[#0a192f]/80 backdrop-blur-lg border-b border-gray-800">
+        <nav class="container mx-auto max-w-7xl px-6 py-3 flex justify-between items-center">
+            <a href="../portal-alumno.html" class="text-lg font-bold highlight-text">← Volver al Centro de Formación</a>
+            <span class="text-sm text-slate-300">Bienvenido, [Nombre Alumno]</span>
+        </nav>
+    </div>
+
+    <main class="container mx-auto max-w-7xl px-6 py-12" data-entitlement="decero.fase2">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <aside class="lg:col-span-1 doc-container p-6 rounded-lg">
+                <h1 class="text-2xl font-black text-white">Diseñador de Flujo de Usuario</h1>
+                <p class="text-sm highlight-text mt-1">Herramienta de la Fase 2: Construcción del PMV</p>
+                
+                <div class="mt-8 space-y-6 text-gray-400 text-sm">
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">🎯 Objetivo</h2>
+                        <p class="mt-1">Mapear visualmente el camino paso a paso que un usuario sigue dentro de tu producto para alcanzar un objetivo específico, desde el primer contacto hasta el resultado final.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⭐ Importancia</h2>
+                        <p class="mt-1">Un producto puede tener grandes funcionalidades, pero si el camino para usarlas es confuso, los usuarios se frustrarán y se irán. Diseñar el flujo de usuario te obliga a pensar en la experiencia completa, eliminando pasos innecesarios y creando un recorrido intuitivo y agradable.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⚙️ ¿Qué es lo que hace?</h2>
+                        <p class="mt-1">Te permite construir un diagrama de flujo simple pero potente. Añades cada paso, decisión o resultado como un bloque y la herramienta los conecta visualmente, creando un mapa claro del viaje de tu usuario para lograr una tarea clave (ej: "completar el registro", "realizar una compra").</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">💡 ¿Para qué me sirve?</h2>
+                        <p class="mt-1">Para diseñar una experiencia de usuario (UX) excepcional. Te sirve para identificar puntos de fricción, para comunicar a tu equipo de diseño y desarrollo cómo debe funcionar el producto, y para asegurarte de que cada pantalla y cada botón tengan un propósito claro en el viaje del cliente.</p>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="lg:col-span-2 tool-container p-6 rounded-lg" data-when="granted">
+                <div class="flex flex-wrap items-center justify-between pb-4 border-b border-gray-700 gap-4">
+                    <h2 class="text-xl font-bold text-white">Diseña el Viaje de tu Usuario</h2>
+                     <div class="flex space-x-3">
+                        <button class="action-button" onclick="guardar()">💾 Guardar</button>
+                        <button class="action-button" onclick="descargar()">📄 Descargar</button>
+                        <button class="action-button" onclick="compartir()">🔗 Compartir</button>
+                        <button class="action-button" onclick="clearAll()">🗑️ Limpiar Flujo</button>
+                    </div>
+                </div>
+
+                <div class="mt-6 bg-gray-900/50 p-4 rounded-lg">
+                    <h3 id="form-title" class="font-semibold text-white">1. Añade un Paso al Flujo</h3>
+                    <div class="mt-2 flex flex-wrap sm:flex-nowrap gap-4">
+                        <input type="text" id="step-input" class="form-input flex-grow" placeholder="Ej: El usuario hace clic en 'Registrarse'">
+                        <select id="step-type" class="form-select w-full sm:w-auto">
+                            <option value="action">Acción del Usuario</option>
+                            <option value="decision">Decisión (¿Sí/No?)</option>
+                            <option value="result">Resultado / Pantalla</option>
+                        </select>
+                        <button id="add-step-btn" class="primary-button w-full sm:w-auto">Añadir</button>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                     <h3 class="font-semibold text-white mb-4">2. Flujo de Usuario</h3>
+                     <div id="flow-container" class="space-y-8">
+                        <!-- Los pasos del flujo aparecerán aquí -->
+                     </div>
+                </div>
+            </div>
+        </div>
+        <div data-when="denied" class="hidden"></div>
+    </main>
+
+    <script>
+        const stepInput = document.getElementById('step-input');
+        const stepType = document.getElementById('step-type');
+        const addStepBtn = document.getElementById('add-step-btn');
+        const flowContainer = document.getElementById('flow-container');
+        const formTitle = document.getElementById('form-title');
+
+        let steps = [];
+        let nextId = 0;
+        let editingId = null;
+
+        const typeStyles = {
+            action: { icon: '⌨️', color: 'border-blue-500' },
+            decision: { icon: '🤔', color: 'border-yellow-500' },
+            result: { icon: '🖥️', color: 'border-green-500' }
+        };
+
+        function renderFlow() {
+            flowContainer.innerHTML = '';
+            if (steps.length === 0) {
+                flowContainer.innerHTML = `<p class="text-sm text-gray-500 text-center py-4">Tu flujo está vacío. ¡Añade el primer paso!</p>`;
+                return;
+            }
+            steps.forEach((step, index) => {
+                const style = typeStyles[step.type];
+                const stepEl = document.createElement('div');
+                stepEl.id = `step-${step.id}`;
+                stepEl.className = `flow-step p-4 rounded-lg flex justify-between items-center gap-4 ${style.color}`;
+                stepEl.innerHTML = `
+                    <div class="flex items-center">
+                        <span class="text-2xl mr-4">${style.icon}</span>
+                        <p class="text-sm">${step.text}</p>
+                    </div>
+                    <div class="flex-shrink-0 flex gap-2">
+                        <button class="list-action-button !p-1 text-xs" onclick="editStep(${step.id})">Editar</button>
+                        <button class="list-action-button !p-1 text-xs !bg-red-800 hover:!bg-red-700" onclick="deleteStep(${step.id})">Borrar</button>
+                    </div>
+                `;
+
+                if (index < steps.length - 1) {
+                    const connector = document.createElement('div');
+                    connector.className = 'flow-connector';
+                    stepEl.appendChild(connector);
+                }
+                
+                flowContainer.appendChild(stepEl);
+            });
+        }
+
+        function resetForm() {
+            stepInput.value = '';
+            stepType.value = 'action';
+            addStepBtn.textContent = 'Añadir';
+            formTitle.textContent = '1. Añade un Paso al Flujo';
+            editingId = null;
+        }
+
+        addStepBtn.addEventListener('click', () => {
+            const text = stepInput.value.trim();
+            if (!text) return;
+            const type = stepType.value;
+
+            if (editingId !== null) {
+                const step = steps.find(s => s.id === editingId);
+                step.text = text;
+                step.type = type;
+            } else {
+                steps.push({ id: nextId++, text, type });
+            }
+            
+            resetForm();
+            renderFlow();
+        });
+
+        function editStep(id) {
+            const step = steps.find(s => s.id === id);
+            stepInput.value = step.text;
+            stepType.value = step.type;
+            editingId = id;
+            formTitle.textContent = 'Editando Paso';
+            addStepBtn.textContent = 'Actualizar';
+            stepInput.focus();
+        }
+
+        function deleteStep(id) {
+            steps = steps.filter(s => s.id !== id);
+            if (editingId === id) {
+                 resetForm();
+            }
+            renderFlow();
+        }
+
+        function clearAll() {
+            if (confirm('¿Estás seguro de que quieres borrar todos los pasos del flujo?')) {
+                steps = [];
+                resetForm();
+                renderFlow();
+            }
+        }
+
+        renderFlow();
+
+        function guardar() { alert('Funcionalidad "Guardar": ¡Próximamente!'); }
+        function descargar() { alert('Funcionalidad "Descargar": ¡Próximamente!'); }
+        function compartir() { alert('Funcionalidad "Compartir": ¡Próximamente!'); }
+    </script>
+    <script src="../../assets/js/components.js"></script>
+</body>
+</html>

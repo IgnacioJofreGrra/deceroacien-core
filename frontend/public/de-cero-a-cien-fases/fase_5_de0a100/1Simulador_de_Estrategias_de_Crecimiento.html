@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Estrategias de Crecimiento | El Camino Dorado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a1f2f;
+            color: #e6f1ff;
+        }
+        .highlight-text { color: #FBBF24; }
+        .tool-container { background-color: #112240; }
+        .doc-container { background-color: #0a1f2f; }
+        .action-button, .list-action-button {
+            background-color: #1E293B;
+            color: #cbd5e1;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 1px solid #334155;
+            cursor: pointer;
+        }
+        .action-button:hover, .list-action-button:hover {
+            background-color: #334155;
+            color: #FBBF24;
+        }
+        .form-input, .form-textarea, .form-select {
+            background-color: #0a1f2f;
+            border: 1px solid #1e2d4d;
+            color: #cbd5e1;
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .form-input::placeholder, .form-textarea::placeholder { color: #475569; }
+        .form-input:focus, .form-textarea:focus, .form-select:focus { outline: none; border-color: #FBBF24; }
+        .primary-button {
+            background-color: #FBBF24;
+            color: #0a1f2f;
+            font-weight: 700;
+            padding: 10px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            cursor: pointer;
+        }
+        .strategy-card {
+            background-color: #0a1f2f;
+            border-left: 4px solid;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="sticky top-0 z-50 bg-[#0a192f]/80 backdrop-blur-lg border-b border-gray-800">
+        <nav class="container mx-auto max-w-7xl px-6 py-3 flex justify-between items-center">
+            <a href="../portal-alumno.html" class="text-lg font-bold highlight-text">← Volver al Centro de Formación</a>
+            <span class="text-sm text-slate-300">Bienvenido, [Nombre Alumno]</span>
+        </nav>
+    </div>
+
+    <main class="container mx-auto max-w-7xl px-6 py-12" data-entitlement="decero.fase5">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <aside class="lg:col-span-1 doc-container p-6 rounded-lg">
+                <h1 class="text-2xl font-black text-white">Simulador de Estrategias de Crecimiento</h1>
+                <p class="text-sm highlight-text mt-1">Herramienta de la Fase 5: Consolidación y Madurez</p>
+                
+                <div class="mt-8 space-y-6 text-gray-400 text-sm">
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">🎯 Objetivo</h2>
+                        <p class="mt-1">Evaluar y comparar diferentes iniciativas estratégicas de crecimiento para decidir dónde invertir tus recursos (tiempo y dinero) para obtener el máximo impacto.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⭐ Importancia</h2>
+                        <p class="mt-1">Cuando un negocio madura, el crecimiento deja de ser solo "hacer más de lo mismo". Requiere apuestas estratégicas. Este simulador te ayuda a pasar de la intuición a la evaluación calculada, comparando el potencial de diferentes caminos (ej: expandirse a un nuevo país vs. lanzar un nuevo producto) de forma objetiva.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⚙️ ¿Qué es lo que hace?</h2>
+                        <p class="mt-1">Te permite definir varias estrategias de crecimiento. Para cada una, introduces variables clave como la inversión necesaria, el potencial de ingresos y el nivel de confianza. La herramienta calcula un "Puntaje de Prioridad" para cada estrategia, ayudándote a visualizar cuál ofrece el mejor balance entre impacto, coste y riesgo.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">💡 ¿Para qué me sirve?</h2>
+                        <p class="mt-1">Para tomar decisiones de alto nivel con mayor seguridad. Te sirve para justificar inversiones ante un directorio, para alinear a tu equipo en torno a las próximas grandes metas y para asegurar que tus recursos limitados se destinan a las oportunidades con mayor potencial de transformar tu negocio.</p>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="lg:col-span-2 tool-container p-6 rounded-lg" data-when="granted">
+                <div class="flex flex-wrap items-center justify-between pb-4 border-b border-gray-700 gap-4">
+                    <h2 class="text-xl font-bold text-white">Simula tus Próximas Grandes Apuestas</h2>
+                     <div class="flex space-x-3">
+                        <button class="action-button" onclick="guardar()">💾 Guardar</button>
+                        <button class="action-button" onclick="descargar()">📄 Descargar</button>
+                        <button class="action-button" onclick="compartir()">🔗 Compartir</button>
+                        <button class="action-button" onclick="clearAll()">🗑️ Limpiar</button>
+                    </div>
+                </div>
+
+                <div class="mt-6 bg-gray-900/50 p-4 rounded-lg">
+                    <h3 id="form-title" class="font-semibold text-white">1. Añade una Estrategia de Crecimiento</h3>
+                    <div class="mt-4 space-y-4">
+                        <input type="text" id="strat-name" class="form-input" placeholder="Nombre de la Estrategia (Ej: Lanzar en México)">
+                        <textarea id="strat-desc" class="form-textarea" rows="2" placeholder="Breve descripción de la iniciativa"></textarea>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <input type="number" id="strat-impact" class="form-input" placeholder="Impacto Potencial en Ingresos ($/año)">
+                            <input type="number" id="strat-cost" class="form-input" placeholder="Coste de Implementación ($)">
+                            <input type="number" id="strat-time" class="form-input" placeholder="Tiempo de Implementación (Meses)">
+                            <select id="strat-confidence" class="form-select">
+                                <option value="3">Confianza Baja</option>
+                                <option value="2">Confianza Media</option>
+                                <option value="1">Confianza Alta</option>
+                            </select>
+                        </div>
+                        <button id="addStratBtn" class="primary-button w-full">Añadir Estrategia</button>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                     <h3 class="font-semibold text-white mb-4">2. Comparativa de Estrategias</h3>
+                     <p class="text-xs text-gray-400 mb-4">Las estrategias se ordenan por "Puntaje de Prioridad" (mayor es mejor), que considera el impacto en relación al coste, tiempo y confianza.</p>
+                     <div id="strategy-list" class="space-y-4">
+                        <!-- Las estrategias añadidas aparecerán aquí -->
+                     </div>
+                </div>
+            </div>
+        </div>
+        <div data-when="denied" class="hidden"></div>
+    </main>
+
+    <script>
+        const nameInput = document.getElementById('strat-name');
+        const descInput = document.getElementById('strat-desc');
+        const impactInput = document.getElementById('strat-impact');
+        const costInput = document.getElementById('strat-cost');
+        const timeInput = document.getElementById('strat-time');
+        const confidenceInput = document.getElementById('strat-confidence');
+        const addStratBtn = document.getElementById('addStratBtn');
+        const strategyList = document.getElementById('strategy-list');
+        const formTitle = document.getElementById('form-title');
+
+        let strategies = [];
+        let editingId = null;
+
+        function calculateScore(strategy) {
+            const impact = strategy.impact || 0;
+            const cost = strategy.cost || 1; // Avoid division by zero
+            const time = strategy.time || 1;
+            const confidence = strategy.confidence || 3; // Lower value is higher confidence
+            // Simple RICE score adaptation
+            return (impact) / (cost * time * confidence);
+        }
+
+        function renderStrategies() {
+            strategyList.innerHTML = '';
+            
+            strategies.forEach(s => s.score = calculateScore(s));
+            strategies.sort((a, b) => b.score - a.score);
+
+            if (strategies.length === 0) {
+                strategyList.innerHTML = `<p class="text-sm text-gray-500 text-center py-4">Añade tu primera estrategia para compararla.</p>`;
+                return;
+            }
+
+            const confidenceMap = { '1': 'Alta', '2': 'Media', '3': 'Baja' };
+            const colorMap = { '1': 'border-green-500', '2': 'border-yellow-500', '3': 'border-red-500' };
+
+            strategies.forEach((strat, index) => {
+                const card = document.createElement('div');
+                card.className = `strategy-card p-4 rounded-lg ${colorMap[strat.confidence]}`;
+                card.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h4 class="text-lg font-bold text-white">${index + 1}. ${strat.name}</h4>
+                            <p class="text-xs text-gray-400">${strat.desc}</p>
+                        </div>
+                        <div class="flex-shrink-0 flex space-x-2">
+                            <button class="list-action-button text-xs" onclick="editStrategy(${strat.id})">Editar</button>
+                            <button class="list-action-button text-xs !bg-red-800 hover:!bg-red-700" onclick="deleteStrategy(${strat.id})">Borrar</button>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-700 grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm text-center">
+                        <div><p class="text-xs text-gray-400">Impacto Anual</p><p class="font-semibold">$${strat.impact.toLocaleString('es-ES')}</p></div>
+                        <div><p class="text-xs text-gray-400">Coste</p><p class="font-semibold">$${strat.cost.toLocaleString('es-ES')}</p></div>
+                        <div><p class="text-xs text-gray-400">Tiempo</p><p class="font-semibold">${strat.time} meses</p></div>
+                        <div><p class="text-xs text-gray-400">Confianza</p><p class="font-semibold">${confidenceMap[strat.confidence]}</p></div>
+                    </div>
+                `;
+                strategyList.appendChild(card);
+            });
+        }
+
+        function resetForm() {
+            nameInput.value = ''; descInput.value = ''; impactInput.value = '';
+            costInput.value = ''; timeInput.value = ''; confidenceInput.value = '3';
+            addStratBtn.textContent = 'Añadir Estrategia';
+            formTitle.textContent = '1. Añade una Estrategia de Crecimiento';
+            editingId = null;
+        }
+
+        addStratBtn.addEventListener('click', () => {
+            const strat = {
+                id: editingId !== null ? editingId : Date.now(),
+                name: nameInput.value.trim(),
+                desc: descInput.value.trim(),
+                impact: parseInt(impactInput.value) || 0,
+                cost: parseInt(costInput.value) || 0,
+                time: parseInt(timeInput.value) || 0,
+                confidence: confidenceInput.value
+            };
+            if (!strat.name || !strat.impact || !strat.cost || !strat.time) {
+                alert('Por favor, completa todos los campos.');
+                return;
+            }
+            if (editingId !== null) {
+                const index = strategies.findIndex(s => s.id === editingId);
+                strategies[index] = strat;
+            } else {
+                strategies.push(strat);
+            }
+            resetForm();
+            renderStrategies();
+        });
+
+        function editStrategy(id) {
+            const strat = strategies.find(s => s.id === id);
+            nameInput.value = strat.name;
+            descInput.value = strat.desc;
+            impactInput.value = strat.impact;
+            costInput.value = strat.cost;
+            timeInput.value = strat.time;
+            confidenceInput.value = strat.confidence;
+            
+            editingId = id;
+            addStratBtn.textContent = 'Actualizar Estrategia';
+            formTitle.textContent = `Editando Estrategia: ${strat.name}`;
+            nameInput.focus();
+        }
+
+        function deleteStrategy(id) {
+            if (editingId === id) resetForm();
+            strategies = strategies.filter(s => s.id !== id);
+            renderStrategies();
+        }
+
+        function clearAll() {
+            if(confirm('¿Estás seguro? Se borrarán todas las estrategias.')) {
+                strategies = [];
+                resetForm();
+                renderStrategies();
+            }
+        }
+        
+        renderStrategies();
+
+        function guardar() { alert('Funcionalidad "Guardar": ¡Próximamente!'); }
+        function descargar() { alert('Funcionalidad "Descargar": ¡Próximamente!'); }
+        function compartir() { alert('Funcionalidad "Compartir": ¡Próximamente!'); }
+    </script>
+    <script src="../../assets/js/components.js"></script>
+</body>
+</html>

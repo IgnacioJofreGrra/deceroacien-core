@@ -1,0 +1,32 @@
+:root { --color-night-blue:#0D223F; --color-gold:#D4AF37; --color-gold-dark:#B89B2E; --color-card-bg:#FFFFFF; --color-text-on-dark:#F0F0F0; --color-text-on-light:#0D223F; --color-border:#E0D6B3; --font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+body.disenador-programas-lealtad { font-family:var(--font-family); background-color:var(--color-night-blue); color:var(--color-text-on-dark); margin:0; padding:40px 20px; line-height:1.6; display:flex; justify-content:center; align-items:flex-start; min-height:100vh; }
+.disenador-programas-lealtad .container { display:flex; width:100%; max-width:1200px; background:var(--color-card-bg); color:var(--color-text-on-light); border-radius:8px; box-shadow:0 10px 30px rgba(0,0,0,.2); overflow:hidden; border:1px solid var(--color-gold); }
+.disenador-programas-lealtad .column { padding:35px; flex-basis:50%; box-sizing:border-box; display:flex; flex-direction:column; }
+.disenador-programas-lealtad .pedagogical-column { background-color:var(--color-night-blue); color:var(--color-text-on-dark); border-right:1px solid var(--color-gold); }
+.disenador-programas-lealtad .tool-column { background-color:var(--color-card-bg); }
+.disenador-programas-lealtad h1,.disenador-programas-lealtad h2 { margin-top:0; }
+.disenador-programas-lealtad .pedagogical-column h1 { color:var(--color-card-bg); }
+.disenador-programas-lealtad .tool-column h2 { color:var(--color-night-blue); }
+.disenador-programas-lealtad h1 { font-size:1.8em; border-bottom:2px solid var(--color-gold); padding-bottom:10px; margin-bottom:25px; }
+.disenador-programas-lealtad h2 { font-size:1.6em; }
+.disenador-programas-lealtad h3 { font-size:1.2em; margin-top:25px; margin-bottom:10px; display:flex; align-items:center; color:var(--color-gold); }
+.disenador-programas-lealtad h3 .icon { width:24px; height:24px; margin-right:10px; fill:currentColor; }
+.disenador-programas-lealtad p,.disenador-programas-lealtad li { font-size:.95em; }
+.disenador-programas-lealtad ul { list-style:none; padding-left:0; }
+.disenador-programas-lealtad ul li { padding-left:1.5em; text-indent:-1.5em; margin-bottom:5px; }
+.disenador-programas-lealtad ul li::before { content:'•'; color:var(--color-gold); margin-right:.5em; font-size:1.2em; }
+.disenador-programas-lealtad .form-group { margin-bottom:15px; }
+.disenador-programas-lealtad label { display:block; font-weight:700; margin-bottom:5px; }
+.disenador-programas-lealtad input[type=text], .disenador-programas-lealtad textarea, .disenador-programas-lealtad select { width:100%; padding:10px; border:1px solid var(--color-border); border-radius:4px; box-sizing:border-box; font-size:1em; color:var(--color-text-on-light); }
+.disenador-programas-lealtad textarea { resize:vertical; min-height:50px; }
+.disenador-programas-lealtad button { background-color:var(--color-gold); color:var(--color-night-blue); border:none; padding:12px 20px; border-radius:5px; font-size:1em; font-weight:700; cursor:pointer; transition:background-color .3s, transform .1s; width:100%; margin-top:10px; }
+.disenador-programas-lealtad button:hover { background-color:var(--color-gold-dark); }
+.disenador-programas-lealtad button:active { transform:scale(.98); }
+.disenador-programas-lealtad #program-summary { margin-top:20px; flex-grow:1; overflow-y:auto; }
+.disenador-programas-lealtad .summary-card { background:#fdfdfd; border:1px solid var(--color-border); border-left:4px solid var(--color-gold); padding:20px; border-radius:5px; }
+.disenador-programas-lealtad .summary-card h4 { margin:0 0 15px 0; color:var(--color-night-blue); border-bottom:1px solid var(--color-border); padding-bottom:10px; }
+.disenador-programas-lealtad .summary-card p { margin:0 0 10px 0; font-size:.95em; }
+.disenador-programas-lealtad .summary-card strong { color:var(--color-night-blue); }
+.disenador-programas-lealtad .summary-card ul { padding-left:20px; }
+.disenador-programas-lealtad .summary-card ul li { list-style:disc; }
+@media (max-width:900px) { body.disenador-programas-lealtad { padding:0; } .disenador-programas-lealtad .container { flex-direction:column; border-radius:0; max-width:100%; } .disenador-programas-lealtad .pedagogical-column { border-right:none; border-bottom:1px solid var(--color-gold); } }

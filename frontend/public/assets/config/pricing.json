@@ -1,0 +1,56 @@
+{
+  "currency": "CLP",
+  "symbol": "$",
+  "exchange_rate": 1000,
+  "currencies": {
+    "CLP": {
+      "symbol": "$",
+      "suffix": "CLP"
+    },
+    "USD": {
+      "symbol": "$",
+      "suffix": "USD"
+    }
+  },
+  "products": {
+    "course.pmv": {
+      "title": "Programa PMV (Fases 1 y 2)",
+      "unit_price": 499000
+    },
+    "course.pmf": {
+      "title": "Programa PMF (Fase 3)",
+      "unit_price": 499000
+    },
+    "course.growth": {
+      "title": "Programa Growth (Fase 4)",
+      "unit_price": 699000
+    },
+    "course.ceo": {
+      "title": "Masterclass CEO (Fase 5)",
+      "unit_price": 149000
+    },
+    "course.golden": {
+      "title": "El Camino Dorado - Suite de Herramientas Estratégicas",
+      "unit_price": 149900,
+      "unit_price_usd": 149.9
+    },
+    "suite.deceroacien": {
+      "title": "DE CERO A CIEN - Suite Completa",
+      "unit_price": 99900,
+      "unit_price_usd": 99.9
+    },
+    "suite.liderazgo": {
+      "title": "LIDERAZGO - Programas Especializados",
+      "unit_price": 49900,
+      "unit_price_usd": 49.9
+    },
+    "membership.pro": {
+      "title": "Membresía PRO",
+      "unit_price": 129000
+    },
+    "test.clp2000": {
+      "title": "Compra de prueba (CLP 2000)",
+      "unit_price": 2000
+    }
+  }
+}

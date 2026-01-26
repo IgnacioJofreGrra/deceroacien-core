@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matriz de Priorización (MoSCoW) | El Camino Dorado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a1f2f;
+            color: #e6f1ff;
+        }
+        .highlight-text { color: #FBBF24; }
+        .tool-container { background-color: #112240; }
+        .doc-container { background-color: #0a1f2f; }
+        .action-button, .list-action-button {
+            background-color: #1E293B;
+            color: #cbd5e1;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 1px solid #334155;
+            cursor: pointer;
+        }
+        .action-button:hover, .list-action-button:hover {
+            background-color: #334155;
+            color: #FBBF24;
+        }
+        .form-input {
+            background-color: #0a1f2f;
+            border: 1px solid #1e2d4d;
+            color: #cbd5e1;
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .form-input::placeholder {
+            color: #475569;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #FBBF24;
+        }
+        .primary-button {
+            background-color: #FBBF24;
+            color: #0a1f2f;
+            font-weight: 700;
+            padding: 10px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            cursor: pointer;
+        }
+        .moscow-column {
+            background-color: #0a1f2f;
+            border-radius: 8px;
+            padding: 1rem;
+            border-top: 4px solid;
+            min-height: 200px;
+        }
+        .feature-card {
+            background-color: #112240;
+            border: 1px solid #1e2d4d;
+            padding: 0.75rem;
+            border-radius: 6px;
+            cursor: grab;
+        }
+        .feature-card:active {
+            cursor: grabbing;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="sticky top-0 z-50 bg-[#0a192f]/80 backdrop-blur-lg border-b border-gray-800">
+        <nav class="container mx-auto max-w-7xl px-6 py-3 flex justify-between items-center">
+            <a href="../portal-alumno.html" class="text-lg font-bold highlight-text">← Volver al Centro de Formación</a>
+            <span class="text-sm text-slate-300">Bienvenido, [Nombre Alumno]</span>
+        </nav>
+    </div>
+
+    <main class="container mx-auto max-w-7xl px-6 py-12" data-entitlement="decero.fase2">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <aside class="lg:col-span-1 doc-container p-6 rounded-lg">
+                <h1 class="text-2xl font-black text-white">Matriz de Priorización (MoSCoW)</h1>
+                <p class="text-sm highlight-text mt-1">Herramienta de la Fase 2: Construcción del PMV</p>
+                
+                <div class="mt-8 space-y-6 text-gray-400 text-sm">
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">🎯 Objetivo</h2>
+                        <p class="mt-1">Clasificar las historias de usuario de tu backlog para definir qué funcionalidades son absolutamente esenciales para tu Producto Mínimo Viable (PMV) y cuáles pueden esperar.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⭐ Importancia</h2>
+                        <p class="mt-1">El recurso más valioso de un startup es el tiempo. Esta matriz evita que malgastes tiempo y dinero construyendo funcionalidades "bonitas pero innecesarias". Te fuerza a tomar decisiones difíciles y a enfocarte exclusivamente en el valor central que resolverá el problema principal de tu cliente.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⚙️ ¿Qué es lo que hace?</h2>
+                        <p class="mt-1">Te permite añadir cada funcionalidad de tu backlog y arrastrarla a una de las cuatro categorías del método MoSCoW:</p>
+                         <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
+                            <li><strong>Must Have (Debe Tener):</strong> No negociable. Sin esto, el producto no funciona.</li>
+                            <li><strong>Should Have (Debería Tener):</strong> Importante, pero no vital para el lanzamiento.</li>
+                            <li><strong>Could Have (Podría Tener):</strong> Deseable si sobran tiempo y recursos. "Cerezas del pastel".</li>
+                            <li><strong>Won't Have (No Tendrá):</strong> Funcionalidades que se descartan para esta versión.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">💡 ¿Para qué me sirve?</h2>
+                        <p class="mt-1">Para definir el alcance de tu PMV con una claridad absoluta, para alinear a todo tu equipo sobre cuáles son las prioridades y para gestionar las expectativas de todos los involucrados, incluyéndote a ti mismo.</p>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="lg:col-span-2 tool-container p-6 rounded-lg" data-when="granted">
+                <div class="flex flex-wrap items-center justify-between pb-4 border-b border-gray-700 gap-4">
+                    <h2 class="text-xl font-bold text-white">Prioriza las Funcionalidades de tu PMV</h2>
+                     <div class="flex space-x-3">
+                        <button class="action-button" onclick="guardar()">💾 Guardar</button>
+                        <button class="action-button" onclick="descargar()">📄 Descargar</button>
+                        <button class="action-button" onclick="compartir()">🔗 Compartir</button>
+                    </div>
+                </div>
+
+                <div class="mt-6 bg-gray-900/50 p-4 rounded-lg">
+                    <h3 id="form-title" class="font-semibold text-white">1. Añade una Funcionalidad a la Bandeja de Entrada</h3>
+                    <div class="mt-2 flex gap-4">
+                        <input type="text" id="feature-input" class="form-input flex-1" placeholder="Ej: Login con Google">
+                        <button id="add-feature-btn" class="primary-button">Añadir</button>
+                    </div>
+                </div>
+
+                <div id="inbox-section" class="mt-6">
+                    <h3 class="font-semibold text-white mb-4">2. Bandeja de Entrada (Arrastra para clasificar)</h3>
+                    <div id="inbox-list" class="moscow-column border-gray-400 space-y-2 min-h-[80px]">
+                        <!-- Nuevas funcionalidades aparecen aquí -->
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <h3 class="font-semibold text-white mb-4">3. Matriz de Priorización</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="moscow-column border-red-500">
+                            <h3 class="font-bold text-red-400 text-center">MUST HAVE</h3>
+                            <div id="must-list" class="mt-4 space-y-2"></div>
+                        </div>
+                        <div class="moscow-column border-blue-500">
+                            <h3 class="font-bold text-blue-400 text-center">SHOULD HAVE</h3>
+                            <div id="should-list" class="mt-4 space-y-2"></div>
+                        </div>
+                        <div class="moscow-column border-yellow-500">
+                             <h3 class="font-bold text-yellow-400 text-center">COULD HAVE</h3>
+                            <div id="could-list" class="mt-4 space-y-2"></div>
+                        </div>
+                        <div class="moscow-column border-gray-500">
+                             <h3 class="font-bold text-gray-400 text-center">WON'T HAVE</h3>
+                            <div id="wont-list" class="mt-4 space-y-2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-when="denied" class="hidden"></div>
+    </main>
+
+    <script>
+        const featureInput = document.getElementById('feature-input');
+        const addFeatureBtn = document.getElementById('add-feature-btn');
+        const formTitle = document.getElementById('form-title');
+        const columns = {
+            inbox: document.getElementById('inbox-list'),
+            must: document.getElementById('must-list'),
+            should: document.getElementById('should-list'),
+            could: document.getElementById('could-list'),
+            wont: document.getElementById('wont-list'),
+        };
+
+        let features = [];
+        let nextId = 0;
+        let editingId = null;
+
+        function renderFeatures() {
+            Object.values(columns).forEach(col => col.innerHTML = '');
+            if (features.length === 0 && editingId === null) {
+                 columns.inbox.innerHTML = `<p class="text-sm text-gray-500 text-center py-4">Añade funcionalidades para empezar a priorizar.</p>`;
+            }
+            features.forEach(feature => {
+                const card = createFeatureCard(feature);
+                columns[feature.category].appendChild(card);
+            });
+        }
+
+        function createFeatureCard(feature) {
+            const card = document.createElement('div');
+            card.id = `feature-${feature.id}`;
+            card.className = 'feature-card';
+            card.draggable = true;
+            card.innerHTML = `
+                <p class="text-sm">${feature.text}</p>
+                <div class="flex justify-end gap-2 mt-2">
+                    <button class="list-action-button !p-1 text-xs" onclick="editFeature(${feature.id})">Editar</button>
+                    <button class="list-action-button !p-1 text-xs !bg-red-800 hover:!bg-red-700" onclick="deleteFeature(${feature.id})">Borrar</button>
+                </div>
+            `;
+            
+            card.addEventListener('dragstart', e => {
+                e.dataTransfer.setData('text/plain', card.id);
+            });
+            
+            return card;
+        }
+
+        function addOrUpdateFeature() {
+            const text = featureInput.value.trim();
+            if (!text) return;
+
+            if (editingId !== null) {
+                const feature = features.find(f => f.id === editingId);
+                feature.text = text;
+            } else {
+                const newFeature = { id: nextId++, text: text, category: 'inbox' };
+                features.push(newFeature);
+            }
+            
+            featureInput.value = '';
+            editingId = null;
+            formTitle.textContent = '1. Añade una Funcionalidad a la Bandeja de Entrada';
+            addFeatureBtn.textContent = 'Añadir';
+            renderFeatures();
+        }
+
+        addFeatureBtn.addEventListener('click', addOrUpdateFeature);
+
+        function editFeature(id) {
+            const feature = features.find(f => f.id === id);
+            featureInput.value = feature.text;
+            editingId = id;
+            formTitle.textContent = `Editando: ${feature.text}`;
+            addFeatureBtn.textContent = 'Actualizar';
+            featureInput.focus();
+        }
+
+        function deleteFeature(id) {
+            features = features.filter(f => f.id !== id);
+            if (editingId === id) {
+                 featureInput.value = '';
+                 editingId = null;
+                 formTitle.textContent = '1. Añade una Funcionalidad a la Bandeja de Entrada';
+                 addFeatureBtn.textContent = 'Añadir';
+            }
+            renderFeatures();
+        }
+
+        Object.entries(columns).forEach(([category, columnContainer]) => {
+            const dropZone = columnContainer.closest('.moscow-column');
+            dropZone.addEventListener('dragover', e => {
+                e.preventDefault();
+            });
+
+            dropZone.addEventListener('drop', e => {
+                e.preventDefault();
+                const featureId = e.dataTransfer.getData('text/plain');
+                const feature = features.find(f => `feature-${f.id}` === featureId);
+                if (feature) {
+                    feature.category = category;
+                    renderFeatures();
+                }
+            });
+        });
+
+        renderFeatures();
+
+        function guardar() { alert('Funcionalidad "Guardar": ¡Próximamente!'); }
+        function descargar() { alert('Funcionalidad "Descargar": ¡Próximamente!'); }
+        function compartir() { alert('Funcionalidad "Compartir": ¡Próximamente!'); }
+    </script>
+    <script src="../../assets/js/components.js"></script>
+</body>
+</html>
+

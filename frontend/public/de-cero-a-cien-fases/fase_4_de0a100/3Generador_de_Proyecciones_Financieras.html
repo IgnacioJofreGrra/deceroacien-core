@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Proyecciones Financieras | El Camino Dorado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a1f2f;
+            color: #e6f1ff;
+        }
+        .highlight-text { color: #FBBF24; }
+        .tool-container { background-color: #112240; }
+        .doc-container { background-color: #0a1f2f; }
+        .action-button {
+            background-color: #1E293B;
+            color: #cbd5e1;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 1px solid #334155;
+            cursor: pointer;
+        }
+        .action-button:hover {
+            background-color: #334155;
+            color: #FBBF24;
+        }
+        .form-input {
+            background-color: #0a1f2f;
+            border: 1px solid #1e2d4d;
+            color: #cbd5e1;
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .form-input::placeholder { color: #475569; }
+        .form-input:focus { outline: none; border-color: #FBBF24; }
+        .result-card {
+            background-color: #0a1f2f;
+            border: 1px solid #1e2d4d;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="sticky top-0 z-50 bg-[#0a192f]/80 backdrop-blur-lg border-b border-gray-800">
+        <nav class="container mx-auto max-w-7xl px-6 py-3 flex justify-between items-center">
+            <a href="../portal-alumno.html" class="text-lg font-bold highlight-text">← Volver al Centro de Formación</a>
+            <span class="text-sm text-slate-300">Bienvenido, [Nombre Alumno]</span>
+        </nav>
+    </div>
+
+    <main class="container mx-auto max-w-7xl px-6 py-12" data-entitlement="decero.fase4">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <aside class="lg:col-span-1 doc-container p-6 rounded-lg">
+                <h1 class="text-2xl font-black text-white">Generador de Proyecciones Financieras</h1>
+                <p class="text-sm highlight-text mt-1">Herramienta de la Fase 4: Crecimiento y Escalabilidad</p>
+                
+                <div class="mt-8 space-y-6 text-gray-400 text-sm">
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">🎯 Objetivo</h2>
+                        <p class="mt-1">Crear una previsión financiera simple pero potente para los próximos 12 meses, proyectando ingresos, costes y rentabilidad.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⭐ Importancia</h2>
+                        <p class="mt-1">Una proyección financiera es el mapa que guía tus decisiones de negocio. Es esencial para planificar el gasto, establecer objetivos de venta realistas y, fundamentalmente, para presentar tu negocio a inversores de una forma seria y profesional.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⚙️ ¿Qué es lo que hace?</h2>
+                        <p class="mt-1">A partir de cinco variables clave de tu negocio (clientes iniciales, crecimiento mensual, ingreso por cliente y costes), la herramienta calcula y muestra una tabla con la proyección mes a mes de tus finanzas. Verás al instante cómo tus supuestos de crecimiento impactan en la rentabilidad.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">💡 ¿Para qué me sirve?</h2>
+                        <p class="mt-1">Para responder preguntas críticas como: "¿Cuánto dinero necesitaremos en 6 meses?", "¿Seremos rentables el próximo año?", o "¿Qué tan rápido necesitamos crecer para alcanzar nuestros objetivos?". Es tu principal herramienta para la planificación estratégica y la gestión de tu flujo de caja.</p>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="lg:col-span-2 tool-container p-6 rounded-lg" data-when="granted">
+                <div class="flex flex-wrap items-center justify-between pb-4 border-b border-gray-700 gap-4">
+                    <h2 class="text-xl font-bold text-white">Proyecta tus Finanzas a 12 Meses</h2>
+                     <div class="flex space-x-3">
+                        <button class="action-button" onclick="guardar()">💾 Guardar</button>
+                        <button class="action-button" onclick="descargar()">📄 Descargar</button>
+                        <button class="action-button" onclick="compartir()">🔗 Compartir</button>
+                        <button class="action-button" onclick="clearAll()">🗑️ Limpiar</button>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <h3 class="font-semibold text-white mb-4">1. Introduce tus Supuestos de Negocio</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <input type="number" id="initial-customers" class="form-input" placeholder="Clientes Iniciales" oninput="generateProjections()">
+                        <input type="number" id="monthly-growth" class="form-input" placeholder="Crecimiento Mensual (%)" oninput="generateProjections()">
+                        <input type="number" id="arpu" class="form-input" placeholder="Ingreso/Cliente/Mes ($)" oninput="generateProjections()">
+                        <input type="number" id="variable-cost" class="form-input" placeholder="Coste Variable/Cliente ($)" oninput="generateProjections()">
+                        <input type="number" id="fixed-costs" class="form-input md:col-span-2 lg:col-span-1" placeholder="Costes Fijos Mensuales ($)" oninput="generateProjections()">
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                     <h3 class="font-semibold text-white mb-4">2. Resumen Anual Proyectado</h3>
+                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="result-card p-4 rounded-lg text-center"><p class="text-xs text-gray-400">Ingresos Totales</p><p id="total-revenue" class="text-2xl font-bold">--</p></div>
+                        <div class="result-card p-4 rounded-lg text-center"><p class="text-xs text-gray-400">Beneficio Total</p><p id="total-profit" class="text-2xl font-bold">--</p></div>
+                        <div class="result-card p-4 rounded-lg text-center"><p class="text-xs text-gray-400">Margen de Beneficio</p><p id="profit-margin" class="text-2xl font-bold">--</p></div>
+                     </div>
+                </div>
+
+                 <div class="mt-6">
+                     <h3 class="font-semibold text-white mb-4">3. Proyección Mensual</h3>
+                     <div class="overflow-x-auto bg-gray-900/50 rounded-lg">
+                        <table class="w-full text-sm text-left">
+                            <thead class="text-xs text-gray-400 uppercase">
+                                <tr>
+                                    <th class="p-3">Mes</th>
+                                    <th class="p-3 text-right">Clientes</th>
+                                    <th class="p-3 text-right">Ingresos</th>
+                                    <th class="p-3 text-right">Costes</th>
+                                    <th class="p-3 text-right">Beneficio</th>
+                                </tr>
+                            </thead>
+                            <tbody id="projection-table">
+                                <!-- Filas generadas por JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div data-when="denied" class="hidden"></div>
+    </main>
+
+    <script>
+        const initialCustomersInput = document.getElementById('initial-customers');
+        const monthlyGrowthInput = document.getElementById('monthly-growth');
+        const arpuInput = document.getElementById('arpu');
+        const variableCostInput = document.getElementById('variable-cost');
+        const fixedCostsInput = document.getElementById('fixed-costs');
+        const projectionTable = document.getElementById('projection-table');
+        
+        const totalRevenueEl = document.getElementById('total-revenue');
+        const totalProfitEl = document.getElementById('total-profit');
+        const profitMarginEl = document.getElementById('profit-margin');
+
+        function formatCurrency(value) {
+            return `$${Math.round(value).toLocaleString('es-ES')}`;
+        }
+
+        function generateProjections() {
+            const initialCustomers = parseFloat(initialCustomersInput.value) || 0;
+            const monthlyGrowth = (parseFloat(monthlyGrowthInput.value) || 0) / 100;
+            const arpu = parseFloat(arpuInput.value) || 0;
+            const variableCost = parseFloat(variableCostInput.value) || 0;
+            const fixedCosts = parseFloat(fixedCostsInput.value) || 0;
+            
+            projectionTable.innerHTML = '';
+            let currentCustomers = initialCustomers;
+            let totalRevenue = 0;
+            let totalProfit = 0;
+
+            for (let i = 1; i <= 12; i++) {
+                const revenue = currentCustomers * arpu;
+                const totalVariableCost = currentCustomers * variableCost;
+                const totalCost = fixedCosts + totalVariableCost;
+                const profit = revenue - totalCost;
+
+                totalRevenue += revenue;
+                totalProfit += profit;
+
+                const row = document.createElement('tr');
+                row.className = 'border-b border-gray-800';
+                row.innerHTML = `
+                    <td class="p-3">${i}</td>
+                    <td class="p-3 text-right">${Math.round(currentCustomers).toLocaleString('es-ES')}</td>
+                    <td class="p-3 text-right">${formatCurrency(revenue)}</td>
+                    <td class="p-3 text-right">${formatCurrency(totalCost)}</td>
+                    <td class="p-3 text-right ${profit >= 0 ? 'text-green-400' : 'text-red-400'}">${formatCurrency(profit)}</td>
+                `;
+                projectionTable.appendChild(row);
+
+                currentCustomers *= (1 + monthlyGrowth);
+            }
+
+            const profitMargin = totalRevenue > 0 ? (totalProfit / totalRevenue) * 100 : 0;
+            totalRevenueEl.textContent = formatCurrency(totalRevenue);
+            totalProfitEl.textContent = formatCurrency(totalProfit);
+            profitMarginEl.textContent = `${profitMargin.toFixed(1)}%`;
+        }
+        
+        function clearAll() {
+            if (confirm('¿Estás seguro de que quieres limpiar todos los datos?')) {
+                initialCustomersInput.value = '';
+                monthlyGrowthInput.value = '';
+                arpuInput.value = '';
+                variableCostInput.value = '';
+                fixedCostsInput.value = '';
+                generateProjections();
+            }
+        }
+
+        generateProjections();
+
+        function guardar() { alert('Funcionalidad "Guardar": ¡Próximamente!'); }
+        function descargar() { alert('Funcionalidad "Descargar": ¡Próximamente!'); }
+        function compartir() { alert('Funcionalidad "Compartir": ¡Próximamente!'); }
+    </script>
+    <script src="../../assets/js/components.js"></script>
+ </body>
+ </html>

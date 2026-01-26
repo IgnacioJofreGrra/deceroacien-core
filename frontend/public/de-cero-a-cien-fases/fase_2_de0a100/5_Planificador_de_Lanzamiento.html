@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planificador de Lanzamiento | El Camino Dorado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a1f2f;
+            color: #e6f1ff;
+        }
+        .highlight-text { color: #FBBF24; }
+        .tool-container { background-color: #112240; }
+        .doc-container { background-color: #0a1f2f; }
+        .action-button {
+            background-color: #1E293B;
+            color: #cbd5e1;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 1px solid #334155;
+            cursor: pointer;
+        }
+        .action-button:hover {
+            background-color: #334155;
+            color: #FBBF24;
+        }
+        .form-input, .form-select {
+            background-color: #0a1f2f;
+            border: 1px solid #1e2d4d;
+            color: #cbd5e1;
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .form-input::placeholder { color: #475569; }
+        .form-input:focus, .form-select:focus { outline: none; border-color: #FBBF24; }
+        .primary-button {
+            background-color: #FBBF24;
+            color: #0a1f2f;
+            font-weight: 700;
+            padding: 10px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            cursor: pointer;
+        }
+        .task-list label {
+            transition: all 0.2s ease;
+        }
+        .task-list input:checked + label {
+            text-decoration: line-through;
+            color: #64748b;
+        }
+        .progress-bar-bg { background-color: #1e2d4d; }
+        .progress-bar-fill { background-color: #16A34A; transition: width 0.5s ease-in-out; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="sticky top-0 z-50 bg-[#0a192f]/80 backdrop-blur-lg border-b border-gray-800">
+        <nav class="container mx-auto max-w-7xl px-6 py-3 flex justify-between items-center">
+            <a href="../portal-alumno.html" class="text-lg font-bold highlight-text">← Volver al Centro de Formación</a>
+            <span class="text-sm text-slate-300">Bienvenido, [Nombre Alumno]</span>
+        </nav>
+    </div>
+
+    <main class="container mx-auto max-w-7xl px-6 py-12" data-entitlement="decero.fase2">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <aside class="lg:col-span-1 doc-container p-6 rounded-lg">
+                <h1 class="text-2xl font-black text-white">Planificador de Lanzamiento</h1>
+                <p class="text-sm highlight-text mt-1">Herramienta de la Fase 2: Construcción del PMV</p>
+                
+                <div class="mt-8 space-y-6 text-gray-400 text-sm">
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">🎯 Objetivo</h2>
+                        <p class="mt-1">Crear un checklist detallado y cronológico de todas las tareas necesarias para ejecutar un lanzamiento de producto exitoso, minimizando el riesgo y maximizando el impacto.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⭐ Importancia</h2>
+                        <p class="mt-1">Un lanzamiento es un evento con muchas partes móviles. Sin un plan claro, es increíblemente fácil olvidar tareas críticas, lo que puede llevar a fallos técnicos, mala comunicación o una mala primera impresión. Un checklist asegura que nada importante se pase por alto.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base"⚙️ ¿Qué es lo que hace?</h2>
+                        <p class="mt-1">Te proporciona una plantilla de tareas comunes organizadas en las tres fases críticas de un lanzamiento: Pre-lanzamiento, Día del Lanzamiento y Post-lanzamiento. Puedes añadir tus propias tareas, marcarlas y visualizar tu progreso.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">💡 ¿Para qué me sirve?</h2>
+                        <p class="mt-1">Para reducir drásticamente el estrés y el caos del día de lanzamiento. Te sirve para coordinar a tu equipo, para asegurar que todos los aspectos técnicos y de marketing están cubiertos, y para darle a tu producto la mejor oportunidad de éxito desde el primer día.</p>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="lg:col-span-2 tool-container p-6 rounded-lg" data-when="granted">
+                <div class="flex flex-wrap items-center justify-between pb-4 border-b border-gray-700 gap-4">
+                    <h2 class="text-xl font-bold text-white">Tu Checklist de Lanzamiento</h2>
+                     <div class="flex space-x-3">
+                        <button class="action-button" onclick="guardar()">💾 Guardar</button>
+                        <button class="action-button" onclick="descargar()">📄 Descargar</button>
+                        <button class="action-button" onclick="compartir()">🔗 Compartir</button>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <div class="flex justify-between items-center mb-2">
+                         <h3 class="font-semibold text-white">Progreso Total</h3>
+                         <span id="progress-text" class="text-sm font-bold highlight-text">0%</span>
+                    </div>
+                    <div class="w-full progress-bar-bg rounded-full h-2.5">
+                        <div id="progress-bar" class="progress-bar-fill h-2.5 rounded-full" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div class="mt-6 bg-gray-900/50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-white">Añadir Tarea Personalizada</h3>
+                    <div class="mt-2 flex flex-wrap sm:flex-nowrap gap-4">
+                        <input type="text" id="new-task-input" class="form-input flex-grow" placeholder="Ej: Contactar a influencers del sector">
+                        <select id="new-task-stage" class="form-select w-full sm:w-auto">
+                            <option value="pre-launch">Pre-Lanzamiento</option>
+                            <option value="launch-day">Día del Lanzamiento</option>
+                            <option value="post-launch">Post-Lanzamiento</option>
+                        </select>
+                        <button id="add-task-btn" class="primary-button w-full sm:w-auto">Añadir</button>
+                    </div>
+                </div>
+
+                <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Pre-lanzamiento -->
+                    <div id="pre-launch" class="bg-gray-900/50 p-4 rounded-lg">
+                        <h4 class="font-bold text-lg text-center text-blue-400">Pre-Lanzamiento</h4>
+                        <div id="pre-launch-list" class="mt-4 space-y-3 task-list"></div>
+                    </div>
+                    <!-- Día del Lanzamiento -->
+                     <div id="launch-day" class="bg-gray-900/50 p-4 rounded-lg">
+                        <h4 class="font-bold text-lg text-center text-green-400">Día del Lanzamiento</h4>
+                        <div id="launch-day-list" class="mt-4 space-y-3 task-list"></div>
+                    </div>
+                    <!-- Post-lanzamiento -->
+                     <div id="post-launch" class="bg-gray-900/50 p-4 rounded-lg">
+                        <h4 class="font-bold text-lg text-center text-purple-400">Post-Lanzamiento</h4>
+                        <div id="post-launch-list" class="mt-4 space-y-3 task-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-when="denied" class="hidden"></div>
+    </main>
+
+    <script>
+        let tasks = [
+            // Pre-lanzamiento
+            { id: 1, text: 'Definir landing page de "próximamente"', stage: 'pre-launch', done: false },
+            { id: 2, text: 'Preparar campaña de email marketing', stage: 'pre-launch', done: false },
+            { id: 3, text: 'Crear contenido para redes sociales', stage: 'pre-launch', done: false },
+            { id: 4, text: 'Realizar pruebas finales del producto', stage: 'pre-launch', done: false },
+            // Día del Lanzamiento
+            { id: 5, text: 'Publicar landing page oficial', stage: 'launch-day', done: false },
+            { id: 6, text: 'Enviar email de lanzamiento', stage: 'launch-day', done: false },
+            { id: 7, text: 'Anunciar en redes sociales', stage: 'launch-day', done: false },
+            { id: 8, text: 'Monitorizar rendimiento del servidor', stage: 'launch-day', done: false },
+            // Post-lanzamiento
+            { id: 9, text: 'Recopilar feedback de primeros usuarios', stage: 'post-launch', done: false },
+            { id: 10, text: 'Enviar email de agradecimiento', stage: 'post-launch', done: false },
+            { id: 11, text: 'Analizar métricas de lanzamiento', stage: 'post-launch', done: false },
+            { id: 12, text: 'Planificar primeras actualizaciones', stage: 'post-launch', done: false },
+        ];
+        let nextTaskId = 13;
+
+        const lists = {
+            'pre-launch': document.getElementById('pre-launch-list'),
+            'launch-day': document.getElementById('launch-day-list'),
+            'post-launch': document.getElementById('post-launch-list'),
+        };
+        
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        const newTaskInput = document.getElementById('new-task-input');
+        const newTaskStage = document.getElementById('new-task-stage');
+        const addTaskBtn = document.getElementById('add-task-btn');
+
+        function renderTasks() {
+            Object.values(lists).forEach(list => list.innerHTML = '');
+            tasks.forEach(task => {
+                const taskEl = document.createElement('div');
+                taskEl.className = 'flex items-center text-sm';
+                taskEl.innerHTML = `
+                    <input id="task-${task.id}" type="checkbox" ${task.done ? 'checked' : ''} class="w-4 h-4 text-yellow-400 bg-gray-700 border-gray-600 rounded focus:ring-yellow-500 flex-shrink-0">
+                    <label for="task-${task.id}" class="ml-2 text-slate-300 cursor-pointer">${task.text}</label>
+                `;
+                lists[task.stage].appendChild(taskEl);
+
+                const checkbox = taskEl.querySelector(`#task-${task.id}`);
+                checkbox.addEventListener('change', () => {
+                    task.done = checkbox.checked;
+                    updateProgress();
+                });
+            });
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const totalTasks = tasks.length;
+            const completedTasks = tasks.filter(t => t.done).length;
+            const percentage = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+            
+            progressBar.style.width = `${percentage}%`;
+            progressText.textContent = `${percentage}% Completado`;
+        }
+
+        addTaskBtn.addEventListener('click', () => {
+            const text = newTaskInput.value.trim();
+            if (!text) {
+                alert('Por favor, escribe el texto de la tarea.');
+                return;
+            }
+            const stage = newTaskStage.value;
+            tasks.push({ id: nextTaskId++, text, stage, done: false });
+            newTaskInput.value = '';
+            renderTasks();
+        });
+
+        renderTasks();
+
+        function guardar() { alert('Funcionalidad "Guardar": ¡Próximamente!'); }
+        function descargar() { alert('Funcionalidad "Descargar": ¡Próximamente!'); }
+        function compartir() { alert('Funcionalidad "Compartir": ¡Próximamente!'); }
+    </script>
+    <script src="../../assets/js/components.js"></script>
+</body>
+</html>
+

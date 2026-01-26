@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa de Competidores | El Camino Dorado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a1f2f;
+            color: #e6f1ff;
+        }
+        .highlight-text { color: #FBBF24; }
+        .tool-container { background-color: #112240; }
+        .doc-container { background-color: #0a1f2f; }
+        .action-button, .list-action-button {
+            background-color: #1E293B;
+            color: #cbd5e1;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 1px solid #334155;
+            cursor: pointer;
+        }
+        .action-button:hover, .list-action-button:hover {
+            background-color: #334155;
+            color: #FBBF24;
+        }
+        .form-input, .form-range {
+            background-color: #0a1f2f;
+            border: 1px solid #1e2d4d;
+            color: #cbd5e1;
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .form-input::placeholder {
+            color: #475569;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #FBBF24;
+        }
+        .primary-button {
+            background-color: #FBBF24;
+            color: #0a1f2f;
+            font-weight: 700;
+            padding: 10px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            cursor: pointer;
+        }
+        .map-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background-color: #0a1f2f;
+            border: 1px solid #1e2d4d;
+            border-radius: 8px;
+        }
+        .axis {
+            position: absolute;
+            background-color: #334155;
+        }
+        .x-axis { width: 100%; height: 1px; top: 50%; left: 0; }
+        .y-axis { width: 1px; height: 100%; left: 50%; top: 0; }
+        .axis-label {
+            position: absolute;
+            color: #94a3b8;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background-color: #112240;
+            padding: 0 4px;
+        }
+        .competitor-dot {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: #FBBF24;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+        }
+        .competitor-label {
+            position: absolute;
+            font-size: 0.75rem;
+            color: #e6f1ff;
+            background-color: rgba(10, 31, 47, 0.8);
+            padding: 2px 4px;
+            border-radius: 3px;
+            transform: translate(10px, -20px);
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="sticky top-0 z-50 bg-[#0a192f]/80 backdrop-blur-lg border-b border-gray-800">
+        <nav class="container mx-auto max-w-7xl px-6 py-3 flex justify-between items-center">
+            <a href="../portal-alumno.html" class="text-lg font-bold highlight-text">← Volver al Centro de Formación</a>
+            <span class="text-sm text-slate-300">Bienvenido, [Nombre Alumno]</span>
+        </nav>
+    </div>
+
+    <main class="container mx-auto max-w-7xl px-6 py-12">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <aside class="lg:col-span-1 doc-container p-6 rounded-lg">
+                <h1 class="text-2xl font-black text-white">Mapa de Competidores</h1>
+                <p class="text-sm highlight-text mt-1">Herramienta de la Fase 1: Ideación y Validación</p>
+                
+                <div class="mt-8 space-y-6 text-gray-400 text-sm">
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">🎯 Objetivo</h2>
+                        <p class="mt-1">Visualizar tu posición estratégica en el mercado en relación con tus competidores, identificando oportunidades, nichos vacíos y amenazas directas.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⭐ Importancia</h2>
+                        <p class="mt-1">"Navegar sin mapa es navegar a la deriva." Esta herramienta te proporciona el mapa de tu industria. Te ayuda a entender dónde encajas, cómo puedes diferenciarte y qué competidores son tu mayor amenaza.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⚙️ ¿Qué es lo que hace?</h2>
+                        <p class="mt-1">Te permite definir dos ejes estratégicos y luego posicionar a tus competidores en un cuadrante. La herramienta genera un mapa visual que muestra claramente quiénes compiten en precio, quiénes en calidad, y dónde podría haber un espacio para tu negocio.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">💡 ¿Para qué me sirve?</h2>
+                        <p class="mt-1">Para encontrar tu "océano azul": un espacio en el mercado con poca competencia. Te sirve para definir una propuesta de valor única y para entender las fortalezas y debilidades de los demás jugadores.</p>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="lg:col-span-2 tool-container p-6 rounded-lg">
+                <div class="flex flex-wrap items-center justify-between pb-4 border-b border-gray-700 gap-4">
+                    <h2 class="text-xl font-bold text-white">Visualiza tu Panorama Competitivo</h2>
+                     <div class="flex space-x-3">
+                        <button class="action-button" onclick="guardar()">💾 Guardar</button>
+                        <button class="action-button" onclick="descargar()">📄 Descargar</button>
+                        <button class="action-button" onclick="compartir()">🔗 Compartir</button>
+                        <button class="action-button" onclick="clearAll()">🗑️ Limpiar Mapa</button>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <h3 class="font-semibold text-white mb-4">1. Define los Ejes de tu Mapa</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="axisX" class="text-sm font-semibold text-slate-300">Eje X (Horizontal)</label>
+                            <p class="text-xs text-gray-400 mb-2">Usa el formato: <strong>Variable (Extremo 1 a Extremo 2)</strong></p>
+                            <p class="text-xs text-gray-500 mb-2">Ej: para un restaurante, podrías usar: <strong>Ambiente (Casual a Formal)</strong></p>
+                            <input type="text" id="axisX" class="form-input mt-1" value="Precio (Bajo a Alto)">
+                        </div>
+                        <div>
+                            <label for="axisY" class="text-sm font-semibold text-slate-300">Eje Y (Vertical)</label>
+                            <p class="text-xs text-gray-400 mb-2">Elige otra variable importante para tus clientes.</p>
+                            <p class="text-xs text-gray-500 mb-2">Ej: para el mismo restaurante: <strong>Cocina (Tradicional a Experimental)</strong></p>
+                            <input type="text" id="axisY" class="form-input mt-1" value="Calidad (Baja a Alta)">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <div id="map-container" class="map-container">
+                        <div class="axis x-axis"></div>
+                        <div class="axis y-axis"></div>
+                        <div id="labels-container"></div>
+                        <div id="dots-container"></div>
+                    </div>
+                </div>
+                
+                <div class="mt-6 bg-gray-900/50 p-4 rounded-lg">
+                    <h3 id="form-title" class="font-semibold text-white">2. Añade tus Competidores</h3>
+                     <p class="text-xs text-gray-400 mb-4">Introduce el nombre y usa los deslizadores para posicionarlo en el mapa.</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-end">
+                        <input type="text" id="competitorName" class="form-input" placeholder="Nombre del Competidor, ej: 'Competidor A'">
+                        <div>
+                            <label for="valueX" id="labelX" class="text-xs text-gray-400 block mb-1">Posición en Eje X (Precio)</label>
+                            <input type="range" id="valueX" min="0" max="100" value="50" class="form-range w-full">
+                        </div>
+                        <div>
+                            <label for="valueY" id="labelY" class="text-xs text-gray-400 block mb-1">Posición en Eje Y (Calidad)</label>
+                            <input type="range" id="valueY" min="0" max="100" value="50" class="form-range w-full">
+                        </div>
+                        <button id="addCompetitorBtn" class="primary-button">Añadir al Mapa</button>
+                    </div>
+                </div>
+
+                <div id="competitor-list-container" class="mt-6">
+                     <h3 class="font-semibold text-white mb-2">3. Gestiona tus Competidores</h3>
+                     <p class="text-xs text-gray-400 mb-4">Aquí puedes ver los competidores que has añadido. Usa los botones para **editar** sus datos o para **borrarlos** del mapa.</p>
+                     <div id="competitor-list" class="space-y-2">
+                     </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const axisXInput = document.getElementById('axisX');
+        const axisYInput = document.getElementById('axisY');
+        const dotsContainer = document.getElementById('dots-container');
+        const labelsContainer = document.getElementById('labels-container');
+        const labelX = document.getElementById('labelX');
+        const labelY = document.getElementById('labelY');
+        
+        const competitorNameInput = document.getElementById('competitorName');
+        const valueXInput = document.getElementById('valueX');
+        const valueYInput = document.getElementById('valueY');
+        const addCompetitorBtn = document.getElementById('addCompetitorBtn');
+        const competitorList = document.getElementById('competitor-list');
+        const formTitle = document.getElementById('form-title');
+
+        let competitors = [];
+        let editingIndex = null;
+
+        function updateAxisLabels() {
+            const xLabelText = axisXInput.value.split('(')[0].trim() || 'Eje X';
+            const yLabelText = axisYInput.value.split('(')[0].trim() || 'Eje Y';
+            labelX.textContent = `Posición en Eje X (${xLabelText})`;
+            labelY.textContent = `Posición en Eje Y (${yLabelText})`;
+        }
+        
+        function renderCompetitorList() {
+            competitorList.innerHTML = '';
+            if (competitors.length === 0) {
+                competitorList.innerHTML = `<p class="text-sm text-gray-500">Aún no has añadido competidores.</p>`;
+                return;
+            }
+            competitors.forEach((comp, index) => {
+                const listItem = document.createElement('div');
+                listItem.className = 'bg-gray-900/50 p-3 rounded-md flex justify-between items-center text-sm';
+                listItem.innerHTML = `
+                    <span>${comp.name} <span class="text-gray-400">(X: ${comp.x}, Y: ${comp.y})</span></span>
+                    <div class="flex space-x-2">
+                        <button class="list-action-button text-xs" onclick="editCompetitor(${index})">Editar</button>
+                        <button class="list-action-button text-xs !bg-red-800 hover:!bg-red-700" onclick="deleteCompetitor(${index})">Borrar</button>
+                    </div>
+                `;
+                competitorList.appendChild(listItem);
+            });
+        }
+
+        function renderMap() {
+            dotsContainer.innerHTML = '';
+            labelsContainer.innerHTML = '';
+            const xParts = axisXInput.value.replace(')', '').split('(');
+            const yParts = axisYInput.value.replace(')', '').split('(');
+            const xDesc = xParts.length > 1 ? xParts[1].split(' a ') : ['Bajo', 'Alto'];
+            const yDesc = yParts.length > 1 ? yParts[1].split(' a ') : ['Baja', 'Alta'];
+            
+            labelsContainer.innerHTML = `
+                <span class="axis-label" style="top: 50%; left: 5px; transform: translateY(-50%) rotate(-90deg); transform-origin: left center;">${yParts[0].trim() || 'Eje Y'}</span>
+                <span class="axis-label" style="bottom: -20px; left: 50%; transform: translateX(-50%);">${xParts[0].trim() || 'Eje X'}</span>
+                <span class="axis-label" style="top: 5px; left: 52%;">${yDesc[1] || 'Alta'}</span>
+                <span class="axis-label" style="bottom: 5px; left: 52%;">${yDesc[0] || 'Baja'}</span>
+                <span class="axis-label" style="top: 52%; left: 5px;">${xDesc[0] || 'Bajo'}</span>
+                <span class="axis-label" style="top: 52%; right: 5px;">${xDesc[1] || 'Alto'}</span>
+            `;
+
+            competitors.forEach(comp => {
+                const dot = document.createElement('div');
+                dot.className = 'competitor-dot';
+                dot.style.left = `${comp.x}%`;
+                dot.style.bottom = `${comp.y}%`;
+                const label = document.createElement('span');
+                label.className = 'competitor-label';
+                label.textContent = comp.name;
+                dot.appendChild(label);
+                dotsContainer.appendChild(dot);
+            });
+            updateAxisLabels();
+            renderCompetitorList();
+        }
+
+        function resetForm() {
+            competitorNameInput.value = '';
+            valueXInput.value = 50;
+            valueYInput.value = 50;
+            addCompetitorBtn.textContent = 'Añadir al Mapa';
+            formTitle.textContent = '2. Añade tus Competidores';
+            editingIndex = null;
+        }
+
+        addCompetitorBtn.addEventListener('click', () => {
+            const name = competitorNameInput.value.trim();
+            if (name === '') {
+                alert('Por favor, introduce un nombre para el competidor.');
+                return;
+            }
+            const newCompetitor = { name, x: parseInt(valueXInput.value), y: parseInt(valueYInput.value) };
+
+            if (editingIndex !== null) {
+                competitors[editingIndex] = newCompetitor;
+            } else {
+                competitors.push(newCompetitor);
+            }
+            
+            resetForm();
+            renderMap();
+        });
+
+        function editCompetitor(index) {
+            const competitor = competitors[index];
+            competitorNameInput.value = competitor.name;
+            valueXInput.value = competitor.x;
+            valueYInput.value = competitor.y;
+            
+            editingIndex = index;
+            addCompetitorBtn.textContent = 'Actualizar Competidor';
+            formTitle.textContent = `Editando a: ${competitor.name}`;
+            competitorNameInput.focus();
+        }
+
+        function deleteCompetitor(index) {
+            if (editingIndex === index) {
+                resetForm();
+            }
+            competitors.splice(index, 1);
+            renderMap();
+        }
+
+        function clearAll() {
+            if (confirm('¿Estás seguro de que quieres borrar todos los competidores del mapa?')) {
+                competitors = [];
+                resetForm();
+                renderMap();
+            }
+        }
+
+        axisXInput.addEventListener('input', renderMap);
+        axisYInput.addEventListener('input', renderMap);
+
+        renderMap();
+
+        function guardar() { alert('Funcionalidad "Guardar": ¡Próximamente!'); }
+        function descargar() { alert('Funcionalidad "Descargar": ¡Próximamente!'); }
+        function compartir() { alert('Funcionalidad "Compartir": ¡Próximamente!'); }
+    </script>
+    <script src="../../assets/js/components.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analizador de Unit Economics | El Camino Dorado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a1f2f;
+            color: #e6f1ff;
+        }
+        .highlight-text { color: #FBBF24; }
+        .tool-container { background-color: #112240; }
+        .doc-container { background-color: #0a1f2f; }
+        .action-button {
+            background-color: #1E293B;
+            color: #cbd5e1;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 1px solid #334155;
+            cursor: pointer;
+        }
+        .action-button:hover {
+            background-color: #334155;
+            color: #FBBF24;
+        }
+        .form-input {
+            background-color: #0a1f2f;
+            border: 1px solid #1e2d4d;
+            color: #cbd5e1;
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .form-input::placeholder { color: #475569; }
+        .form-input:focus { outline: none; border-color: #FBBF24; }
+        .result-box {
+            background-color: #0a1f2f;
+            border: 1px solid #1e2d4d;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="sticky top-0 z-50 bg-[#0a192f]/80 backdrop-blur-lg border-b border-gray-800">
+        <nav class="container mx-auto max-w-7xl px-6 py-3 flex justify-between items-center">
+            <a href="../portal-alumno.html" class="text-lg font-bold highlight-text">← Volver al Centro de Formación</a>
+            <span class="text-sm text-slate-300">Bienvenido, [Nombre Alumno]</span>
+        </nav>
+    </div>
+
+    <main class="container mx-auto max-w-7xl px-6 py-12" data-entitlement="decero.fase3">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <aside class="lg:col-span-1 doc-container p-6 rounded-lg">
+                <h1 class="text-2xl font-black text-white">Analizador de Unit Economics</h1>
+                <p class="text-sm highlight-text mt-1">Herramienta de la Fase 3: Tracción y P-M Fit</p>
+                
+                <div class="mt-8 space-y-6 text-gray-400 text-sm">
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">🎯 Objetivo</h2>
+                        <p class="mt-1">Calcular la rentabilidad de tu negocio a nivel de un único cliente, comparando el valor que te genera (LTV) con lo que te cuesta adquirirlo (CAC).</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⭐ Importancia</h2>
+                        <p class="mt-1">Esta es la matemática fundamental de un negocio sostenible. Puedes tener miles de clientes, pero si te cuesta más adquirirlos de lo que ganas con ellos, estás en un camino directo a la quiebra. Un buen ratio LTV:CAC es la señal más clara de un modelo de negocio saludable y escalable.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⚙️ ¿Qué es lo que hace?</h2>
+                        <p class="mt-1">A partir de tus datos de ventas y marketing, la herramienta calcula automáticamente dos métricas vitales: el Valor del Ciclo de Vida del Cliente (LTV) y el Coste de Adquisición de Cliente (CAC). Luego, los compara para darte el ratio LTV:CAC, el indicador definitivo de tu rentabilidad.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">💡 ¿Para qué me sirve?</h2>
+                        <p class="mt-1">Para tomar decisiones críticas. ¿Cuánto puedes gastar en marketing para conseguir un cliente? ¿Tu precio actual es rentable? ¿Necesitas enfocarte más en la retención para aumentar el LTV? Esta herramienta te da las respuestas para construir un motor de crecimiento que no se quede sin combustible.</p>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="lg:col-span-2 tool-container p-6 rounded-lg" data-when="granted">
+                <div class="flex flex-wrap items-center justify-between pb-4 border-b border-gray-700 gap-4">
+                    <h2 class="text-xl font-bold text-white">Calcula la Rentabilidad por Cliente</h2>
+                     <div class="flex space-x-3">
+                        <button class="action-button" onclick="guardar()">💾 Guardar</button>
+                        <button class="action-button" onclick="descargar()">📄 Descargar</button>
+                        <button class="action-button" onclick="compartir()">🔗 Compartir</button>
+                    </div>
+                </div>
+
+                <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Columna LTV -->
+                    <div class="bg-gray-900/50 p-4 rounded-lg space-y-4">
+                        <h3 class="font-semibold text-white">1. Valor del Ciclo de Vida (LTV)</h3>
+                        <div>
+                            <label for="avg-purchase" class="text-xs text-gray-400">Valor de Compra Promedio ($)</label>
+                            <input type="number" id="avg-purchase" class="form-input mt-1" placeholder="Ej: 50">
+                        </div>
+                        <div>
+                            <label for="purchase-freq" class="text-xs text-gray-400">Compras Promedio al Año</label>
+                            <input type="number" id="purchase-freq" class="form-input mt-1" placeholder="Ej: 12 (para una suscripción mensual)">
+                        </div>
+                        <div>
+                            <label for="customer-lifetime" class="text-xs text-gray-400">Vida del Cliente (Años)</label>
+                            <input type="number" id="customer-lifetime" class="form-input mt-1" placeholder="Ej: 3">
+                        </div>
+                        <div class="result-box p-4 text-center mt-4">
+                            <p class="text-sm text-gray-400">LTV Calculado</p>
+                            <p id="ltv-result" class="text-4xl font-black highlight-text">--</p>
+                        </div>
+                    </div>
+                    <!-- Columna CAC -->
+                    <div class="bg-gray-900/50 p-4 rounded-lg space-y-4">
+                        <h3 class="font-semibold text-white">2. Coste de Adquisición (CAC)</h3>
+                        <div>
+                            <label for="total-cost" class="text-xs text-gray-400">Coste Total de Marketing y Ventas ($)</label>
+                            <input type="number" id="total-cost" class="form-input mt-1" placeholder="Ej: 5000 (en un mes)">
+                        </div>
+                        <div>
+                            <label for="new-customers" class="text-xs text-gray-400">Nuevos Clientes Adquiridos</label>
+                            <input type="number" id="new-customers" class="form-input mt-1" placeholder="Ej: 100 (en el mismo mes)">
+                        </div>
+                        <div class="result-box p-4 text-center mt-4">
+                            <p class="text-sm text-gray-400">CAC Calculado</p>
+                            <p id="cac-result" class="text-4xl font-black highlight-text">--</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-6">
+                     <h3 class="font-semibold text-white mb-4">3. Resultado Final: Ratio LTV:CAC</h3>
+                     <div id="ratio-box" class="result-box p-6 rounded-lg text-center transition-all duration-300">
+                        <p id="ratio-result" class="text-7xl font-black my-2">--</p>
+                        <p id="ratio-verdict" class="font-semibold text-lg"></p>
+                        <p id="ratio-interpretation" class="text-xs text-gray-400 mt-2"></p>
+                     </div>
+                     <div class="mt-4 bg-gray-900/50 p-4 rounded-lg text-center">
+                         <p id="ratio-explanation" class="text-sm text-slate-300 italic">Aquí aparecerá una explicación de tu resultado.</p>
+                     </div>
+                </div>
+            </div>
+        </div>
+        <div data-when="denied" class="hidden"></div>
+    </main>
+
+    <script>
+        const ltvInputs = {
+            avg: document.getElementById('avg-purchase'),
+            freq: document.getElementById('purchase-freq'),
+            life: document.getElementById('customer-lifetime')
+        };
+        const cacInputs = {
+            cost: document.getElementById('total-cost'),
+            cust: document.getElementById('new-customers')
+        };
+        
+        const ltvResultEl = document.getElementById('ltv-result');
+        const cacResultEl = document.getElementById('cac-result');
+        const ratioResultEl = document.getElementById('ratio-result');
+        const ratioVerdictEl = document.getElementById('ratio-verdict');
+        const ratioInterpretationEl = document.getElementById('ratio-interpretation');
+        const ratioBox = document.getElementById('ratio-box');
+        const ratioExplanationEl = document.getElementById('ratio-explanation');
+
+        function formatCurrency(value) {
+            if (isNaN(value) || !isFinite(value)) return '$--';
+            return `$${Math.round(value).toLocaleString('es-ES')}`;
+        }
+
+        function calculateUnitEconomics() {
+            const avg = parseFloat(ltvInputs.avg.value) || 0;
+            const freq = parseFloat(ltvInputs.freq.value) || 0;
+            const life = parseFloat(ltvInputs.life.value) || 0;
+            const ltv = avg * freq * life;
+            ltvResultEl.textContent = formatCurrency(ltv);
+
+            const cost = parseFloat(cacInputs.cost.value) || 0;
+            const cust = parseFloat(cacInputs.cust.value) || 0;
+            const cac = cust > 0 ? cost / cust : 0;
+            cacResultEl.textContent = formatCurrency(cac);
+            
+            ratioBox.classList.remove('border-green-500', 'border-yellow-500', 'border-red-500', 'border-2');
+            ratioVerdictEl.classList.remove('text-green-400', 'text-yellow-400', 'text-red-400');
+
+            if (ltv > 0 && cac > 0) {
+                const ratio = (ltv / cac).toFixed(1);
+                ratioResultEl.textContent = `${ratio} : 1`;
+                ratioExplanationEl.innerHTML = `Esto significa que por cada <strong>${formatCurrency(cac)}</strong> que inviertes en conseguir un cliente, esperas generar <strong>${formatCurrency(ltv)}</strong> en ingresos de ese cliente a lo largo de sus <strong>${life} años</strong> de vida en tu negocio.`;
+                
+                if (ratio >= 3) {
+                    ratioVerdictEl.textContent = '¡Saludable!';
+                    ratioInterpretationEl.textContent = 'Tu modelo de negocio es sostenible y está listo para crecer. Ganas mucho más de lo que gastas por cliente.';
+                    ratioVerdictEl.classList.add('text-green-400');
+                    ratioBox.classList.add('border-2', 'border-green-500');
+                } else if (ratio >= 1) {
+                    ratioVerdictEl.textContent = 'Punto de Equilibrio';
+                    ratioInterpretationEl.textContent = 'Estás recuperando lo que inviertes, pero no hay margen para crecer. Busca formas de aumentar el LTV o reducir el CAC.';
+                    ratioVerdictEl.classList.add('text-yellow-400');
+                    ratioBox.classList.add('border-2', 'border-yellow-500');
+                } else {
+                    ratioVerdictEl.textContent = '¡Cuidado! No Sostenible';
+                    ratioInterpretationEl.textContent = 'Estás perdiendo dinero con cada cliente nuevo. Es urgente que revises tu modelo de precios o tus costes de adquisición.';
+                    ratioVerdictEl.classList.add('text-red-400');
+                    ratioBox.classList.add('border-2', 'border-red-500');
+                }
+            } else {
+                ratioResultEl.textContent = '-- : 1';
+                ratioVerdictEl.textContent = 'Esperando Datos...';
+                ratioInterpretationEl.textContent = 'Introduce los datos de LTV y CAC para calcular tu ratio de rentabilidad.';
+                ratioExplanationEl.textContent = 'Aquí aparecerá una explicación de tu resultado.';
+            }
+        }
+
+        Object.values(ltvInputs).forEach(input => input.addEventListener('input', calculateUnitEconomics));
+        Object.values(cacInputs).forEach(input => input.addEventListener('input', calculateUnitEconomics));
+
+        calculateUnitEconomics();
+
+        function guardar() { alert('Funcionalidad "Guardar": ¡Próximamente!'); }
+        function descargar() { alert('Funcionalidad "Descargar": ¡Próximamente!'); }
+        function compartir() { alert('Funcionalidad "Compartir": ¡Próximamente!'); }
+    </script>
+    <script src="../../assets/js/components.js"></script>
+</body>
+</html>
+

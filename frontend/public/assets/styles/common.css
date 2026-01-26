@@ -1,0 +1,1293 @@
+/* 
+ * ARCHIVO CSS COMÚN PARA TODA LA APLICACIÓN
+ * Implementa un sistema de diseño unificado con componentes reutilizables
+ * Sigue principios de programación orientada a objetos aplicados a CSS
+ * 
+ * ARQUITECTURA DEL SISTEMA:
+ * 1. Variables CSS (Propiedades de clase simuladas)
+ * 2. Clases base (Herencia base)
+ * 3. Componentes especializados (Clases derivadas)
+ * 4. Utilidades y modificadores (Mixins y helpers)
+ * 5. Estados y animaciones (Comportamientos dinámicos)
+ *
+ * NOTA: Tailwind CSS ya no se importa con @import para evitar condiciones de carrera
+ * y comportamiento inconsistente entre navegadores. En su lugar, enlaza
+ * explícitamente assets/styles/tailwind.css en el <head> ANTES de este archivo.
+ *
+ * Como fallback, components.js puede inyectar tailwind.css si no estuviera presente,
+ * pero para evitar FOUC debes declararlo en el HTML cuando sea posible.
+ */
+
+/* ========================================
+   VARIABLES CSS - SISTEMA DE TOKENS DE DISEÑO
+   Actúan como propiedades estáticas de una clase base
+   Permiten centralizar y reutilizar valores en todo el sistema
+   ======================================== */
+:root {
+    /* Paleta de colores principal - Define la identidad visual */
+    --color-primary-dark: #1a1f3a;        /* Azul oscuro principal - fondo base */
+    --color-secondary-dark: #112240;       /* Azul secundario para tarjetas y contenedores */
+    --color-accent-gold: #FBBF24;          /* Dorado para highlights y CTAs */
+    --color-text-light: #e6f1ff;          /* Texto principal claro para buena legibilidad */
+    --color-text-gray: #64748b;           /* Texto secundario con menor jerarquía */
+    --color-text-white: #ccd6f6;          /* Texto blanco suave para encabezados */
+    --color-border: #1e2d4d;              /* Bordes sutiles entre elementos */
+    --color-border-light: #334155;        /* Bordes más claros para separadores */
+    
+    /* Sistema tipográfico - Consistencia en fuentes */
+    --font-family-primary: 'Inter', sans-serif;  /* Fuente principal moderna y legible */
+    --font-size-small: 0.875rem;          /* 14px - Texto pequeño y labels */
+    --font-size-base: 1rem;               /* 16px - Texto base estándar */
+    --font-size-large: 1.125rem;          /* 18px - Texto destacado */
+    --font-size-xl: 1.5rem;               /* 24px - Títulos de sección */
+    
+    /* Sistema de espaciado - Ritmo visual consistente */
+    --spacing-xs: 0.25rem;                /* 4px - Espaciado mínimo */
+    --spacing-sm: 0.5rem;                 /* 8px - Espaciado pequeño */
+    --spacing-md: 1rem;                   /* 16px - Espaciado estándar */
+    --spacing-lg: 1.5rem;                 /* 24px - Espaciado grande */
+    --spacing-xl: 2rem;                   /* 32px - Espaciado extra grande */
+    --spacing-2xl: 3rem;                  /* 48px - Espaciado para secciones */
+    
+    /* Sistema de sombras - Profundidad y jerarquía visual */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);           /* Sombra sutil */
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);       /* Sombra pronunciada */
+    --shadow-hover: 0 10px 30px -15px rgba(2,12,27,0.7);  /* Sombra para estados hover */
+    
+    /* Sistema de transiciones - Animaciones consistentes */
+    --transition-fast: 0.15s ease-in-out;    /* Transiciones rápidas para micro-interacciones */
+    --transition-normal: 0.3s ease;          /* Transiciones estándar para la mayoría de elementos */
+    --transition-slow: 0.5s ease;            /* Transiciones lentas para cambios importantes */
+}
+
+/* ========================================
+   CLASE BASE - CONTENEDOR PRINCIPAL
+   Actúa como clase base de la cual heredan todos los elementos
+   Define el comportamiento fundamental de la aplicación
+   ======================================== */
+.base-container {
+    font-family: var(--font-family-primary);
+    background-color: var(--color-primary-dark);
+    color: var(--color-text-light);
+    min-height: 100vh;
+    /* Asegura que la aplicación ocupe toda la altura de la ventana */
+    display: flex;
+    flex-direction: column;
+}
+
+/* ========================================
+   CLASE HEADER - COMPONENTE DE NAVEGACIÓN
+   Implementa el patrón Singleton para navegación única y consistente
+   Maneja el estado activo y la responsividad de forma automática
+   ======================================== */
+.header-component {
+    /* Posicionamiento fijo para navegación persistente */
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    /* Efecto de cristal esmerilado para modernidad visual */
+    background-color: rgba(10, 31, 47, 0.8);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.header-nav {
+    /* Layout flexbox para distribución automática del espacio */
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: var(--spacing-md) var(--spacing-lg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Logo principal - Elemento de identidad de marca */
+.header-logo {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--color-accent-gold);
+    text-decoration: none;
+    transition: opacity var(--transition-fast);
+}
+
+.header-logo:hover {
+    opacity: 0.8;
+}
+
+/* Imagen del logo dentro del anchor */
+.header-logo-img {
+    height: 60px;
+    width: auto;
+    display: block;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+    transition: transform var(--transition-fast), opacity var(--transition-fast);
+}
+
+@media (min-width: 768px) {
+    .header-logo-img { height: 68px; }
+}
+
+.header-logo:hover .header-logo-img {
+    transform: scale(1.03);
+    opacity: 0.9;
+}
+
+/* Botón flotante de WhatsApp global */
+.floating-whatsapp-btn {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    background: #25D366;
+    color: #fff;
+    padding: 0.95rem;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px -4px rgba(0,0,0,0.45), 0 4px 12px -2px rgba(0,0,0,0.35);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+    z-index: 60;
+}
+
+.floating-whatsapp-btn:hover {
+    transform: scale(1.1) translateY(-2px);
+    background: #1ebe5d;
+    box-shadow: 0 10px 28px -4px rgba(0,0,0,0.55), 0 6px 14px -2px rgba(0,0,0,0.4);
+}
+
+@media (max-width: 480px) {
+    .floating-whatsapp-btn {
+        padding: 0.8rem;
+        bottom: 1rem;
+        right: 1rem;
+    }
+    .floating-whatsapp-btn .w-7 { width: 1.5rem; height: 1.5rem; }
+}
+
+/* Contenedor de navegación - Oculto por defecto en móvil */
+.header-nav-links {
+    display: none;
+    align-items: center;
+    gap: var(--spacing-lg);
+}
+
+/* Mostrar navegación en pantallas medianas y grandes - Responsive Design */
+@media (min-width: 768px) {
+    .header-nav-links {
+        display: flex;
+    }
+}
+
+/* Enlaces de navegación - Patrón Observer para estado activo */
+.header-link {
+    color: var(--color-text-gray);
+    text-decoration: none;
+    font-size: var(--font-size-small);
+    font-weight: 500;
+    transition: color var(--transition-normal);
+    position: relative;
+}
+
+/* Estado hover - Feedback visual inmediato */
+.header-link:hover {
+    color: var(--color-accent-gold);
+}
+
+/* Estado activo - Indica la página actual */
+.header-link.active {
+    color: var(--color-accent-gold);
+    font-weight: 600;
+}
+
+/* Efecto underline animado para links activos - Mejora la UX */
+.header-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: var(--color-accent-gold);
+    animation: slideIn 0.3s ease-in-out;
+}
+
+/* Animación de aparición del indicador activo */
+@keyframes slideIn {
+    from { 
+        transform: scaleX(0); 
+        transform-origin: center;
+    }
+    to { 
+        transform: scaleX(1);
+        transform-origin: center;
+    }
+}
+
+/* Sección de autenticación - Agrupación lógica de elementos relacionados */
+.header-auth-section {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding-left: var(--spacing-sm);
+}
+
+/* Enlace de login - Estilo minimalista */
+.header-login-link {
+    color: var(--color-text-gray);
+    text-decoration: none;
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    transition: color var(--transition-normal);
+}
+
+.header-login-link:hover {
+    color: var(--color-accent-gold);
+}
+
+/* Botón de registro - CTA prominente siguiendo jerarquía visual */
+.header-register-btn {
+    background-color: var(--color-accent-gold);
+    color: var(--color-primary-dark);
+    font-weight: 700;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: var(--font-size-small);
+    transition: all var(--transition-normal);
+    border: none;
+    cursor: pointer;
+}
+
+/* Estado hover para el botón de registro - Feedback táctil */
+.header-register-btn:hover {
+    background-color: #f59e0b;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* ========================================
+   CLASE FOOTER (Footer Component Class)
+   ======================================== */
+.footer-component {
+    border-top: 1px solid var(--color-border);
+    background-color: var(--color-secondary-dark);
+    margin-top: auto;
+}
+
+.footer-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: var(--spacing-2xl) var(--spacing-lg);
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-xl);
+    margin-bottom: var(--spacing-2xl);
+}
+
+.footer-section h3 {
+    font-weight: 600;
+    color: white;
+    margin-bottom: var(--spacing-md);
+    font-size: var(--font-size-base);
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-section li {
+    margin-bottom: var(--spacing-sm);
+}
+
+.footer-link {
+    color: var(--color-text-gray);
+    text-decoration: none;
+    font-size: var(--font-size-small);
+    transition: color var(--transition-normal);
+}
+
+.footer-link:hover {
+    color: var(--color-accent-gold);
+}
+
+.footer-bottom {
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--spacing-xl);
+    text-align: center;
+}
+
+.footer-copyright {
+    color: var(--color-text-gray);
+    font-size: 0.75rem;
+    margin: 0;
+}
+
+/* ========================================
+   COMPONENTES REUTILIZABLES (Reusable Components)
+   ======================================== */
+
+/* Clase para tarjetas (Card Component) */
+.card-component {
+    background-color: var(--color-secondary-dark);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: var(--spacing-xl);
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.card-component:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* Clase para texto destacado */
+.highlight-text {
+    color: var(--color-accent-gold);
+}
+
+/* Clase adicional para texto dorado */
+.gold-text {
+    color: var(--color-accent-gold);
+}
+
+/* Botones de iconos sociales (píldoras circulares) */
+.social-pill {
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 9999px;
+    text-decoration: none;
+    color: var(--color-accent-gold); /* los SVG usan currentColor */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast), opacity var(--transition-fast);
+    background-color: transparent;
+}
+.social-pill:hover { 
+    border-color: rgba(251,191,36,0.6);
+    background-color: rgba(251,191,36,0.05);
+    transform: translateY(-1px);
+}
+.social-36 { width: 36px; height: 36px; }
+.social-40 { width: 40px; height: 40px; }
+/* Tamaños de los íconos al usar Font Awesome */
+/* Compatibilidad de tamaños con Font Awesome 6 */
+.social-36 i { font-size: 16px; line-height: 1; }
+.social-40 i { font-size: 18px; line-height: 1; }
+
+/* Clase para botones principales */
+.btn-primary {
+    background-color: var(--color-accent-gold);
+    color: var(--color-primary-dark);
+    font-weight: 700;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all var(--transition-normal);
+    border: none;
+    cursor: pointer;
+    font-size: var(--font-size-base);
+}
+
+.btn-primary:hover {
+    background-color: #f59e0b;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Botón CTA para catálogos de servicios - Versión compacta del btn-primary */
+.cta-button {
+    background: linear-gradient(135deg, var(--color-accent-gold) 0%, #f59e0b 100%);
+    color: var(--color-primary-dark);
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all var(--transition-normal);
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    text-align: center;
+    min-width: 160px;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+.cta-button:hover {
+    background: linear-gradient(135deg, #f59e0b 0%, var(--color-accent-gold) 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.2);
+    color: var(--color-primary-dark);
+}
+
+.cta-button:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+/* =============================================================
+     LAYOUT GENERICO HERRAMIENTAS (A2)
+     -------------------------------------------------------------
+     - Se adopta un layout común (.tool-app) para todas las herramientas
+         de fases evitando duplicar bloques por cada archivo.
+     - Las clases específicas en <body> (ej: .calculadora-valor-marca,
+         .disenador-programas-lealtad, .matriz-diversificacion-ingresos,
+         .simulador-expansion-mercados) quedan para ajustes puntuales.
+     - Próximo paso: ir eliminando gradualmente las reglas duplicadas
+         específicas una vez validado que el layout genérico cubre casos.
+     ============================================================= */
+body.tool-app { --color-night-blue:#0D223F; --color-gold:#D4AF37; --color-gold-dark:#B89B2E; --color-card-bg:#FFFFFF; --color-text-on-dark:#F0F0F0; --color-text-on-light:#0D223F; --color-border:#E0D6B3; --font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-family:var(--font-family); background-color:var(--color-night-blue); color:var(--color-text-on-dark); margin:0; padding:40px 20px; line-height:1.6; display:flex; justify-content:center; align-items:flex-start; min-height:100vh; }
+body.tool-app .container { display:flex; width:100%; max-width:1200px; background:var(--color-card-bg); color:var(--color-text-on-light); border-radius:8px; box-shadow:0 10px 30px rgba(0,0,0,.2); overflow:hidden; border:1px solid var(--color-gold); }
+body.tool-app .column { padding:35px; flex-basis:50%; box-sizing:border-box; display:flex; flex-direction:column; }
+body.tool-app .pedagogical-column { background-color:var(--color-night-blue); color:var(--color-text-on-dark); border-right:1px solid var(--color-gold); }
+body.tool-app .tool-column { background-color:var(--color-card-bg); }
+body.tool-app h1, body.tool-app h2 { margin-top:0; }
+body.tool-app .pedagogical-column h1 { color:var(--color-card-bg); }
+body.tool-app .tool-column h2 { color:var(--color-night-blue); }
+body.tool-app h1 { font-size:1.8em; border-bottom:2px solid var(--color-gold); padding-bottom:10px; margin-bottom:25px; }
+body.tool-app h2 { font-size:1.6em; }
+body.tool-app h3 { font-size:1.2em; margin-top:25px; margin-bottom:10px; display:flex; align-items:center; color:var(--color-gold); }
+body.tool-app h3 .icon { width:24px; height:24px; margin-right:10px; fill:currentColor; }
+body.tool-app p, body.tool-app li { font-size:.95em; }
+body.tool-app ul { list-style:none; padding-left:0; }
+body.tool-app ul li { padding-left:1.5em; text-indent:-1.5em; margin-bottom:5px; }
+body.tool-app ul li::before { content:'•'; color:var(--color-gold); margin-right:.5em; font-size:1.2em; }
+body.tool-app .form-group { margin-bottom:15px; }
+body.tool-app label { display:block; font-weight:700; margin-bottom:5px; }
+body.tool-app input[type=text], body.tool-app input[type=number], body.tool-app textarea, body.tool-app select { width:100%; padding:10px; border:1px solid var(--color-border); border-radius:4px; box-sizing:border-box; font-size:1em; color:var(--color-text-on-light); }
+body.tool-app input[type=range] { -webkit-appearance:none; appearance:none; width:100%; height:8px; background:var(--color-border); outline:none; opacity:.7; transition:opacity .2s; border-radius:5px; }
+body.tool-app input[type=range]:hover { opacity:1; }
+body.tool-app input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; appearance:none; width:20px; height:20px; background:var(--color-gold); cursor:pointer; border-radius:50%; }
+body.tool-app .slider-container { display:flex; align-items:center; gap:15px; }
+body.tool-app .slider-container input[type=range] { flex-grow:1; }
+body.tool-app .slider-container span { font-weight:700; color:var(--color-gold-dark); min-width:30px; text-align:center; }
+body.tool-app button { background-color:var(--color-gold); color:var(--color-night-blue); border:none; padding:12px 20px; border-radius:5px; font-size:1em; font-weight:700; cursor:pointer; transition:background-color .3s, transform .1s; width:100%; margin-top:10px; }
+body.tool-app button:hover { background-color:var(--color-gold-dark); }
+body.tool-app button:active { transform:scale(.98); }
+@media (max-width:900px) { body.tool-app { padding:0; } body.tool-app .container { flex-direction:column; border-radius:0; max-width:100%; } body.tool-app .pedagogical-column { border-right:none; border-bottom:1px solid var(--color-gold); } }
+
+/* Estilos específicos herramienta: Matriz Diversificación (25) */
+body.matriz-diversificacion-ingresos #matrix-container { display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(3,1fr); gap:5px; width:100%; aspect-ratio:1/1; margin-top:20px; position:relative; }
+body.matriz-diversificacion-ingresos .matrix-cell { border-radius:4px; padding:5px; position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+body.matriz-diversificacion-ingresos .cell-label { position:absolute; top:5px; font-size:.7em; font-weight:700; opacity:.5; }
+body.matriz-diversificacion-ingresos .initiative-dot { background-color:var(--color-night-blue); color:#fff; padding:3px 8px; border-radius:12px; font-size:.8em; margin:2px; z-index:10; }
+
+/* Estilos específicos herramienta: Simulador Expansión Nuevos Mercados (26) */
+body.simulador-expansion-mercados #results-container { margin-top:20px; padding:20px; background-color:#f9f9f9; border-radius:5px; border:1px solid var(--color-border); }
+body.simulador-expansion-mercados .result-item { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px dashed var(--color-border); }
+body.simulador-expansion-mercados .result-item:last-child { border-bottom:none; }
+body.simulador-expansion-mercados .result-label { font-size:1em; color:#555; }
+body.simulador-expansion-mercados .result-value { font-size:1.2em; font-weight:700; }
+body.simulador-expansion-mercados #verdict-card { margin-top:15px; padding:15px; border-radius:5px; text-align:center; font-size:1.1em; font-weight:700; }
+
+/* =============================================================
+     BLOQUES ESPECIFICOS (LEGACY) - Se irán consolidando
+     ============================================================= */
+/* Herramienta 27: Planes de Sucesión */
+body.generador-planes-sucesion #succession-map { margin-top:20px; flex-grow:1; overflow-y:auto; }
+body.generador-planes-sucesion .plan-card { background:#fdfdfd; border:1px solid var(--color-border); border-left-width:4px; padding:15px; border-radius:5px; margin-bottom:15px; }
+body.generador-planes-sucesion .plan-card h4 { margin:0 0 10px 0; color:var(--color-night-blue); }
+body.generador-planes-sucesion .plan-card strong { color:var(--color-night-blue); }
+body.generador-planes-sucesion .plan-card ul { padding-left:20px; margin-top:5px; }
+body.generador-planes-sucesion .plan-card ul li { font-size:.9em; list-style:disc; }
+body.generador-planes-sucesion .readiness-bar-container { height:8px; background:#eee; border-radius:4px; margin:5px 0 10px; }
+body.generador-planes-sucesion .readiness-bar { height:100%; border-radius:4px; transition:width .5s ease; }
+
+/* Herramienta 28: Evaluador Riesgos Estratégicos */
+body.evaluador-riesgos-estrategicos #risk-map { position:relative; width:100%; aspect-ratio:1/1; background:#f9f9f9; border:1px solid var(--color-border); border-radius:5px; margin-top:20px; }
+body.evaluador-riesgos-estrategicos #risk-map::before, body.evaluador-riesgos-estrategicos #risk-map::after { content:''; position:absolute; background:#ccc; }
+body.evaluador-riesgos-estrategicos #risk-map::before { left:50%; top:0; width:1px; height:100%; transform:translateX(-50%); }
+body.evaluador-riesgos-estrategicos #risk-map::after { top:50%; left:0; height:1px; width:100%; transform:translateY(-50%); }
+body.evaluador-riesgos-estrategicos .axis-label { position:absolute; font-size:.8em; font-weight:700; color:#777; }
+body.evaluador-riesgos-estrategicos #x-axis-label { bottom:-20px; left:50%; transform:translateX(-50%); }
+body.evaluador-riesgos-estrategicos #y-axis-label { left:-5px; top:50%; transform:translateY(-50%) rotate(-90deg); transform-origin:left top; }
+body.evaluador-riesgos-estrategicos .factor-dot { position:absolute; width:12px; height:12px; border-radius:50%; transform:translate(-50%,-50%); cursor:pointer; }
+body.evaluador-riesgos-estrategicos .factor-dot::after { content:attr(data-title); position:absolute; bottom:120%; left:50%; transform:translateX(-50%); font-size:.8em; background:var(--color-night-blue); color:#fff; padding:3px 8px; border-radius:4px; white-space:nowrap; opacity:0; transition:opacity .2s; pointer-events:none; }
+body.evaluador-riesgos-estrategicos .factor-dot:hover::after { opacity:1; }
+
+/* Herramienta 31: Informe ESG */
+body.generador-informes-esg #report-preview { margin-top:20px; flex-grow:1; overflow-y:auto; background:#f9f9f9; border:1px solid var(--color-border); padding:20px; border-radius:5px; }
+body.generador-informes-esg .report-section h4 { margin-top:20px; padding-bottom:5px; border-bottom-width:2px; border-bottom-style:solid; }
+body.generador-informes-esg .report-section h4.e { border-color:var(--color-e); color:var(--color-e); }
+body.generador-informes-esg .report-section h4.s { border-color:var(--color-s); color:var(--color-s); }
+body.generador-informes-esg .report-section h4.g { border-color:var(--color-g); color:var(--color-g); }
+body.generador-informes-esg .initiative-item { margin-bottom:10px; }
+body.generador-informes-esg .initiative-item strong { color:var(--color-night-blue); }
+body.generador-informes-esg .initiative-item p { font-size:.9em; margin:2px 0 0 0; }
+/* Herramienta Fase 1: Mapeador de Dependencias Críticas */
+body.mapeador-de-dependencias-criticas #dependency-map { margin-top:20px; flex-grow:1; overflow-y:auto; }
+body.mapeador-de-dependencias-criticas .activity-card { background:#f9f9f9; border:1px solid var(--color-border); border-radius:5px; padding:15px; margin-bottom:15px; }
+body.mapeador-de-dependencias-criticas .activity-header { display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--color-border); padding-bottom:10px; margin-bottom:10px; }
+body.mapeador-de-dependencias-criticas .activity-header h4 { margin:0; color:var(--color-night-blue); }
+body.mapeador-de-dependencias-criticas .delete-activity-btn { background:none; border:none; font-size:1.2em; cursor:pointer; color:#aaa; }
+body.mapeador-de-dependencias-criticas .dependency-tag { display:inline-block; padding:4px 10px; border-radius:15px; color:#fff; font-size:.85em; margin:2px; }
+body.mapeador-de-dependencias-criticas .tag-internal { background:#2980b9; }
+body.mapeador-de-dependencias-criticas .tag-external { background:#c0392b; }
+/* Pruning duplicados layout calculadora: reutiliza body.tool-app; se conservan solo bloques específicos de resultados */
+body.calculadora-valor-marca #results-container { margin-top:20px; padding:20px; background-color:#f9f9f9; border-radius:5px; border:1px solid var(--color-border); }
+body.calculadora-valor-marca .result-item { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px dashed var(--color-border); }
+body.calculadora-valor-marca .result-item:last-child { border-bottom:none; }
+body.calculadora-valor-marca .result-label { font-size:.9em; color:#555; }
+body.calculadora-valor-marca .result-value { font-size:1.1em; font-weight:700; }
+body.calculadora-valor-marca .total-value { margin-top:10px; padding-top:10px; border-top:2px solid var(--color-night-blue); text-align:center; }
+body.calculadora-valor-marca .total-value .result-label { font-size:1.1em; }
+body.calculadora-valor-marca .total-value .result-value { font-size:2em; color:var(--color-night-blue); }
+/* Responsive ya cubierto por body.tool-app media query */
+
+/* Pruning duplicados layout lealtad: reutiliza body.tool-app; se conservan solo tarjetas resumen */
+body.disenador-programas-lealtad #program-summary { margin-top:20px; flex-grow:1; overflow-y:auto; }
+body.disenador-programas-lealtad .summary-card { background:#fdfdfd; border:1px solid var(--color-border); border-left:4px solid var(--color-gold); padding:20px; border-radius:5px; }
+body.disenador-programas-lealtad .summary-card h4 { margin:0 0 15px 0; color:var(--color-night-blue); border-bottom:1px solid var(--color-border); padding-bottom:10px; }
+body.disenador-programas-lealtad .summary-card p { margin:0 0 10px 0; font-size:.95em; }
+body.disenador-programas-lealtad .summary-card strong { color:var(--color-night-blue); }
+body.disenador-programas-lealtad .summary-card ul { padding-left:20px; }
+body.disenador-programas-lealtad .summary-card ul li { list-style:disc; }
+/* Responsive ya cubierto por body.tool-app media query */
+
+/* ===== Portal / Dashboard helpers ===== */
+.dashboard-card {
+    background-color: var(--color-secondary-dark);
+    border: 1px solid var(--color-border);
+    transition: border-color var(--transition-normal);
+}
+.dashboard-card:hover { border-color: rgba(251,191,36,.6); }
+
+.btn-live {
+    background-color: #16A34A; /* verde en vivo */
+    color: #ffffff;
+    font-weight: 700;
+    padding: 12px 28px;
+    border-radius: 6px;
+    text-decoration: none;
+    text-align: center;
+    animation: pulse-live 2s infinite;
+}
+@keyframes pulse-live {
+    0%,100% { box-shadow: 0 0 0 0 rgba(22,163,74,.7); }
+    70% { box-shadow: 0 0 0 10px rgba(22,163,74,0); }
+}
+
+.course-accordion summary::-webkit-details-marker { display: none; }
+
+/* Botón CTA grande para páginas principales */
+.cta-button-large {
+    background: linear-gradient(135deg, var(--color-accent-gold) 0%, #f59e0b 100%);
+    color: var(--color-primary-dark);
+    font-weight: 700;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all var(--transition-normal);
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    text-align: center;
+    min-width: 200px;
+    box-shadow: 0 8px 25px -5px rgb(251 191 36 / 0.3);
+}
+
+.cta-button-large:hover {
+    background: linear-gradient(135deg, #f59e0b 0%, var(--color-accent-gold) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 15px 35px -5px rgb(251 191 36 / 0.4);
+    color: var(--color-primary-dark);
+}
+
+/* Adaptaciones responsivas para CTAs */
+.cta-button.w-full {
+    min-width: auto;
+    width: 100%;
+}
+
+.cta-button-large.w-full {
+    min-width: auto;
+    width: 100%;
+}
+
+/* Tarjetas de servicios */
+.service-card-large {
+    background-color: var(--color-secondary-dark);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: var(--spacing-xl);
+    transition: all var(--transition-normal);
+}
+
+.service-card-large:hover {
+    border-color: var(--color-border-light);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
+
+.service-card {
+    background-color: var(--color-secondary-dark);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: var(--spacing-lg);
+    transition: all var(--transition-normal);
+}
+
+.service-card:hover {
+    border-color: var(--color-border-light);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-1px);
+}
+
+/* Clase para secciones principales */
+.main-section {
+    padding: var(--spacing-2xl) 0;
+}
+
+.section-container,
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+}
+
+/* ============================
+   Gamificación (scoped)
+   ============================ */
+.gamificacion-page {
+    --azul-noche: #1a1f3a;
+    --dorado: #d4af37;
+    --texto-claro: #e0e1e9;
+}
+
+body.gamificacion-page,
+.gamificacion-page .game-root {
+    background-color: var(--azul-noche);
+    color: var(--texto-claro);
+}
+
+.gamificacion-page .font-serif { font-family: 'Playfair Display', serif; }
+
+.gamificacion-page .game-layout { display:flex; min-height:100vh; gap:1.5rem; padding:1rem; max-width:100%; margin:0 auto; }
+.gamificacion-page .instructions-panel { width:20%; min-width:280px; background: rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.1); border-radius:0.5rem; padding:1.5rem; height:fit-content; position:sticky; top:1rem; }
+.gamificacion-page .game-content { width:80%; flex:1; }
+.gamificacion-page .instructions-title { font-size:1.125rem; font-weight:700; color: var(--dorado); text-align:center; margin-bottom:1.5rem; padding-bottom:0.75rem; border-bottom:1px solid rgba(212,175,55,0.3); }
+
+/* Tarjetas y componentes */
+.gamificacion-page .feature-card,
+.gamificacion-page .game-card,
+.gamificacion-page .option-card,
+.gamificacion-page .pitch-card { background: linear-gradient(145deg, #2a3154, #1a1f3a); border:1px solid rgba(212,175,55,0.3); }
+.gamificacion-page .game-card:hover,
+.gamificacion-page .option-card:hover,
+.gamificacion-page .pitch-card:hover { transform: translateY(-4px); border-color: var(--dorado); }
+.gamificacion-page .option-card.disabled { opacity:0.4; cursor:not-allowed; background:#1a1f3a; }
+.gamificacion-page .pitch-card.selected { background: var(--dorado); color: var(--azul-noche); cursor: not-allowed; opacity: 0.7; }
+.gamificacion-page .stat-card { background-color: rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); }
+
+/* Drag & drop */
+.gamificacion-page .drop-zone { background-color: rgba(0,0,0,0.2); border: 2px dashed rgba(255,255,255,0.2); min-height: 100px; transition: background-color 0.3s ease; }
+.gamificacion-page .drop-zone.over { background-color: rgba(212, 175, 55, 0.2); }
+.gamificacion-page .pitch-slot { background-color: rgba(0,0,0,0.2); border: 2px dashed rgba(255,255,255,0.2); }
+
+/* ========================================
+   TIPOGRAFÍA PARA CONTENIDOS (Prose)
+   Estilos comunes para artículos de blog y textos largos
+   ======================================== */
+.prose {
+    color: #cbd5e1;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+    color: var(--color-text-light);
+}
+
+.prose a {
+    color: var(--color-accent-gold);
+    text-decoration: underline;
+}
+
+.prose blockquote {
+    border-left: 4px solid var(--color-accent-gold);
+    padding-left: var(--spacing-md);
+    color: #94a3b8;
+}
+
+.prose strong {
+    color: var(--color-text-light);
+}
+
+/* ========================================
+   TIPOGRAFÍA PARA ARTÍCULOS (article-content)
+   Variante más completa para posts del Blog
+   ======================================== */
+.article-content {
+    color: #cbd5e1;
+    line-height: 1.8;
+    font-size: 1.0625rem; /* ~17px para lectura cómoda */
+}
+.article-content h1,
+.article-content h2,
+.article-content h3,
+.article-content h4 {
+    color: var(--color-text-light);
+    line-height: 1.25;
+    margin-top: 1.6em;
+    margin-bottom: 0.6em;
+}
+.article-content h1 { font-size: 2rem; margin-top: 0; }
+.article-content h2 { font-size: 1.5rem; }
+.article-content h3 { font-size: 1.25rem; }
+
+.article-content p { margin: 1em 0; }
+
+.article-content ul,
+.article-content ol {
+    padding-left: 1.25rem;
+    margin: 0.75em 0 1em 0;
+}
+.article-content ul { list-style: disc; }
+.article-content ol { list-style: decimal; }
+.article-content li { margin: 0.4em 0; }
+
+.article-content a { color: var(--color-accent-gold); text-decoration: underline; }
+.article-content a:hover { opacity: 0.9; }
+
+/* Overrides: botones dentro de artículos (.article-content) */
+.article-content a.btn-primary,
+.article-content a.cta-button,
+.article-content a.cta-button-large {
+    color: var(--color-primary-dark);
+    text-decoration: none;
+}
+.article-content a.btn-primary:hover,
+.article-content a.cta-button:hover,
+.article-content a.cta-button-large:hover {
+    color: var(--color-primary-dark);
+    text-decoration: none;
+}
+
+.article-content blockquote {
+    border-left: 4px solid var(--color-accent-gold);
+    padding-left: var(--spacing-md);
+    color: #94a3b8;
+    font-style: italic;
+    margin: 1.25em 0;
+}
+
+.article-content figure { margin: 1.5em 0; }
+.article-content figcaption { color: #94a3b8; font-size: 0.85rem; margin-top: 0.5rem; text-align: center; }
+
+.article-content strong { color: var(--color-text-light); }
+.article-content em { color: var(--color-text-light); font-style: italic; }
+
+/* Encabezado del artículo */
+.post-header { margin-bottom: 1.25rem; }
+.post-header .highlight-text { display: block; font-weight: 700; }
+
+/* Párrafo inicial destacado */
+.lead {
+    font-size: 1.125rem; /* ~18px */
+    color: #94a3b8;
+    margin-top: 0.75rem;
+}
+
+/* Metadatos del post (autor, fecha) */
+.post-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #94a3b8;
+    font-size: 0.9rem;
+    margin-top: 0.75rem;
+}
+.post-meta > span + span::before {
+    content: "•";
+    margin-right: 0.75rem;
+    color: #64748b;
+}
+
+/* Overrides: botones dentro de artículos (.prose) */
+.prose a.btn-primary,
+.prose a.cta-button,
+.prose a.cta-button-large {
+    color: var(--color-primary-dark);
+    text-decoration: none;
+}
+.prose a.btn-primary:hover,
+.prose a.cta-button:hover,
+.prose a.cta-button-large:hover {
+    color: var(--color-primary-dark);
+    text-decoration: none;
+}
+
+/* ========================================
+   EFECTOS Y ANIMACIONES (Effects & Animations)
+   ======================================== */
+
+/* Efecto de spotlight para tarjetas destacadas */
+.card-spotlight {
+    position: relative;
+    overflow: hidden;
+}
+
+.card-spotlight::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 75%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(251, 191, 36, 0.15),
+        transparent
+    );
+    transform: skewX(-25deg);
+    transition: left 0.9s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.card-spotlight:hover::before {
+    left: 150%;
+}
+
+/* Animación de marquee */
+.marquee-content {
+    display: inline-block;
+    animation: marquee 30s linear infinite;
+}
+
+@keyframes marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* ===== Secciones a ancho completo (full-bleed) ===== */
+.full-bleed {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/* Hero específico para Diagnósticos IA (sin inline) */
+.hero-ai {
+    padding: 5rem 1.25rem; /* py-20 px-5 */
+    background: linear-gradient(rgba(10, 25, 47, 0.8), rgba(10, 25, 47, 0.95)),
+                url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1350&q=80')
+                no-repeat center center/cover;
+}
+
+/* ========================================
+   UTILIDADES RESPONSIVAS (Responsive Utilities)
+   ======================================== */
+
+/* Ocultar elementos en móvil */
+.hidden-mobile {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .hidden-mobile {
+        display: block;
+    }
+}
+
+/* Fuerza extra: oculta explícitamente auth en móvil incluso si otra clase define display:flex */
+.header-auth-section.hidden-mobile { display:none !important; }
+@media (min-width:768px){
+    .header-auth-section.hidden-mobile { display:flex !important; }
+}
+
+/* Mostrar solo en móvil */
+.mobile-only {
+    display: block;
+}
+
+@media (min-width: 768px) {
+    .mobile-only {
+        display: none;
+    }
+}
+
+/* Grid responsivo */
+.responsive-grid {
+    display: grid;
+    gap: var(--spacing-lg);
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+    .responsive-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .responsive-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ========================================
+   ACCESIBILIDAD (Accessibility)
+   ======================================== */
+
+/* Mejorar focus para navegación por teclado */
+.header-link:focus,
+.footer-link:focus,
+.btn-primary:focus {
+    outline: 2px solid var(--color-accent-gold);
+    outline-offset: 2px;
+}
+
+/* Reducir animaciones para usuarios que lo prefieren */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .card-spotlight::before {
+        transition: none;
+    }
+}
+
+/* ========================================
+   ELEMENTOS COMUNES DE PÁGINA (Centralizados)
+   ======================================== */
+.section-title { color: var(--color-text-white); font-weight: 700; }
+
+.founder-card {
+    background-color: var(--color-secondary-dark);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: var(--spacing-xl);
+    text-align: center;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+.founder-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+
+/* Service card mejoras y estados */
+.service-card { display: flex; flex-direction: column; min-height: 300px; }
+.service-card.disabled { opacity: 0.6; cursor: not-allowed; }
+.service-card.disabled .cta-button { background-color: var(--color-text-gray); cursor: not-allowed; }
+.service-card.disabled .cta-button:hover { transform: none; background-color: var(--color-text-gray); }
+
+/* Etiqueta “Pronto” */
+.soon-tag {
+    background-color: var(--color-accent-gold);
+    color: var(--color-primary-dark);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-left: 8px;
+    display: inline-block;
+}
+
+/* Academy */
+.program-card {
+    background-color: var(--color-secondary-dark);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: var(--spacing-xl);
+    transition: all var(--transition-normal);
+    opacity: 1; /* asegurar sin tono opaco */
+}
+.program-card:hover { transform: translateY(-5px); border-color: rgba(251,191,36,0.6); box-shadow: var(--shadow-hover); }
+.program-cta-button {
+    display: inline-block;
+    border: 2px solid var(--color-accent-gold);
+    color: var(--color-accent-gold);
+    font-weight: 600;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all var(--transition-normal);
+    text-align: center;
+}
+.program-cta-button:hover { background-color: var(--color-accent-gold); color: var(--color-primary-dark); }
+.program-status { background-color: var(--color-accent-gold); color: var(--color-primary-dark); padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin-left: 8px; }
+
+/* Metodología */
+.methodology-step-card {
+    background-color: var(--color-secondary-dark);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-accent-gold);
+    border-radius: 12px;
+    padding: var(--spacing-xl);
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+    position: relative;
+}
+.methodology-step-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+.step-number {
+    position: absolute; top: -10px; left: var(--spacing-lg);
+    background-color: var(--color-accent-gold); color: var(--color-primary-dark);
+    width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 0.875rem;
+}
+.methodology-phase { background: linear-gradient(135deg, var(--color-secondary-dark) 0%, rgba(17,34,64,0.8) 100%); border: 1px solid var(--color-border); border-radius: 12px; padding: var(--spacing-2xl); transition: transform var(--transition-normal); }
+.methodology-phase:hover { transform: translateY(-3px); }
+.progress-indicator { height: 4px; background: linear-gradient(90deg, var(--color-accent-gold) 0%, #f59e0b 100%); border-radius: 2px; margin: var(--spacing-md) 0; }
+
+/* Contacto */
+.contact-info-card { background-color: var(--color-secondary-dark); border: 1px solid var(--color-border); border-radius: 12px; padding: var(--spacing-xl); transition: transform var(--transition-normal); }
+.contact-info-card:hover { transform: translateY(-3px); }
+.submit-button { background-color: var(--color-accent-gold); color: var(--color-primary-dark); font-weight: 700; padding: var(--spacing-md) var(--spacing-lg); border-radius: 6px; text-decoration: none; transition: all var(--transition-normal); width: 100%; border: none; cursor: pointer; font-family: var(--font-family-primary); }
+.submit-button:hover { background-color: #f59e0b; transform: translateY(-1px); box-shadow: var(--shadow-lg); }
+
+/* Avatar helper: borde dorado consistente */
+.avatar-ring {
+    border: 4px solid var(--color-accent-gold);
+}
+
+/* Inputs de formulario (antes inline en contacto.html) */
+.form-input {
+    background-color: var(--color-secondary-dark);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-white);
+    border-radius: 6px;
+    padding: var(--spacing-md);
+    transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
+    width: 100%;
+    font-family: var(--font-family-primary);
+}
+.form-input:focus {
+    outline: none;
+    border-color: var(--color-accent-gold);
+    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.1);
+}
+.form-input::placeholder { color: var(--color-text-gray); }
+
+/* Banner promocional reutilizable para llamados dentro de artículos */
+.promo-banner {
+    background-color: var(--color-secondary-dark);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+}
+
+/* ========================================
+   ESTILOS ESPECÍFICOS - EL CAMINO DORADO
+   Componentes especializados para la página del programa El Camino Dorado
+   ======================================== */
+
+/* Hero section específico para El Camino Dorado */
+.hero-camino-dorado {
+    text-align: center;
+    padding: 80px 20px;
+    background: radial-gradient(circle, #1a3a63 0%, var(--color-primary-dark) 100%);
+}
+
+.hero-camino-dorado h1 {
+    font-size: 3.5em;
+    color: var(--color-text-light);
+    margin: 0;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.hero-camino-dorado .highlight {
+    color: var(--color-accent-gold);
+}
+
+.hero-camino-dorado p {
+    font-size: 1.2em;
+    max-width: 700px;
+    margin: 15px auto 30px auto;
+    color: var(--color-text-light);
+}
+
+/* Botón CTA específico para El Camino Dorado */
+.cta-button-camino-dorado {
+    background-color: var(--color-accent-gold);
+    color: var(--color-primary-dark);
+    border: none;
+    padding: 15px 30px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+.cta-button-camino-dorado:hover {
+    background-color: #D4AF37;
+    transform: translateY(-2px);
+}
+
+/* Secciones de contenido para El Camino Dorado */
+.section-camino-dorado {
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.section-title-camino-dorado {
+    text-align: center;
+    font-size: 2.5em;
+    color: var(--color-accent-gold);
+    margin-bottom: 40px;
+}
+
+/* Sección de audiencia objetivo */
+.target-audience-camino-dorado {
+    background-color: rgba(255,255,255, 0.05);
+    padding: 40px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.target-audience-camino-dorado h3 {
+    font-size: 1.8em;
+    margin-top: 0;
+    color: var(--color-text-light);
+}
+
+.target-audience-camino-dorado p {
+    max-width: 800px;
+    margin: 10px auto;
+    color: var(--color-text-light);
+}
+
+/* Contenedor de fases */
+.phases-container-camino-dorado {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+}
+
+/* Tarjetas de fases */
+.phase-card-camino-dorado {
+    background-color: #FFFFFF;
+    color: var(--color-primary-dark);
+    border-radius: 8px;
+    padding: 25px;
+    border-top: 5px solid var(--color-accent-gold);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.phase-card-camino-dorado:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.phase-card-camino-dorado h4 {
+    font-size: 1.3em;
+    color: var(--color-primary-dark);
+    margin: 0 0 15px 0;
+}
+
+.phase-card-camino-dorado ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.phase-card-camino-dorado li {
+    font-size: 0.95em;
+    padding: 8px 0;
+    border-bottom: 1px solid #E0D6B3;
+}
+
+.phase-card-camino-dorado li:last-child {
+    border-bottom: none;
+}
+
+/* ========================================
+   ESTILOS DE AUTENTICACIÓN EN HEADER
+   Componentes para login/logout en la navegación
+   ======================================== */
+
+/* Sección de autenticación en el header */
+.header-auth-section {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+/* Enlace de login */
+.header-login-link {
+    color: var(--color-text-gray);
+    text-decoration: none;
+    font-size: var(--font-size-small);
+    font-weight: 500;
+    transition: color var(--transition-normal);
+}
+
+.header-login-link:hover {
+    color: var(--color-accent-gold);
+}
+
+/* Botón de registro */
+.header-register-btn {
+    background-color: var(--color-accent-gold);
+    color: var(--color-primary-dark);
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    transition: background-color var(--transition-normal), transform var(--transition-fast);
+}
+
+.header-register-btn:hover {
+    background-color: #D4AF37;
+    transform: translateY(-1px);
+}
+
+/* Menú de usuario autenticado */
+.header-user-menu {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.header-user-greeting {
+    color: var(--color-text-light);
+    font-size: var(--font-size-small);
+    font-weight: 500;
+}
+
+.header-dashboard-link {
+    color: var(--color-accent-gold);
+    text-decoration: none;
+    font-size: var(--font-size-small);
+    font-weight: 500;
+    transition: color var(--transition-normal);
+}
+
+.header-dashboard-link:hover {
+    color: #D4AF37;
+}
+
+.header-logout-btn {
+    background-color: rgba(239, 68, 68, 0.8);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: var(--font-size-small);
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color var(--transition-normal);
+}
+
+.header-logout-btn:hover {
+    background-color: rgba(239, 68, 68, 1);
+}
+
+/* Responsive para autenticación en móvil */
+@media (max-width: 768px) {
+    .header-auth-section {
+        display: none; /* Se mostrará en el menú móvil */
+    }
+}

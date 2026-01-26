@@ -1,0 +1,649 @@
+/* 
+ * ESTILOS PARA COMPONENTES MÓVILES Y INTERACTIVOS
+ * Complementa el archivo common.css con estilos específicos para móviles
+ */
+
+/* ========================================
+   MENU MÓVIL (Mobile Menu Component)
+   ======================================== */
+
+.mobile-menu-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: transform var(--transition-normal);
+}
+
+.mobile-menu-button:hover {
+    transform: scale(1.1);
+}
+
+.hamburger-line {
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-text-light);
+    margin: 2px 0;
+    transition: all var(--transition-normal);
+    transform-origin: center;
+}
+
+/* Animación del botón hamburguesa cuando está abierto */
+.mobile-menu-button.open .hamburger-line:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.mobile-menu-button.open .hamburger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-button.open .hamburger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; /* fallback */
+    height: 100dvh; /* modern dynamic viewport */
+    background-color: rgba(10, 31, 47, 0.98);
+    /* Añadir prefijo para compatibilidad en algunos navegadores móviles */
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    transform: translateX(-100%);
+    transition: transform var(--transition-normal);
+    z-index: 999;
+    display: flex;
+    align-items: flex-start; /* contenido pegado arriba */
+    justify-content: flex-start; /* evitar centrado vertical que oculta opciones superiores */
+    box-sizing: border-box;
+    /* Habilitar scroll vertical dentro del menú en móviles */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    padding-top: calc(env(safe-area-inset-top, 0px) + var(--spacing-xl));
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + var(--spacing-xl));
+}
+
+.mobile-menu.open {
+    transform: translateX(0);
+}
+
+.mobile-menu-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* gap global más contenido, los links tendrán su propio margen */
+    gap: var(--spacing-lg);
+    padding: var(--spacing-2xl);
+    width: 100%;
+    max-width: 720px;
+    box-sizing: border-box;
+}
+
+.mobile-menu-link {
+    color: var(--color-text-light);
+    text-decoration: none;
+    /* Tipografía fluida en móviles */
+    font-size: clamp(1.1rem, 2.8vw, 1.4rem);
+    line-height: 1.35;
+    font-weight: 700;
+    padding: 0.6rem 0.75rem;
+    width: 100%;
+    text-align: center;
+    transition: color var(--transition-normal), transform var(--transition-normal);
+    position: relative;
+    /* Separador sutil entre elementos */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    margin: 0.1rem 0;
+}
+
+.mobile-menu-link:hover {
+    color: var(--color-accent-gold);
+    transform: translateY(-1px);
+}
+
+.mobile-menu-auth {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.mobile-auth-link {
+    color: var(--color-text-gray);
+    text-decoration: none;
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    transition: color var(--transition-normal);
+}
+
+.mobile-auth-link:hover {
+    color: var(--color-accent-gold);
+}
+
+.mobile-register-btn {
+    background-color: var(--color-accent-gold);
+    color: var(--color-primary-dark);
+    font-weight: 700;
+    padding: 0.8rem 1.25rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all var(--transition-normal);
+    font-size: var(--font-size-base);
+}
+
+.mobile-register-btn:hover {
+    background-color: #f59e0b;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* ========================================
+   COMPONENTES DE TARJETAS MEJORADOS
+   ======================================== */
+
+.card-component {
+    cursor: pointer;
+    position: relative;
+}
+
+.card-component:hover {
+    transform: translateY(-8px);
+}
+
+.card-component::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg, transparent, rgba(251, 191, 36, 0.1));
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+    pointer-events: none;
+}
+
+.card-component:hover::after {
+    opacity: 1;
+}
+
+/* Tarjetas con efecto de brillo específico */
+.card-spotlight {
+    overflow: hidden;
+}
+
+.card-spotlight::before {
+    z-index: 1;
+}
+
+.card-spotlight > * {
+    position: relative;
+    z-index: 2;
+}
+
+/* ========================================
+   COMPONENTES DE CARGA (Loading Components)
+   ======================================== */
+
+.loading-skeleton {
+    background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* ========================================
+   COMPONENTES DE NOTIFICACIÓN (Toast/Alert)
+   ======================================== */
+
+.toast {
+    position: fixed;
+    bottom: var(--spacing-lg);
+    right: var(--spacing-lg);
+    background-color: var(--color-secondary-dark);
+    color: var(--color-text-light);
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: 8px;
+    border-left: 4px solid var(--color-accent-gold);
+    box-shadow: var(--shadow-lg);
+    transform: translateX(100%);
+    transition: transform var(--transition-normal);
+    z-index: 1000;
+    max-width: 300px;
+}
+
+.toast.show {
+    transform: translateX(0);
+}
+
+.toast.success {
+    border-left-color: #10b981;
+}
+
+.toast.error {
+    border-left-color: #ef4444;
+}
+
+.toast.warning {
+    border-left-color: #f59e0b;
+}
+
+/* ========================================
+   COMPONENTES DE MODAL (Modal Components)
+   ======================================== */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-normal);
+}
+
+.modal-overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background-color: var(--color-secondary-dark);
+    border-radius: 12px;
+    padding: var(--spacing-2xl);
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    transform: scale(0.8);
+    transition: transform var(--transition-normal);
+    border: 1px solid var(--color-border);
+}
+
+.modal-overlay.open .modal-content {
+    transform: scale(1);
+}
+
+.modal-close {
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    background: none;
+    border: none;
+    color: var(--color-text-gray);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color var(--transition-normal);
+}
+
+.modal-close:hover {
+    color: var(--color-accent-gold);
+}
+
+/* ========================================
+   COMPONENTES DE FORMULARIO (Form Components)
+   ======================================== */
+
+.form-group {
+    margin-bottom: var(--spacing-lg);
+}
+
+.form-label {
+    display: block;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-text-light);
+    font-weight: 600;
+    font-size: var(--font-size-small);
+}
+
+.form-input {
+    width: 100%;
+    padding: var(--spacing-md);
+    background-color: var(--color-secondary-dark);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    color: var(--color-text-light);
+    font-size: var(--font-size-base);
+    transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--color-accent-gold);
+    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.1);
+}
+
+.form-input::placeholder {
+    color: var(--color-text-gray);
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.form-error {
+    color: #ef4444;
+    font-size: 0.75rem;
+    margin-top: var(--spacing-xs);
+}
+
+/* ========================================
+   ANIMACIONES DE ENTRADA (Entry Animations)
+   ======================================== */
+
+.fade-in {
+    animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slide-in-left {
+    animation: slideInLeft 0.6s ease-out;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.slide-in-right {
+    animation: slideInRight 0.6s ease-out;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ========================================
+   UTILIDADES DE SCROLL (Scroll Utilities)
+   ======================================== */
+
+.smooth-scroll {
+    scroll-behavior: smooth;
+}
+
+/* Personalización de scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-primary-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-accent-gold);
+}
+
+/* ========================================
+   OPTIMIZACIONES MÓVILES GLOBALES
+   Aplican a <= 640px para mejorar legibilidad y tap targets
+   ======================================== */
+@media (max-width: 640px) {
+    /* Secciones y contenedores más compactos */
+    .main-section { padding: var(--spacing-xl) 0; }
+    .section-container { padding: 0 var(--spacing-md); }
+
+    /* Tarjetas: menos padding y sin hover brusco */
+    .card-component { padding: var(--spacing-lg); }
+    .card-component:hover { transform: none; box-shadow: var(--shadow-sm); }
+
+    /* Botones: ancho completo y padding cómodo */
+    .btn-primary,
+    .cta-button,
+    .cta-button-large { width: 100%; padding-top: 0.9rem; padding-bottom: 0.9rem; }
+
+    /* Tablas extensas (ej. Academy - Cohortes) con scroll horizontal */
+    .section-container table { display: block; overflow-x: auto; white-space: nowrap; }
+    .section-container thead { display: table-header-group; }
+    .section-container tbody { display: table-row-group; }
+
+    /* Slider de Conecta: más compacto en alto y velocidad ligeramente menor */
+    .slider { height: 90px; }
+    .slider::before, .slider::after { height: 90px; width: 120px; }
+    .slider .slide { height: 90px; width: 180px; }
+    .slider .slide-track { animation-duration: 50s; }
+}
+
+/* ============================
+     Gamificación (scoped) - móviles
+     ============================ */
+@media (max-width: 1024px) {
+    .gamificacion-page .game-layout { flex-direction: column; gap: 1rem; }
+    .gamificacion-page .instructions-panel { width: 100%; min-width: unset; position: static; order: 1; }
+    .gamificacion-page .game-content { width: 100%; order: 2; }
+    .gamificacion-page .instructions-title { font-size: 1rem; margin-bottom: 1rem; }
+    .gamificacion-page .info-section .info-item { margin-bottom: 0.75rem; }
+    .gamificacion-page .info-section .info-icon { width: 18px; height: 18px; font-size: 14px; margin-right: 8px; }
+    .gamificacion-page .info-section h3 { font-size: 0.8rem; }
+    .gamificacion-page .info-section p { font-size: 0.7rem; }
+}
+
+@media (max-width: 640px) {
+    .gamificacion-page .game-layout { padding: 0.5rem; gap: 0.75rem; }
+    .gamificacion-page .instructions-panel { padding: 1rem; }
+    .gamificacion-page .info-section .info-item { margin-bottom: 0.5rem; }
+    .gamificacion-page .chat-bubble { max-width: 90%; }
+    .gamificacion-page .feature-card,
+    .gamificacion-page .game-card,
+    .gamificacion-page .option-card,
+    .gamificacion-page .pitch-card { padding: 1rem; margin-bottom: 0.75rem; }
+    .gamificacion-page .option-button { padding: 0.75rem 1rem; font-size: 1rem; }
+    .gamificacion-page .drop-zone { min-height: 80px; padding: 0.5rem; }
+    .gamificacion-page .pitch-slot { min-height: 60px; padding: 0.5rem; }
+}
+
+@media (max-width: 1280px) and (min-width: 1025px) {
+    .gamificacion-page .instructions-panel { width: 25%; }
+    .gamificacion-page .game-content { width: 75%; }
+}
+
+@media (hover: none) and (pointer: coarse) {
+    .gamificacion-page .feature-card,
+    .gamificacion-page .game-card,
+    .gamificacion-page .option-card,
+    .gamificacion-page .pitch-card,
+    .gamificacion-page .option-button { min-height: 44px; }
+    .gamificacion-page .game-card:hover,
+    .gamificacion-page .option-card:hover,
+    .gamificacion-page .pitch-card:hover { transform: none; }
+}
+
+@media (max-width: 640px) and (orientation: landscape) {
+    .gamificacion-page .game-layout { flex-direction: row; }
+    .gamificacion-page .instructions-panel { width: 30%; order: 1; }
+    .gamificacion-page .game-content { width: 70%; order: 2; }
+    .gamificacion-page .info-section .info-item { margin-bottom: 0.5rem; }
+}
+
+/* ========================================
+   ESTADOS DE CARGA Y ERROR (Loading & Error States)
+   ======================================== */
+
+.loading-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-2xl);
+    color: var(--color-text-gray);
+}
+
+.loading-spinner {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--color-border);
+    border-top: 2px solid var(--color-accent-gold);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: var(--spacing-sm);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.error-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-2xl);
+    color: var(--color-text-gray);
+    text-align: center;
+}
+
+.error-icon {
+    font-size: 3rem;
+    color: #ef4444;
+    margin-bottom: var(--spacing-md);
+}
+
+/* ========================================
+   RESPONSIVE BREAKPOINTS ESPECÍFICOS
+   ======================================== */
+
+/* Tablets */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .mobile-menu {
+        display: none;
+    }
+    
+    .header-nav-links {
+        gap: var(--spacing-md);
+    }
+    
+    .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Desktop grande */
+@media (min-width: 1440px) {
+    .section-container {
+        max-width: 1400px;
+    }
+    
+    .footer-container {
+        max-width: 1400px;
+    }
+}
+
+/* ========================================
+   RESPONSIVE STYLES - EL CAMINO DORADO
+   Estilos responsivos específicos para El Camino Dorado
+   ======================================== */
+
+@media (max-width: 768px) {
+    .hero-camino-dorado h1 { 
+        font-size: 2.5em; 
+    }
+    
+    .hero-camino-dorado p { 
+        font-size: 1.1em; 
+    }
+    
+    .section-title-camino-dorado { 
+        font-size: 2em; 
+    }
+    
+    .section-camino-dorado {
+        padding: 40px 15px;
+    }
+    
+    .target-audience-camino-dorado {
+        padding: 25px;
+    }
+    
+    .phases-container-camino-dorado {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .phase-card-camino-dorado {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-camino-dorado {
+        padding: 60px 15px;
+    }
+    
+    .hero-camino-dorado h1 { 
+        font-size: 2em; 
+    }
+    
+    .hero-camino-dorado p { 
+        font-size: 1em; 
+    }
+    
+    .section-title-camino-dorado { 
+        font-size: 1.7em; 
+    }
+    
+    .target-audience-camino-dorado h3 {
+        font-size: 1.5em;
+    }
+    
+    .cta-button-camino-dorado {
+        padding: 12px 24px;
+        font-size: 1em;
+    }
+}

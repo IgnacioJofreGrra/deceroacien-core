@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Salud Financiera | El Camino Dorado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a1f2f;
+            color: #e6f1ff;
+        }
+        .highlight-text { color: #FBBF24; }
+        .tool-container { background-color: #112240; }
+        .doc-container { background-color: #0a1f2f; }
+        .action-button {
+            background-color: #1E293B;
+            color: #cbd5e1;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 1px solid #334155;
+            cursor: pointer;
+        }
+        .action-button:hover {
+            background-color: #334155;
+            color: #FBBF24;
+        }
+        .form-input {
+            background-color: #0a1f2f;
+            border: 1px solid #1e2d4d;
+            color: #cbd5e1;
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .form-input::placeholder { color: #475569; }
+        .form-input:focus { outline: none; border-color: #FBBF24; }
+        .result-card {
+            background-color: #0a1f2f;
+            border: 1px solid #1e2d4d;
+        }
+        .text-profit { color: #22c55e; }
+        .text-loss { color: #ef4444; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="sticky top-0 z-50 bg-[#0a192f]/80 backdrop-blur-lg border-b border-gray-800">
+        <nav class="container mx-auto max-w-7xl px-6 py-3 flex justify-between items-center">
+            <a href="../portal-alumno.html" class="text-lg font-bold highlight-text">← Volver al Centro de Formación</a>
+            <span class="text-sm text-slate-300">Bienvenido, [Nombre Alumno]</span>
+        </nav>
+    </div>
+
+    <main class="container mx-auto max-w-7xl px-6 py-12">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <aside class="lg:col-span-1 doc-container p-6 rounded-lg">
+                <h1 class="text-2xl font-black text-white">Dashboard de Salud Financiera</h1>
+                <p class="text-sm highlight-text mt-1">Herramienta de la Fase 5: Consolidación y Madurez</p>
+                
+                <div class="mt-8 space-y-6 text-gray-400 text-sm">
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">🎯 Objetivo</h2>
+                        <p class="mt-1">Obtener una visión clara y en tiempo real de la salud financiera de tu negocio, más allá de los simples ingresos, para garantizar su sostenibilidad a largo plazo.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⭐ Importancia</h2>
+                        <p class="mt-1">En la fase de madurez, el flujo de caja es el rey. Un negocio puede tener altos ingresos y aun así quebrar si no gestiona bien sus costes y su liquidez. Este dashboard te da los signos vitales para tomar decisiones financieras inteligentes y evitar sorpresas desagradables.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⚙️ ¿Qué es lo que hace?</h2>
+                        <p class="mt-1">A partir de tus datos financieros mensuales, la herramienta calcula y visualiza métricas cruciales como tu Margen Bruto, Beneficio Neto, Tasa de Gasto (Burn Rate) y, lo más importante, tu "Pista de Aterrizaje" (Runway), que te dice cuántos meses de vida le quedan a tu empresa si mantiene el ritmo de gasto actual.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">💡 ¿Para qué me sirve?</h2>
+                        <p class="mt-1">Para responder las preguntas más difíciles: ¿Somos realmente rentables? ¿Cuánto dinero estamos quemando al mes? ¿Cuándo necesitamos empezar a buscar la siguiente ronda de financiación? Es tu herramienta principal para la gestión financiera y la planificación estratégica.</p>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="lg:col-span-2 tool-container p-6 rounded-lg">
+                <div class="flex flex-wrap items-center justify-between pb-4 border-b border-gray-700 gap-4">
+                    <h2 class="text-xl font-bold text-white">Analiza la Salud Financiera de tu Negocio</h2>
+                     <div class="flex space-x-3">
+                        <button class="action-button" onclick="guardar()">💾 Guardar</button>
+                        <button class="action-button" onclick="descargar()">📄 Descargar</button>
+                        <button class="action-button" onclick="compartir()">🔗 Compartir</button>
+                        <button class="action-button" onclick="clearAll()">🗑️ Limpiar</button>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <h3 class="font-semibold text-white mb-4">1. Introduce tus Datos Financieros del Mes</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input type="number" id="revenue" class="form-input" placeholder="Ingresos Totales ($)" oninput="calculateHealth()">
+                        <input type="number" id="cogs" class="form-input" placeholder="Coste de Bienes Vendidos (COGS) ($)" oninput="calculateHealth()">
+                        <input type="number" id="opex" class="form-input" placeholder="Gastos Operativos (OPEX) ($)" oninput="calculateHealth()">
+                        <input type="number" id="cash" class="form-input" placeholder="Dinero en el Banco ($)" oninput="calculateHealth()">
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                     <h3 class="font-semibold text-white mb-4">2. Tus Signos Vitales Financieros</h3>
+                     <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <div class="result-card p-4 rounded-lg text-center"><p class="text-xs text-gray-400">Beneficio Bruto</p><p id="gross-profit" class="text-2xl font-bold">--</p></div>
+                        <div class="result-card p-4 rounded-lg text-center"><p class="text-xs text-gray-400">Margen Bruto</p><p id="gross-margin" class="text-2xl font-bold">--</p></div>
+                        <div class="result-card p-4 rounded-lg text-center"><p class="text-xs text-gray-400">Beneficio/Pérdida Neta</p><p id="net-profit" class="text-2xl font-bold">--</p></div>
+                        <div class="result-card p-4 rounded-lg text-center"><p class="text-xs text-gray-400">Margen Neto</p><p id="net-margin" class="text-2xl font-bold">--</p></div>
+                        <div class="result-card p-4 rounded-lg text-center"><p class="text-xs text-gray-400">Tasa de Gasto (Burn)</p><p id="burn-rate" class="text-2xl font-bold text-loss">--</p></div>
+                     </div>
+                </div>
+
+                 <div class="mt-6">
+                     <h3 class="font-semibold text-white mb-4">3. Pista de Aterrizaje (Runway)</h3>
+                     <div id="runway-box" class="result-card p-6 rounded-lg text-center transition-all duration-300">
+                        <p class="text-sm text-gray-400">Meses de vida si mantienes el gasto actual</p>
+                        <p id="runway-result" class="text-7xl font-black my-2">--</p>
+                        <p id="runway-verdict" class="font-semibold text-lg"></p>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const inputs = {
+            revenue: document.getElementById('revenue'),
+            cogs: document.getElementById('cogs'),
+            opex: document.getElementById('opex'),
+            cash: document.getElementById('cash')
+        };
+
+        function formatCurrency(value) {
+            if (isNaN(value)) return '$--';
+            return `$${Math.round(value).toLocaleString('es-ES')}`;
+        }
+
+        function calculateHealth() {
+            const revenue = parseFloat(inputs.revenue.value) || 0;
+            const cogs = parseFloat(inputs.cogs.value) || 0;
+            const opex = parseFloat(inputs.opex.value) || 0;
+            const cash = parseFloat(inputs.cash.value) || 0;
+
+            const grossProfit = revenue - cogs;
+            const grossMargin = revenue > 0 ? (grossProfit / revenue) * 100 : 0;
+            const netProfit = grossProfit - opex;
+            const netMargin = revenue > 0 ? (netProfit / revenue) * 100 : 0;
+            const burnRate = netProfit < 0 ? Math.abs(netProfit) : 0;
+            const runway = burnRate > 0 ? cash / burnRate : Infinity;
+
+            document.getElementById('gross-profit').textContent = formatCurrency(grossProfit);
+            document.getElementById('gross-margin').textContent = `${grossMargin.toFixed(1)}%`;
+            document.getElementById('net-profit').textContent = formatCurrency(netProfit);
+            document.getElementById('net-margin').textContent = `${netMargin.toFixed(1)}%`;
+            document.getElementById('burn-rate').textContent = formatCurrency(burnRate);
+
+            const netProfitEl = document.getElementById('net-profit');
+            netProfitEl.classList.remove('text-profit', 'text-loss');
+            netProfitEl.classList.add(netProfit >= 0 ? 'text-profit' : 'text-loss');
+
+            const runwayResultEl = document.getElementById('runway-result');
+            const runwayVerdictEl = document.getElementById('runway-verdict');
+            const runwayBox = document.getElementById('runway-box');
+            
+            runwayBox.classList.remove('border-green-500', 'border-yellow-500', 'border-red-500', 'border-2');
+            runwayVerdictEl.classList.remove('text-green-400', 'text-yellow-400', 'text-red-400');
+
+            if (runway === Infinity) {
+                runwayResultEl.textContent = '∞';
+                runwayVerdictEl.textContent = '¡Rentable! No estás quemando dinero.';
+                runwayVerdictEl.classList.add('text-green-400');
+                runwayBox.classList.add('border-2', 'border-green-500');
+            } else {
+                runwayResultEl.textContent = `${runway.toFixed(1)} meses`;
+                if (runway >= 12) {
+                    runwayVerdictEl.textContent = 'Saludable';
+                    runwayVerdictEl.classList.add('text-green-400');
+                    runwayBox.classList.add('border-2', 'border-green-500');
+                } else if (runway >= 6) {
+                    runwayVerdictEl.textContent = 'Atención. Planifica tu próxima ronda.';
+                    runwayVerdictEl.classList.add('text-yellow-400');
+                    runwayBox.classList.add('border-2', 'border-yellow-500');
+                } else {
+                    runwayVerdictEl.textContent = '¡Peligro! Necesitas financiación urgente.';
+                    runwayVerdictEl.classList.add('text-red-400');
+                    runwayBox.classList.add('border-2', 'border-red-500');
+                }
+            }
+        }
+        
+        function clearAll() {
+            if (confirm('¿Estás seguro de que quieres limpiar todos los datos?')) {
+                Object.values(inputs).forEach(input => input.value = '');
+                calculateHealth();
+            }
+        }
+
+        calculateHealth();
+
+        function guardar() { alert('Funcionalidad "Guardar": ¡Próximamente!'); }
+        function descargar() { alert('Funcionalidad "Descargar": ¡Próximamente!'); }
+        function compartir() { alert('Funcionalidad "Compartir": ¡Próximamente!'); }
+    </script>
+    <script src="../../assets/js/components.js"></script>
+</body>
+</html>

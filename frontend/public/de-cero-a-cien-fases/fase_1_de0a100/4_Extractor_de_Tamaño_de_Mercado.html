@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extractor de Tamaño de Mercado | El Camino Dorado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a1f2f;
+            color: #e6f1ff;
+        }
+        .highlight-text { color: #FBBF24; }
+        .tool-container { background-color: #112240; }
+        .doc-container { background-color: #0a1f2f; }
+        .action-button {
+            background-color: #1E293B;
+            color: #cbd5e1;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 1px solid #334155;
+            cursor: pointer;
+        }
+        .action-button:hover {
+            background-color: #334155;
+            color: #FBBF24;
+        }
+        .form-input, .form-select {
+            background-color: #0a1f2f;
+            border: 1px solid #1e2d4d;
+            color: #cbd5e1;
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: #FBBF24;
+        }
+        .result-card {
+            background-color: #0a1f2f;
+            border: 1px solid #1e2d4d;
+            padding: 16px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header del Portal (Simplificado) -->
+    <div class="sticky top-0 z-50 bg-[#0a192f]/80 backdrop-blur-lg border-b border-gray-800">
+        <nav class="container mx-auto max-w-7xl px-6 py-3 flex justify-between items-center">
+            <a href="../portal-alumno.html" class="text-lg font-bold highlight-text">← Volver al Centro de Formación</a>
+            <span class="text-sm text-slate-300">Bienvenido, [Nombre Alumno]</span>
+        </nav>
+    </div>
+
+    <main class="container mx-auto max-w-7xl px-6 py-12">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <!-- Columna Izquierda: Documento Pedagógico -->
+            <aside class="lg:col-span-1 doc-container p-6 rounded-lg">
+                <h1 class="text-2xl font-black text-white">Extractor de Tamaño de Mercado</h1>
+                <p class="text-sm highlight-text mt-1">Herramienta de la Fase 1: Ideación y Validación</p>
+                
+                <div class="mt-8 space-y-6 text-gray-400 text-sm">
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">🎯 Objetivo</h2>
+                        <p class="mt-1">Estimar el potencial económico total de tu mercado y definir qué porción de ese mercado es realista para tu negocio, utilizando los conceptos de TAM, SAM y SOM.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⭐ Importancia</h2>
+                        <p class="mt-1">Entender el tamaño de tu mercado es vital para inversores, para tu estrategia de crecimiento y para establecer metas realistas. Te ayuda a comprender la escala de la oportunidad que tienes en frente y a comunicar ese potencial de forma clara y numérica.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⚙️ ¿Qué es lo que hace?</h2>
+                        <p class="mt-1">A partir de tus estimaciones, la herramienta calcula tres métricas clave:</p>
+                        <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
+                            <li><strong>TAM (Mercado Total):</strong> La demanda total del mercado para tu producto.</li>
+                            <li><strong>SAM (Mercado Alcanzable):</strong> El segmento del TAM al que puedes llegar con tu modelo de negocio.</li>
+                            <li><strong>SOM (Mercado Objetivo):</strong> La porción del SAM que puedes capturar realísticamente en los primeros años.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">💡 ¿Para qué me sirve?</h2>
+                        <p class="mt-1">Para justificar el potencial de tu negocio ante inversores con datos concretos, para enfocar tus esfuerzos de marketing en el segmento correcto (tu SAM) y para establecer objetivos de venta realistas y medibles (tu SOM).</p>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Columna Derecha: Herramienta Interactiva -->
+            <div class="lg:col-span-2 tool-container p-6 rounded-lg">
+                <div class="flex items-center justify-between pb-4 border-b border-gray-700">
+                    <h2 class="text-xl font-bold text-white">Calcula el Potencial de tu Mercado</h2>
+                     <div class="flex space-x-3">
+                        <button class="action-button" onclick="guardar()">💾 Guardar</button>
+                        <button class="action-button" onclick="descargar()">📄 Descargar</button>
+                        <button class="action-button" onclick="compartir()">🔗 Compartir</button>
+                    </div>
+                </div>
+
+                <!-- Calculadora -->
+                <div id="calculator" class="mt-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                        <!-- Columna de Entradas -->
+                        <div class="space-y-6">
+                            <div>
+                                <label for="scope" class="text-sm font-semibold text-slate-300">1. ¿Dónde vas a emprender? (TAM)</label>
+                                <p class="text-xs text-gray-400 mb-2">Define el alcance y el número total de posibles clientes en ese mercado.</p>
+                                <div class="flex gap-4">
+                                    <select id="scope" class="form-select w-1/3">
+                                        <option>Mundo</option>
+                                        <option>Continente</option>
+                                        <option selected>País</option>
+                                        <option>Ciudad</option>
+                                    </select>
+                                    <input type="number" id="totalUsuarios" class="form-input w-2/3" placeholder="Nº de clientes totales">
+                                </div>
+                            </div>
+                            <div>
+                                <label for="porcentajeSAM" class="text-sm font-semibold text-slate-300">2. Mercado Alcanzable (SAM)</label>
+                                <p class="text-xs text-gray-400 mb-2">¿A qué % de ese mercado puedes llegar (por geografía, idioma, etc.)?</p>
+                                <input type="number" id="porcentajeSAM" class="form-input" placeholder="Ej: 10 (para el 10%)">
+                            </div>
+                            <div>
+                                <label for="porcentajeSOM" class="text-sm font-semibold text-slate-300">3. Mercado Objetivo (SOM)</label>
+                                <p class="text-xs text-gray-400 mb-2">¿Qué % de tu mercado alcanzable crees que puedes capturar en 3-5 años?</p>
+                                <input type="number" id="porcentajeSOM" class="form-input" placeholder="Ej: 5 (para el 5%)">
+                            </div>
+                             <div>
+                                <label for="valorAnualCliente" class="text-sm font-semibold text-slate-300">4. Valor Anual por Cliente (ARPA)</label>
+                                <p class="text-xs text-gray-400 mb-2">¿Cuánto estimas que te pagará un cliente promedio en un año?</p>
+                                <input type="number" id="valorAnualCliente" class="form-input" placeholder="Ej: 300 (si tu precio es $25/mes)">
+                            </div>
+                        </div>
+
+                        <!-- Columna de Resultados -->
+                        <div class="space-y-4">
+                            <div class="result-card h-full flex flex-col justify-center">
+                                <p class="text-sm font-semibold highlight-text">Resultados del Mercado</p>
+                                <div class="mt-4 space-y-4">
+                                    <div>
+                                        <p class="text-xs text-gray-400">TAM (Mercado Total)</p>
+                                        <p id="tam" class="text-2xl font-bold text-white">--</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-gray-400">SAM (Mercado Alcanzable)</p>
+                                        <p id="sam" class="text-2xl font-bold text-white">--</p>
+                                    </div>
+                                     <div>
+                                        <p class="text-xs text-gray-400">SOM (Mercado Objetivo)</p>
+                                        <p id="som" class="text-2xl font-bold text-white">--</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const inputs = {
+            totalUsuarios: document.getElementById('totalUsuarios'),
+            porcentajeSAM: document.getElementById('porcentajeSAM'),
+            porcentajeSOM: document.getElementById('porcentajeSOM'),
+            valorAnualCliente: document.getElementById('valorAnualCliente'),
+        };
+
+        const outputs = {
+            tam: document.getElementById('tam'),
+            sam: document.getElementById('sam'),
+            som: document.getElementById('som'),
+        };
+
+        function formatCurrency(value) {
+            if (isNaN(value) || !isFinite(value)) return '$0';
+            if (value >= 1_000_000_000) {
+                return `$${(value / 1_000_000_000).toFixed(2)}B`;
+            }
+            if (value >= 1_000_000) {
+                return `$${(value / 1_000_000).toFixed(2)}M`;
+            }
+            if (value >= 1_000) {
+                return `$${(value / 1_000).toFixed(1)}K`;
+            }
+            return `$${Math.round(value).toLocaleString('es-ES')}`;
+        }
+
+        function calculateMarketSize() {
+            const totalUsuarios = parseFloat(inputs.totalUsuarios.value) || 0;
+            const porcentajeSAM = parseFloat(inputs.porcentajeSAM.value) || 0;
+            const porcentajeSOM = parseFloat(inputs.porcentajeSOM.value) || 0;
+            const valorAnualCliente = parseFloat(inputs.valorAnualCliente.value) || 0;
+
+            const tamValue = totalUsuarios * valorAnualCliente;
+            
+            const samUsuarios = totalUsuarios * (porcentajeSAM / 100);
+            const samValue = samUsuarios * valorAnualCliente;
+
+            const somUsuarios = samUsuarios * (porcentajeSOM / 100);
+            const somValue = somUsuarios * valorAnualCliente;
+            
+            outputs.tam.textContent = `${formatCurrency(tamValue)}`;
+            outputs.sam.textContent = `${formatCurrency(samValue)}`;
+            outputs.som.textContent = `${formatCurrency(somValue)}`;
+        }
+
+        Object.values(inputs).forEach(input => {
+            input.addEventListener('input', calculateMarketSize);
+        });
+        
+        // Initial calculation on page load
+        calculateMarketSize();
+
+        // Placeholder functions for actions
+        function guardar() {
+            alert('Funcionalidad "Guardar": ¡Próximamente!');
+        }
+        function descargar() {
+            alert('Funcionalidad "Descargar": ¡Próximamente!');
+        }
+        function compartir() {
+            alert('Funcionalidad "Compartir": ¡Próximamente!');
+        }
+    </script>
+    <script src="../../assets/js/components.js"></script>
+</body>
+</html>
+

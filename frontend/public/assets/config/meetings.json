@@ -1,0 +1,56 @@
+{
+  "meetings": {
+    "reunion_hoy": {
+      "title": "Reunión de Estrategia",
+      "date": "2025-10-14",
+      "time": "17:00",
+      "timezone": "America/Montevideo",
+      "meetingUrl": "https://meet.google.com/ihf-paiw-baf",
+      "audioPath": "assets/audio/sientes-dudas-al-empezar.mp3",
+      "autoRedirect": true,
+      "showTimezones": true,
+      "defaultVolume": 0.25
+    },
+    "masterclass_manana": {
+      "title": "Masterclass CEO",
+      "date": "2025-10-15",
+      "time": "13:00",
+      "timezone": "America/Montevideo",
+      "meetingUrl": "https://meet.google.com/ihf-paiw-baf",
+      "audioPath": "assets/audio/sientes-dudas-al-empezar.mp3",
+      "autoRedirect": true,
+      "showTimezones": true,
+      "defaultVolume": 0.25
+    },
+    "bootcamp_pmv": {
+      "title": "Bootcamp PMV - Sesión en Vivo",
+      "date": "2025-10-16",
+      "time": "19:00",
+      "timezone": "America/Montevideo",
+      "meetingUrl": "https://meet.google.com/ihf-paiw-baf",
+      "audioPath": "assets/audio/sientes-dudas-al-empezar.mp3",
+      "autoRedirect": true,
+      "showTimezones": true,
+      "defaultVolume": 0.25
+    },
+    "sesion_semanal": {
+      "title": "Sesión Semanal de Cero a Cien",
+      "date": "2025-10-21",
+      "time": "17:00",
+      "timezone": "America/Montevideo",
+      "meetingUrl": "https://meet.google.com/ihf-paiw-baf",
+      "audioPath": "assets/audio/sientes-dudas-al-empezar.mp3",
+      "autoRedirect": true,
+      "showTimezones": true,
+      "defaultVolume": 0.25
+    }
+  },
+  "defaultConfig": {
+    "meetingUrl": "https://meet.google.com/ihf-paiw-baf",
+    "audioPath": "assets/audio/sientes-dudas-al-empezar.mp3",
+    "autoRedirect": true,
+    "showTimezones": true,
+    "defaultVolume": 0.25,
+    "timezone": "America/Montevideo"
+  }
+}

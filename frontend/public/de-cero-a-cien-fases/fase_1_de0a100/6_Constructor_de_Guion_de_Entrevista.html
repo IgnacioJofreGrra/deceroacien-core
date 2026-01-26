@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Constructor de Guion de Entrevista | El Camino Dorado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a1f2f;
+            color: #e6f1ff;
+        }
+        .highlight-text { color: #FBBF24; }
+        .tool-container { background-color: #112240; }
+        .doc-container { background-color: #0a1f2f; }
+        .action-button {
+            background-color: #1E293B;
+            color: #cbd5e1;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 1px solid #334155;
+            cursor: pointer;
+        }
+        .action-button:hover {
+            background-color: #334155;
+            color: #FBBF24;
+        }
+        .form-input, .form-textarea {
+            background-color: #0a1f2f;
+            border: 1px solid #1e2d4d;
+            color: #cbd5e1;
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #FBBF24;
+        }
+        .script-section {
+            background-color: #0a1f2f;
+            border: 1px solid #1e2d4d;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="sticky top-0 z-50 bg-[#0a192f]/80 backdrop-blur-lg border-b border-gray-800">
+        <nav class="container mx-auto max-w-7xl px-6 py-3 flex justify-between items-center">
+            <a href="../portal-alumno.html" class="text-lg font-bold highlight-text">← Volver al Centro de Formación</a>
+            <span class="text-sm text-slate-300">Bienvenido, [Nombre Alumno]</span>
+        </nav>
+    </div>
+
+    <main class="container mx-auto max-w-7xl px-6 py-12">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <aside class="lg:col-span-1 doc-container p-6 rounded-lg">
+                <h1 class="text-2xl font-black text-white">Constructor de Guion de Entrevista</h1>
+                <p class="text-sm highlight-text mt-1">Herramienta de la Fase 1: Ideación y Validación</p>
+                
+                <div class="mt-8 space-y-6 text-gray-400 text-sm">
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">🎯 Objetivo</h2>
+                        <p class="mt-1">Crear un guion estructurado para realizar entrevistas de validación con clientes potenciales, asegurando que obtengas información valiosa y evites sesgos.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⭐ Importancia</h2>
+                        <p class="mt-1">Hablar con los clientes es la forma más rápida y barata de validar tu idea. Un buen guion te asegura hacer las preguntas correctas, escuchar más de lo que hablas y descubrir los verdaderos problemas y necesidades de tu mercado, no los que tú *crees* que tienen.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⚙️ ¿Qué es lo que hace?</h2>
+                        <p class="mt-1">Te guía a través de las 4 secciones clave de una entrevista de validación: Introducción, Descubrimiento del Problema, Validación de la Solución y Cierre. Te permite añadir tus propias preguntas en cada sección para construir un guion coherente y listo para usar.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">💡 ¿Para qué me sirve?</h2>
+                        <p class="mt-1">Para sentirte seguro y preparado al hablar con potenciales clientes, para obtener insights honestos (en lugar de cumplidos), y para recopilar la evidencia que necesitas para decidir si debes construir tu producto, pivotar tu idea o abandonarla a tiempo.</p>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="lg:col-span-2 tool-container p-6 rounded-lg">
+                <div class="flex flex-wrap items-center justify-between pb-4 border-b border-gray-700 gap-4">
+                    <h2 class="text-xl font-bold text-white">Construye tu Guion de Entrevista</h2>
+                     <div class="flex space-x-3">
+                        <button class="action-button" onclick="guardar()">💾 Guardar</button>
+                        <button class="action-button" onclick="descargar()">📄 Descargar</button>
+                        <button class="action-button" onclick="compartir()">🔗 Compartir</button>
+                        <button class="action-button" onclick="clearScript()">🗑️ Limpiar Guion</button>
+                    </div>
+                </div>
+
+                <div class="mt-6 space-y-6">
+                    <!-- Sección 1: Introducción -->
+                    <div class="script-section p-4">
+                        <h3 class="font-bold text-lg highlight-text">1. Introducción y Contexto</h3>
+                        <p class="text-xs text-gray-400 mt-1 mb-4">El objetivo es crear un ambiente de confianza y dejar claro que no estás vendiendo nada.</p>
+                        <textarea id="script-intro" class="form-textarea" rows="4" placeholder="Ej: 'Hola [Nombre], gracias por tu tiempo. Estoy investigando sobre [tema] para un proyecto y me encantaría conocer tu experiencia. No te preocupes, no voy a venderte nada, solo busco aprender de ti.'"></textarea>
+                    </div>
+
+                    <!-- Sección 2: Descubrimiento del Problema -->
+                    <div class="script-section p-4">
+                        <h3 class="font-bold text-lg highlight-text">2. Descubrimiento del Problema</h3>
+                        <p class="text-xs text-gray-400 mt-1 mb-4">Aquí validas si el problema que crees que existe es real. Habla de su pasado, no de tu futuro.</p>
+                        <textarea id="script-problem" class="form-textarea" rows="6" placeholder="Añade tus preguntas, una por línea. Ejemplos:&#10;- Cuéntame sobre la última vez que tuviste que [realizar la tarea relacionada con tu idea].&#10;- ¿Qué fue lo más frustrante de ese proceso?&#10;- ¿Has intentado buscar alguna solución para esto? ¿Cuál?&#10;- ¿Cuánto pagarías por una solución perfecta a este problema?"></textarea>
+                    </div>
+                    
+                    <!-- Sección 3: Validación de la Solución -->
+                    <div class="script-section p-4">
+                        <h3 class="font-bold text-lg highlight-text">3. Validación de la Solución</h3>
+                        <p class="text-xs text-gray-400 mt-1 mb-4">Una vez validado el problema, presenta tu solución de forma muy breve y mide su reacción.</p>
+                        <textarea id="script-solution" class="form-textarea" rows="5" placeholder="Añade tus preguntas, una por línea. Ejemplos:&#10;- Si existiera una herramienta que hiciera [tu propuesta de valor], ¿qué te parecería?&#10;- ¿Qué es lo más interesante de esta idea para ti?&#10;- ¿Qué dudas o preocupaciones te genera?&#10;- ¿Hay algo que le falte o le sobre?"></textarea>
+                    </div>
+
+                    <!-- Sección 4: Cierre -->
+                    <div class="script-section p-4">
+                        <h3 class="font-bold text-lg highlight-text">4. Cierre y Próximos Pasos</h3>
+                        <p class="text-xs text-gray-400 mt-1 mb-4">Agradece, pregunta por referidos y, si hay mucho interés, pide un compromiso (ej: unirse a una lista de espera).</p>
+                        <textarea id="script-closing" class="form-textarea" rows="4" placeholder="Ej: 'Muchísimas gracias por tu tiempo, ha sido increíblemente útil. ¿Conoces a alguien más que enfrente este tipo de desafíos? Si te parece bien, me gustaría añadirte a una lista exclusiva para ser el primero en probar la herramienta cuando esté lista.'"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function clearScript() {
+            if (confirm('¿Estás seguro de que quieres borrar todo el contenido del guion?')) {
+                document.getElementById('script-intro').value = '';
+                document.getElementById('script-problem').value = '';
+                document.getElementById('script-solution').value = '';
+                document.getElementById('script-closing').value = '';
+            }
+        }
+
+        function guardar() { alert('Funcionalidad "Guardar": ¡Próximamente!'); }
+        function descargar() { alert('Funcionalidad "Descargar": ¡Próximamente!'); }
+        function compartir() { alert('Funcionalidad "Compartir": ¡Próximamente!'); }
+    </script>
+    <script src="../../assets/js/components.js"></script>
+</body>
+</html>
+

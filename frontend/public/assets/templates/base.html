@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Meta tags esenciales para SEO y responsividad -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{PAGE_DESCRIPTION}">
+    <meta name="keywords" content="emprendimiento, startups, crecimiento empresarial, metodología, consultoría">
+    <meta name="author" content="DE CERO A CIEN">
+    
+    <!-- Título dinámico de la página -->
+    <title>{PAGE_TITLE} - DE CERO A CIEN</title>
+    
+    <!-- Favicons y meta tags para redes sociales -->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <meta property="og:title" content="{PAGE_TITLE} - DE CERO A CIEN">
+    <meta property="og:description" content="{PAGE_DESCRIPTION}">
+    <meta property="og:image" content="assets/og-image.jpg">
+    <meta property="og:url" content="https://deceroacien.app">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- Preload de recursos críticos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" as="style">
+    
+    <!-- Hojas de estilo -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/styles/tailwind.css">
+    <link rel="stylesheet" href="assets/styles/common.css">
+    <link rel="stylesheet" href="assets/styles/mobile.css">
+    
+    <!-- Configuración de Tailwind personalizada -->
+<!-- Supabase/Auth y FA6 se gestionan centralizadamente vía assets/js/components.js -->
+</head>
+<body class="base-container antialiased">
+
+    <!-- HEADER UNIFICADO PARA TODA LA APLICACIÓN -->
+    <header class="header-component">
+        <nav class="header-nav">
+            <!-- Logo principal -->
+            <a href="index.html" class="header-logo">DE CERO A CIEN</a>
+            
+            <!-- Navegación principal (desktop) -->
+            <div class="header-nav-links">
+                <a href="index.html" class="header-link">Inicio</a>
+                <a href="nosotros.html" class="header-link">Nosotros</a>
+                <a href="servicios.html" class="header-link">Servicios</a>
+                <a href="metodologia.html" class="header-link">Metodología</a>
+                <a href="contacto.html" class="header-link">Contacto</a>
+                
+                <!-- Sección de autenticación -->
+                <div class="header-auth-section">
+                    <a href="portal-alumno.html" class="header-login-link">Ingresa</a>
+                    <a href="contacto.html" class="header-register-btn">Regístrate</a>
+                </div>
+            </div>
+            
+            <!-- Botón de menú móvil (se genera dinámicamente via JavaScript) -->
+        </nav>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL DE LA PÁGINA -->
+    <main class="main-content">
+        {PAGE_CONTENT}
+    </main>
+
+    <!-- FOOTER UNIFICADO PARA TODA LA APLICACIÓN -->
+    <footer class="footer-component">
+        <div class="footer-container">
+            <!-- Grid de secciones del footer -->
+            <div class="footer-grid">
+                <!-- Sección: Acerca de -->
+                <div class="footer-section">
+                    <h3>Acerca de DE CERO A CIEN</h3>
+                    <ul>
+                        <li><a href="nosotros.html" class="footer-link">Nuestra Historia</a></li>
+                        <li><a href="metodologia.html" class="footer-link">Metodología</a></li>
+                        <li><a href="nosotros.html" class="footer-link">Equipo</a></li>
+                        <li><a href="nosotros.html" class="footer-link">Misión y Visión</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Sección: Recursos -->
+                <div class="footer-section">
+                    <h3>Recursos</h3>
+                    <ul>
+                        <li><a href="camino-dorado.html" class="footer-link">El Camino Dorado</a></li>
+                        <li><a href="servicios.html" class="footer-link">Servicios Empresariales</a></li>
+                        <li><a href="academy-fases/index.html" class="footer-link">Academy</a></li>
+                        <li><a href="comunidad/conecta.html" class="footer-link">Comunidad</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Sección: Herramientas -->
+                <div class="footer-section">
+                    <h3>Herramientas</h3>
+                    <ul>
+                        <li><a href="javascript:void(0)" aria-disabled="true" title="Próximamente" class="footer-link">Integraciones con IA (Próximamente)</a></li>
+                        <li><a href="javascript:void(0)" aria-disabled="true" title="Próximamente" class="footer-link">Diagnósticos con IA (Próximamente)</a></li>
+                        <li><a href="academy-fases/bootcamp-growth.html" class="footer-link">Programa</a></li>
+                        <li><a href="blog/index.html" class="footer-link">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Sección: Legal -->
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="terminos.html" class="footer-link">Términos y Condiciones</a></li>
+                        <li><a href="politica_privacidad.html" class="footer-link">Política de Privacidad</a></li>
+                        <li><a href="politica_cookies.html" class="footer-link">Política de Cookies</a></li>
+                        <li><a href="aviso_legal.html" class="footer-link">Aviso Legal</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Sección: Contacto -->
+                <div class="footer-section">
+                    <h3>Contacto</h3>
+                    <ul>
+                        <li><a href="tel:+56985678296" class="footer-link">+56 985 678 296</a></li>
+                        <li><a href="mailto:hola@deceroacien.app" class="footer-link">hola@deceroacien.app</a></li>
+                        <li><a href="https://deceroacien.app" target="_blank" class="footer-link">www.deceroacien.app</a></li>
+                        <li><a href="contacto.html" class="footer-link">Formulario de Contacto</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Sección: Síguenos -->
+                <div class="footer-section">
+                    <h3>Síguenos</h3>
+                    <ul>
+                        <li><a href="javascript:void(0)" aria-disabled="true" title="Próximamente" class="footer-link">LinkedIn (Próximamente)</a></li>
+                        <li><a href="javascript:void(0)" aria-disabled="true" title="Próximamente" class="footer-link">Twitter (Próximamente)</a></li>
+                        <li><a href="javascript:void(0)" aria-disabled="true" title="Próximamente" class="footer-link">Instagram (Próximamente)</a></li>
+                        <li><a href="javascript:void(0)" aria-disabled="true" title="Próximamente" class="footer-link">YouTube (Próximamente)</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Línea inferior con copyright -->
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2025 DE CERO A CIEN. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts JavaScript -->
+    <script src="assets/js/components.js"></script>
+    <script src="assets/js/supabase-client.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <!-- Entitlements ya no se carga de forma global; components.js lo inyecta solo en rutas protegidas -->
+    <!-- <script src="/assets/js/entitlements.js"></script> -->
+    <script src="/assets/js/gating-auditor.js" defer></script>
+    
+    <!-- Scripts adicionales específicos de la página -->
+    {PAGE_SCRIPTS}
+    
+    <!-- Analytics y tracking (cuando sea necesario) -->
+    <script>
+        // Configuración de analytics
+        // Google Analytics, Facebook Pixel, etc.
+    </script>
+</body>
+</html>

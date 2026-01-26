@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Constructor de Manual de Cultura | El Camino Dorado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a1f2f;
+            color: #e6f1ff;
+        }
+        .highlight-text { color: #FBBF24; }
+        .tool-container { background-color: #112240; }
+        .doc-container { background-color: #0a1f2f; }
+        .action-button, .list-action-button {
+            background-color: #1E293B;
+            color: #cbd5e1;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 1px solid #334155;
+            cursor: pointer;
+        }
+        .action-button:hover, .list-action-button:hover {
+            background-color: #334155;
+            color: #FBBF24;
+        }
+        .form-input, .form-textarea {
+            background-color: #0a1f2f;
+            border: 1px solid #1e2d4d;
+            color: #cbd5e1;
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .form-input::placeholder, .form-textarea::placeholder { color: #475569; }
+        .form-input:focus, .form-textarea:focus { outline: none; border-color: #FBBF24; }
+        .primary-button {
+            background-color: #FBBF24;
+            color: #0a1f2f;
+            font-weight: 700;
+            padding: 10px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            cursor: pointer;
+        }
+        .culture-section {
+            background-color: #0a1f2f;
+            border: 1px solid #1e2d4d;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="sticky top-0 z-50 bg-[#0a192f]/80 backdrop-blur-lg border-b border-gray-800">
+        <nav class="container mx-auto max-w-7xl px-6 py-3 flex justify-between items-center">
+            <a href="../portal-alumno.html" class="text-lg font-bold highlight-text">← Volver al Centro de Formación</a>
+            <span class="text-sm text-slate-300">Bienvenido, [Nombre Alumno]</span>
+        </nav>
+    </div>
+
+    <main class="container mx-auto max-w-7xl px-6 py-12">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <aside class="lg:col-span-1 doc-container p-6 rounded-lg">
+                <h1 class="text-2xl font-black text-white">Constructor de Manual de Cultura</h1>
+                <p class="text-sm highlight-text mt-1">Herramienta de la Fase 5: Consolidación y Madurez</p>
+                
+                <div class="mt-8 space-y-6 text-gray-400 text-sm">
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">🎯 Objetivo</h2>
+                        <p class="mt-1">Definir y documentar el ADN de tu empresa: su propósito, visión y los valores innegociables que guiarán el comportamiento y la toma de decisiones de todo el equipo.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⭐ Importancia</h2>
+                        <p class="mt-1">La cultura es lo que sucede cuando el jefe no está en la sala. Un manual de cultura explícito atrae al talento correcto, repele al incorrecto y actúa como una brújula para escalar sin perder la identidad. Es la base para construir una empresa que la gente ame, tanto clientes como empleados.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">⚙️ ¿Qué es lo que hace?</h2>
+                        <p class="mt-1">Te guía para articular los pilares de tu cultura. Defines tu Misión (tu porqué), tu Visión (tu a dónde) y tus Valores (tu cómo). La herramienta te permite añadir y describir cada valor, creando un documento fundamental para el onboarding de nuevos miembros y el alineamiento del equipo actual.</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-300 text-base">💡 ¿Para qué me sirve?</h2>
+                        <p class="mt-1">Para construir una empresa con una identidad fuerte y coherente. Te sirve para contratar mejor, tomar decisiones más rápidas, resolver conflictos y crear un lugar de trabajo donde la gente se sienta inspirada y comprometida con un propósito común.</p>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="lg:col-span-2 tool-container p-6 rounded-lg">
+                <div class="flex flex-wrap items-center justify-between pb-4 border-b border-gray-700 gap-4">
+                    <h2 class="text-xl font-bold text-white">Construye el ADN de tu Empresa</h2>
+                     <div class="flex space-x-3">
+                        <button class="action-button" onclick="guardar()">💾 Guardar</button>
+                        <button class="action-button" onclick="descargar()">📄 Descargar</button>
+                        <button class="action-button" onclick="compartir()">🔗 Compartir</button>
+                        <button class="action-button" onclick="clearAll()">🗑️ Limpiar</button>
+                    </div>
+                </div>
+
+                <div class="mt-6 space-y-6">
+                    <div class="culture-section p-4 rounded-lg">
+                        <label for="mission" class="text-base font-semibold text-slate-300">Nuestra Misión (El Porqué)</label>
+                        <p class="text-xs text-gray-400 mt-1 mb-2">¿Cuál es el propósito fundamental de tu empresa? ¿Por qué existe?</p>
+                        <textarea id="mission" class="form-textarea" rows="2" placeholder="Ej: Empoderar a los emprendedores con herramientas y conocimiento para que transformen sus ideas en negocios exitosos."></textarea>
+                    </div>
+                     <div class="culture-section p-4 rounded-lg">
+                        <label for="vision" class="text-base font-semibold text-slate-300">Nuestra Visión (El A Dónde)</label>
+                        <p class="text-xs text-gray-400 mt-1 mb-2">¿Cómo se ve el futuro si tienes éxito? ¿Qué impacto quieres lograr en el mundo?</p>
+                        <textarea id="vision" class="form-textarea" rows="2" placeholder="Ej: Ser el ecosistema de emprendimiento #1 de habla hispana, catalizando la creación de miles de empresas innovadoras."></textarea>
+                    </div>
+
+                    <div class="bg-gray-900/50 p-4 rounded-lg">
+                        <h3 id="form-title" class="font-semibold text-white">Nuestros Valores (El Cómo)</h3>
+                        <p class="text-xs text-gray-400 mt-1 mb-4">Añade los principios innegociables que guían vuestro comportamiento.</p>
+                        <div class="space-y-4">
+                            <input type="text" id="value-name" class="form-input" placeholder="Nombre del Valor (Ej: Foco en el Cliente)">
+                            <textarea id="value-desc" class="form-textarea" rows="2" placeholder="Descripción: ¿Qué significa este valor en la práctica diaria?"></textarea>
+                            <button id="addValueBtn" class="primary-button w-full">Añadir Valor</button>
+                        </div>
+                    </div>
+                    
+                    <div id="values-list" class="space-y-4">
+                        <!-- Los valores añadidos aparecerán aquí -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const missionInput = document.getElementById('mission');
+        const visionInput = document.getElementById('vision');
+        const valueNameInput = document.getElementById('value-name');
+        const valueDescInput = document.getElementById('value-desc');
+        const addValueBtn = document.getElementById('addValueBtn');
+        const valuesList = document.getElementById('values-list');
+        const formTitle = document.getElementById('form-title');
+
+        let values = [];
+        let editingIndex = null;
+
+        function renderValues() {
+            valuesList.innerHTML = '';
+            if (values.length === 0) {
+                valuesList.innerHTML = `<p class="text-sm text-gray-500 text-center py-4">Aún no has añadido valores a tu cultura.</p>`;
+                return;
+            }
+            values.forEach((value, index) => {
+                const valueCard = document.createElement('div');
+                valueCard.className = 'culture-section p-4 rounded-lg';
+                valueCard.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <h4 class="text-lg font-bold highlight-text">${value.name}</h4>
+                        <div class="flex-shrink-0 flex space-x-2">
+                            <button class="list-action-button text-xs" onclick="editValue(${index})">Editar</button>
+                            <button class="list-action-button text-xs !bg-red-800 hover:!bg-red-700" onclick="deleteValue(${index})">Borrar</button>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-300 mt-2">${value.desc.replace(/\n/g, '<br>')}</p>
+                `;
+                valuesList.appendChild(valueCard);
+            });
+        }
+
+        function resetForm() {
+            valueNameInput.value = '';
+            valueDescInput.value = '';
+            addValueBtn.textContent = 'Añadir Valor';
+            editingIndex = null;
+        }
+
+        addValueBtn.addEventListener('click', () => {
+            const name = valueNameInput.value.trim();
+            const desc = valueDescInput.value.trim();
+            if (!name || !desc) {
+                alert('Por favor, completa el nombre y la descripción del valor.');
+                return;
+            }
+
+            const newValue = { name, desc };
+
+            if (editingIndex !== null) {
+                values[editingIndex] = newValue;
+            } else {
+                values.push(newValue);
+            }
+            
+            resetForm();
+            renderValues();
+        });
+
+        function editValue(index) {
+            const value = values[index];
+            valueNameInput.value = value.name;
+            valueDescInput.value = value.desc;
+            editingIndex = index;
+            addValueBtn.textContent = 'Actualizar Valor';
+            valueNameInput.focus();
+        }
+
+        function deleteValue(index) {
+            if (editingIndex === index) resetForm();
+            values.splice(index, 1);
+            renderValues();
+        }
+
+        function clearAll() {
+            if (confirm('¿Estás seguro de que quieres limpiar todo el manual?')) {
+                missionInput.value = '';
+                visionInput.value = '';
+                values = [];
+                resetForm();
+                renderValues();
+            }
+        }
+
+        renderValues();
+
+        function guardar() { alert('Funcionalidad "Guardar": ¡Próximamente!'); }
+        function descargar() { alert('Funcionalidad "Descargar": ¡Próximamente!'); }
+        function compartir() { alert('Funcionalidad "Compartir": ¡Próximamente!'); }
+    </script>
+    <script src="../../assets/js/components.js"></script>
+</body>
+</html>
