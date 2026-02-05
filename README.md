@@ -8,7 +8,7 @@ Mini producto de practica para De Cero a Cien con frontend estatico, backend Fla
 - Levantar backend Flask minimo en local con endpoints `/health` y `/public-config` leyendo las envs anteriores.
 - Implementar gating basico en frontend: usar token de Supabase y simular entitlements en `localStorage` hasta conectar con backend.
 - Publicar frontend en bucket GCS detras de Load Balancer HTTPS solo cuando el frontend este clickeable y probado en local.
-- Desplegar backend Flask a Cloud Run con envs configuradas y probar health/config.
+- Desplegar backend Flask a Cldoud Run con envs configuradas y probar health/config.
 - Conectar frontend→backend (config publica, headers de auth) y probar gating real. Si hay tiempo, simular pagos/webhook y enrolments.
 
 ## Uso rapido
