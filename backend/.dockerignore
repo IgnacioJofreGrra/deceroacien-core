@@ -1,5 +1,4 @@
-node_modules
-npm-debug.log
+## hacer limpieza de este archivo
 .git
 .gitignore
 **/*.md
