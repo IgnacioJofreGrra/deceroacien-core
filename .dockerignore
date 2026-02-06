@@ -1,0 +1,50 @@
+# Git files
+.git
+.gitignore
+.gitattributes
+
+# Documentation
+**/*.md
+**/*.MD
+**/*.markdown
+README.md
+docs/
+
+# Development and build
+node_modules
+npm-debug.log
+*.pyc
+__pycache__/
+.pytest_cache/
+.venv/
+venv/
+env/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Unnecessary content folders
+de-cero-a-cien-fases/
+formacion-semilla-talleres/
+gamificacion/
+liderazgo/
+servicios-empresariales/
+talent/
+talento/
+Blog/
+blog/
+academy-fases/
+camino-dorado-fases/
+auth/
+imports/
+legal/
+
+# Keep frontend assets needed by the app
+!frontend/public/assets/config/
+!frontend/public/assets/js/
+!frontend/public/assets/styles/

@@ -1,0 +1,43 @@
+options:
+  logging: CLOUD_LOGGING_ONLY
+steps:
+  - name: gcr.io/cloud-builders/npm
+    args: ['ci']
+  - name: gcr.io/cloud-builders/npm
+    args: ['run', 'build:frontend']
+  - name: gcr.io/cloud-builders/gsutil
+    args: ['-m', 'rsync', '-r', 'dist', 'gs://www-deceroacien-app']
+  # Forzar revalidación de JS críticos para evitar servir versiones en caché en CDN/navegador
+  - name: gcr.io/cloud-builders/gsutil
+    args: ['-m', 'setmeta', '-r', '-h', 'Cache-Control:no-cache, max-age=0, must-revalidate', 'gs://www-deceroacien-app/assets/js']
+  # Reducir la caché de HTML de Formación Semilla y raíz para evitar versiones antiguas
+  - name: gcr.io/cloud-builders/gsutil
+    args: ['-m', 'setmeta', '-h', 'Cache-Control:no-cache, max-age=0, must-revalidate', 'gs://www-deceroacien-app/formacion-semilla-talleres/index.html']
+  - name: gcr.io/cloud-builders/gsutil
+    args: ['-m', 'setmeta', '-h', 'Cache-Control:no-cache, max-age=0, must-revalidate', 'gs://www-deceroacien-app/*.html']
+  # Invalidación de caché en Cloud CDN para asegurar propagación inmediata
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: gcloud
+    args: ['compute','url-maps','invalidate-cdn-cache','lb-deceroacien','--path','/formacion-semilla-talleres/*']
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: gcloud
+    args: ['compute','url-maps','invalidate-cdn-cache','lb-deceroacien','--path','/assets/js/*']
+  - name: gcr.io/cloud-builders/docker
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/deceroacien-api', '-f', 'Dockerfile', '.']
+  - name: gcr.io/cloud-builders/docker
+    args: ['push', 'gcr.io/$PROJECT_ID/deceroacien-api']
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: gcloud
+    args:
+      [
+        'run', 'deploy', 'deceroacien-api',
+        '--image', 'gcr.io/$PROJECT_ID/deceroacien-api',
+        '--region', 'us-central1',
+        '--platform', 'managed',
+        '--allow-unauthenticated',
+        '--service-account', 'cloud-run-deployer@deceroacienfirebase.iam.gserviceaccount.com',
+        '--set-secrets',
+          'MP_ACCESS_TOKEN=mp-access-token:latest,GRANT_SECRET=grant-secret:latest,PUBLIC_SUPABASE_URL=public-supabase-url:latest,PUBLIC_SUPABASE_ANON_KEY=public-supabase-anon-key:latest,SUPABASE_JWT_SECRET=supabase-jwt-secret:latest,SMTP_HOST=smtp-host:latest,SMTP_PORT=smtp-port:latest,SMTP_USER=smtp-user:latest,SMTP_PASS=smtp-pass:latest,ZOHO_CLIENT_ID=zoho-client-id:latest,ZOHO_CLIENT_SECRET=zoho-client-secret:latest,ZOHO_REFRESH_TOKEN=zoho-refresh-token:latest,ZOHO_DC=zoho-dc:latest,RESEND_API_KEY=resend-api-key:latest,LEADS_NOTIFY_EMAIL=leads-notify-email:latest,REPORTS_API_KEY=reports-api-key:latest'
+      ]
+images:
+  - gcr.io/$PROJECT_ID/deceroacien-api
